@@ -1,0 +1,10 @@
+server:
+  port: 8500
+
+spring:
+  application:
+    name: service-chat
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848

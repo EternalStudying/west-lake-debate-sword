@@ -12,6 +12,7 @@
     <modules>
         <module>xhlj-service</module>
         <module>xhlj-service/service-user</module>
+        <module>xhlj-model</module>
     </modules>
 
     <properties>
