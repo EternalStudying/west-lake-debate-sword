@@ -3,6 +3,7 @@ package com.swyxl.chat.service.impl;
 import com.swyxl.chat.properties.ChatProperty;
 import com.swyxl.chat.service.ChatService;
 import com.swyxl.model.dto.chat.ChatDto;
+import com.swyxl.model.entity.chat.RequestMessage;
 import com.swyxl.model.vo.chat.ChatVo;
 import com.swyxl.utils.ChatUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +24,9 @@ public class ChatServiceImpl implements ChatService {
     public ChatVo chat(ChatDto chatDto) {
         String apiKey = chatProperty.getApiKey();
         String secretKey = chatProperty.getSecretKey();
-        //TODO 此处为多次调用，之后需更改
+        if (chatDto.getRequestMessage() == null){
+            chatDto.setRequestMessage(new RequestMessage());
+        }
         boolean flag = ChatUtil.getAccessToken(apiKey, secretKey);
         if (!flag) {
             throw new RuntimeException();

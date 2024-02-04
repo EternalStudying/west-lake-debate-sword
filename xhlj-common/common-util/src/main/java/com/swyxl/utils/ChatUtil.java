@@ -16,25 +16,26 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class ChatUtil {
 
-    private static OkHttpClient client = new OkHttpClient.Builder().readTimeout(5000, TimeUnit.SECONDS).build();
-    private static ChatVo chatVo;
+    private static OkHttpClient client = new OkHttpClient().newBuilder().build();
+    private static ChatVo chatVo = new ChatVo();
     private static String accessToken;
 
     public static boolean getAccessToken(String apiKey, String secretKey){
-        MediaType mediaType = MediaType.parse("application/json");
-        RequestBody requestBody = RequestBody.create(mediaType, "");
+        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+        RequestBody body = RequestBody.create(mediaType, "grant_type=client_credentials&client_id=" + apiKey
+                + "&client_secret=" + secretKey);
 
         Request request = new Request.Builder()
-                .url(ChatConstant.ACCESS_TOKEN_URI + "?client_id=" + apiKey + "&client_secret=" + secretKey + "&grant_type=client_credentials=")
-                .addHeader("Content-Type", "application/json")
-                .method("Post", requestBody)
+                .url(ChatConstant.ACCESS_TOKEN_URI)
+                .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                .method("POST", body)
                 .build();
 
         try {
             Response response = client.newCall(request).execute();
             String responseMessage = response.body().string();
             JSONObject jsonObject = JSON.parseObject(responseMessage);
-            accessToken = (String) jsonObject.get("access_token");
+            accessToken = jsonObject.getString("access_token");
             return true;
         } catch (IOException e) {
             e.printStackTrace();
