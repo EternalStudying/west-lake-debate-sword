@@ -9,7 +9,11 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>xhlj-model</artifactId>
+    <artifactId>xhlj-common</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>common-util</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -18,16 +22,10 @@
     </properties>
 
     <dependencies>
-        <!-- lombok的依赖 -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
-            <version>4.1.0</version>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.8.18</version>
         </dependency>
     </dependencies>
 </project>

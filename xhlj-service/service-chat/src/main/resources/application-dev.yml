@@ -8,3 +8,8 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
+
+xhlj:
+  chat:
+    apiKey: SMcQAdGStVsfZ1iGrbDbjGjw
+    secretKey: kiD7bsUbMZdF6BdvZGBDHgYsszGCZz3r

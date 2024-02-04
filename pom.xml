@@ -13,6 +13,7 @@
         <module>xhlj-service</module>
         <module>xhlj-service/service-user</module>
         <module>xhlj-model</module>
+        <module>xhlj-common</module>
     </modules>
 
     <properties>
