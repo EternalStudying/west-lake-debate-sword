@@ -16,3 +16,7 @@ spring:
           uri: lb://service-chat #负载均衡
           predicates:
             - Path=/*/chat/** #选择路径 以/chat/..开头，路径断言#
+        - id: service-user
+          uri: lb://service-user
+          predicates:
+            - Path=/service/user/**
