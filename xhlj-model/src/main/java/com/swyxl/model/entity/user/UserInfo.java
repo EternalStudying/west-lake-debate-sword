@@ -29,9 +29,9 @@ public class UserInfo extends BaseEntity {
     private String phone;
 
     @Schema(description = "性别")
-    private Short sex;
+    private String sex;
 
     @Schema(description = "权限")
-    private Short authority;
+    private String authority;
 
 }

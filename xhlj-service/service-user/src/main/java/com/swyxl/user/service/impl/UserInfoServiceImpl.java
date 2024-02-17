@@ -27,11 +27,13 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public void register(RegisterDto registerDto) {
+
         String username = registerDto.getUsername();
         String password = registerDto.getPassword();
         password = DigestUtils.md5DigestAsHex(password.getBytes());
         String phone = registerDto.getPhone();
         String captcha = registerDto.getCaptcha();
+
         String code = redisTemplate.opsForValue().get(phone);
         if(!Objects.equals(code, captcha)) throw new XHLJException(ResultCodeEnum.VALIDATECODE_ERROR);
         UserInfo userInfo = userInfoMapper.selectByUsername(username);
@@ -46,10 +48,10 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public String login(LoginDto loginDto) {
-        Short method = loginDto.getMethod();
+        String method = loginDto.getMethod();
         UserInfo userInfo = new UserInfo();
         //0为账密登录
-        if(method == 0){
+        if(method.equals("0")){
             String username = loginDto.getUsername();
             String password = loginDto.getPassword();
             password = DigestUtils.md5DigestAsHex(password.getBytes());
@@ -61,7 +63,7 @@ public class UserInfoServiceImpl implements UserInfoService {
                 throw new XHLJException(ResultCodeEnum.LOGIN_ERROR);
         }
         //1为手机验证码登录
-        else if (method == 1){
+        else if (method.equals("1")){
             String phone = loginDto.getPhone();
             String captcha = loginDto.getCaptcha();
             String code = redisTemplate.opsForValue().get(phone);
@@ -72,7 +74,7 @@ public class UserInfoServiceImpl implements UserInfoService {
                 throw new XHLJException(ResultCodeEnum.LOGIN_ERROR);
         }
         String token = UUID.randomUUID().toString().replaceAll("-", "");
-        redisTemplate.opsForValue().set("user:service:" + token, JSON.toJSONString(userInfo), 1, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set("service:token:" + token, JSON.toJSONString(userInfo), 1, TimeUnit.DAYS);
         return token;
     }
 }

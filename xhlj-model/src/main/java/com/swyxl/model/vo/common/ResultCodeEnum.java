@@ -11,12 +11,9 @@ public enum ResultCodeEnum {
     LOGIN_AUTH(208 , "用户未登录"),
     USER_NAME_IS_EXISTS(209 , "用户名已经存在"),
     SYSTEM_ERROR(9999 , "您的网络有问题请稍后重试"),
-    NODE_ERROR( 217, "该节点下有子节点，不可以删除"),
     DATA_ERROR(204, "数据异常"),
     ACCOUNT_STOP( 216, "账号已停用"),
-
-    STOCK_LESS( 219, "库存不足"),
-
+    INVALID_NUMBER(225, "号码状态异常"),
     ;
 
     private Integer code ;      // 业务状态码

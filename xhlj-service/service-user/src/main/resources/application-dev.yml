@@ -18,7 +18,15 @@ spring:
     redis:
       host: localhost
       port: 6379
+      password: 123456
 
 mybatis:
   config-location: classpath:mybatis-config.xml
   mapper-locations: classpath:mapper/*.xml
+
+xhlj:
+  aliyun:
+    accessKey: LTAI5tRvtUqZGMuNvstrJwUC
+    accessKeySecret: B0yJJPv6BnXdFxF4GloDStOEvW6wY0
+    signName: 西湖论剑
+    templateCode: SMS_465085945

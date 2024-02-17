@@ -4,12 +4,12 @@
 <mapper namespace="com.swyxl.user.mapper.UserInfoMapper">
 
     <sql id="columns">
-        id, name, username, password, avater, age, phone, sex, authority, is_deleted, create_time, update_time
+        id, name, username, password, avatar, age, phone, sex, authority, is_deleted, create_time, update_time
     </sql>
 
     <insert id="save">
-        insert into user(id, name, username, password, avatar, age, phone, sex, authority, is_deleted, creat_time, update_time)
-        values (#{id}, #{name}, #{username}, #{password}, #{avatar}, #{age}, #{phone}, #{sex}, #{authority}, #{isDeleted}, #{createTime}, #{updateTime})
+        insert into user(id, name, username, password, avatar, age, phone, sex)
+        values (#{id}, #{name}, #{username}, #{password}, #{avatar}, #{age}, #{phone}, #{sex})
     </insert>
 
     <select id="selectByUsername" resultType="com.swyxl.model.entity.user.UserInfo">

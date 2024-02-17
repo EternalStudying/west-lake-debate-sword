@@ -20,5 +20,5 @@ public class LoginDto {
     private String captcha;
 
     @Schema(description = "登录方式")
-    private Short method;
+    private String method;
 }
