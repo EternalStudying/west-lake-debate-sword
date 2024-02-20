@@ -1,18 +1,20 @@
 package com.swyxl.user.controller;
 
+import com.swyxl.common.annotation.EnableUserLoginAuthInterceptor;
 import com.swyxl.model.dto.system.LoginDto;
 import com.swyxl.model.dto.system.RegisterDto;
+import com.swyxl.model.entity.user.UserInfo;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
+import com.swyxl.model.vo.service.user.UserInfoVo;
 import com.swyxl.user.service.UserInfoService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/service/user/userInfo")
+@RequestMapping("/service/user")
+@EnableUserLoginAuthInterceptor
 public class UserInfoController {
 
     @Autowired
@@ -28,5 +30,23 @@ public class UserInfoController {
     public Result login(@RequestBody LoginDto loginDto){
         String token = userInfoService.login(loginDto);
         return Result.build(token, ResultCodeEnum.SUCCESS);
+    }
+
+    @GetMapping("/auth/userInfo")
+    public Result userInfo(){
+        UserInfoVo userInfoVo = userInfoService.userInfo();
+        return Result.build(userInfoVo, ResultCodeEnum.SUCCESS);
+    }
+
+    @GetMapping("/auth/userInfo/all")
+    public Result userInfoAll(){
+        UserInfo userInfo = userInfoService.userInfoAll();
+        return Result.build(userInfo, ResultCodeEnum.SUCCESS);
+    }
+
+    @PutMapping("/auth/update")
+    public Result update(@RequestBody UserInfo userInfo){
+        userInfoService.update(userInfo);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 }

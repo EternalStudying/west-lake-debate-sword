@@ -6,12 +6,11 @@ import com.swyxl.model.constant.ChatConstant;
 import com.swyxl.model.entity.chat.Message;
 import com.swyxl.model.entity.chat.RequestMessage;
 import com.swyxl.model.entity.chat.ResponseMessage;
-import com.swyxl.model.vo.chat.ChatVo;
+import com.swyxl.model.vo.service.chat.ChatVo;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class ChatUtil {

@@ -2,7 +2,7 @@ server:
   port: 9000
 spring:
   application:
-    name: xhlj-gateway
+    name: xhlj-service-gateway
   cloud:
     nacos:
       discovery:
@@ -20,3 +20,9 @@ spring:
           uri: lb://service-user
           predicates:
             - Path=/service/user/**
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: 123456

@@ -2,7 +2,7 @@ package com.swyxl.chat.controller;
 
 import com.swyxl.chat.service.ChatService;
 import com.swyxl.model.dto.chat.ChatDto;
-import com.swyxl.model.vo.chat.ChatVo;
+import com.swyxl.model.vo.service.chat.ChatVo;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/common/chat")
+@RequestMapping("/service/auth/chat")
 public class ChatController {
 
     @Autowired

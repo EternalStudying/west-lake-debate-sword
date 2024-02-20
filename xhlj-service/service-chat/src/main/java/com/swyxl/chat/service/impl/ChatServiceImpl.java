@@ -4,7 +4,7 @@ import com.swyxl.chat.properties.ChatProperty;
 import com.swyxl.chat.service.ChatService;
 import com.swyxl.model.dto.chat.ChatDto;
 import com.swyxl.model.entity.chat.RequestMessage;
-import com.swyxl.model.vo.chat.ChatVo;
+import com.swyxl.model.vo.service.chat.ChatVo;
 import com.swyxl.utils.ChatUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

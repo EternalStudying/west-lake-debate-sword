@@ -1,4 +1,4 @@
-package org.example.xhlj.gateway.Config;
+package org.example.xhlj.gateway.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

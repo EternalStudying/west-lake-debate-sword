@@ -10,4 +10,6 @@ public interface UserInfoMapper {
     void save(UserInfo userInfo);
 
     UserInfo selectByPhone(String phone);
+
+    void update(UserInfo userInfo);
 }
