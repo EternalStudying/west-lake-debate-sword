@@ -14,6 +14,7 @@ public enum ResultCodeEnum {
     DATA_ERROR(204, "数据异常"),
     ACCOUNT_STOP( 216, "账号已停用"),
     INVALID_NUMBER(225, "号码状态异常"),
+    REPEATED_SIGN_IN(203, "请勿重复签到"),
     ;
 
     private Integer code ;      // 业务状态码

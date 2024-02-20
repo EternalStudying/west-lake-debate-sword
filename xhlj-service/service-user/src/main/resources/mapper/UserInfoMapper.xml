@@ -4,7 +4,7 @@
 <mapper namespace="com.swyxl.user.mapper.UserInfoMapper">
 
     <sql id="columns">
-        id, name, username, password, avatar, age, phone, sex, authority, is_deleted, create_time, update_time
+        id, name, username, password, avatar, age, phone, integral, sex, authority, is_sign_in, is_deleted, create_time, update_time
     </sql>
 
     <insert id="save">
@@ -21,13 +21,19 @@
             <if test="avatar != null">avatar = #{avatar},</if>
             <if test="age != null">age = #{age},</if>
             <if test="phone != null">phone = #{phone},</if>
+            <if test="integral != null">integral = #{integral},</if>
             <if test="sex != null">sex = #{sex},</if>
             <if test="authority != null">authority = #{authority},</if>
+            <if test="isSignIn != null">is_sign_in = #{isSignIn},</if>
             <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateTime != null">update_time = #{updateTime}</if>
         </set>
         where id = #{id}
+    </update>
+
+    <update id="isSignIn20">
+        update user set is_sign_in = 0 where is_deleted = 0
     </update>
 
     <select id="selectByUsername" resultType="com.swyxl.model.entity.user.UserInfo">

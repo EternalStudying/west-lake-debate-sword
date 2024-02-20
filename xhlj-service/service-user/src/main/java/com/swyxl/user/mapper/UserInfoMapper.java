@@ -12,4 +12,6 @@ public interface UserInfoMapper {
     UserInfo selectByPhone(String phone);
 
     void update(UserInfo userInfo);
+
+    void isSignIn20();
 }

@@ -28,10 +28,16 @@ public class UserInfo extends BaseEntity {
     @Schema(description = "手机号")
     private String phone;
 
+    @Schema(description = "积分")
+    private Integer integral;
+
     @Schema(description = "性别")
     private String sex;
 
     @Schema(description = "权限")
     private String authority;
+
+    @Schema(description = "是否签到")
+    private String isSignIn;
 
 }
