@@ -8,14 +8,14 @@ public enum ResultCodeEnum {
     SUCCESS(200 , "操作成功") ,
     LOGIN_ERROR(201 , "用户名或者密码错误"),
     VALIDATECODE_ERROR(202 , "验证码错误") ,
+    ACTIVE_IS_EXIST(203,"活动已经存在"),
+    ACTIVE_IS_NOT_EXIST(204,"活动不存在"),
     LOGIN_AUTH(208 , "用户未登录"),
     USER_NAME_IS_EXISTS(209 , "用户名已经存在"),
     SYSTEM_ERROR(9999 , "您的网络有问题请稍后重试"),
     DATA_ERROR(204, "数据异常"),
     ACCOUNT_STOP( 216, "账号已停用"),
     INVALID_NUMBER(225, "号码状态异常"),
-    REPEATED_SIGN_IN(203, "请勿重复签到"),
-    INSUFFICIENT_INTEGRAL(205, "积分不足")
     ;
 
     private Integer code ;      // 业务状态码

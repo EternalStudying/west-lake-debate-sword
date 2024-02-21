@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.swyxl.manager.mapper.ActiveMapper">
+
+    <sql id="columns">
+        id, name, des,year ,month, day, location, image, price, is_deleted, create_time, update_time
+    </sql>
+
+    <insert id="save">
+        insert into active(id, name, des, year, month, day, location, image, price)
+        values (#{id}, #{name}, #{des}, #{year}, #{month}, #{day}, #{location}, #{image},#{price})
+    </insert>
+
+    <select id="findById" resultType="com.swyxl.model.entity.active.Active">
+        select <include refid="columns"/> from active where id = #{id} and is_deleted = 0
+    </select>
+
+    <select id="getByName" resultType="com.swyxl.model.entity.active.Active">
+        select <include refid="columns"/> from active where name = #{name} and is_deleted = 0
+    </select>
+
+    <update id="update">
+        update active
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="des != null">des = #{des},</if>
+            <if test="year != null">year = #{year},</if>
+            <if test="month != null">month = #{month},</if>
+            <if test="day != null">day = #{day},</if>
+            <if test="location != null">location = #{location},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+</mapper>
