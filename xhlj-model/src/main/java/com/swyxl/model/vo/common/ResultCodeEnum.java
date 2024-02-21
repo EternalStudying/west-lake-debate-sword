@@ -10,10 +10,12 @@ public enum ResultCodeEnum {
     VALIDATECODE_ERROR(202 , "验证码错误") ,
     ACTIVE_IS_EXIST(203,"活动已经存在"),
     ACTIVE_IS_NOT_EXIST(204,"活动不存在"),
+    REPEATED_SIGN_IN(205, "请勿重复签到"),
+    INSUFFICIENT_INTEGRAL(206, "积分不足"),
+    DATA_ERROR(207, "数据异常"),
     LOGIN_AUTH(208 , "用户未登录"),
     USER_NAME_IS_EXISTS(209 , "用户名已经存在"),
     SYSTEM_ERROR(9999 , "您的网络有问题请稍后重试"),
-    DATA_ERROR(204, "数据异常"),
     ACCOUNT_STOP( 216, "账号已停用"),
     INVALID_NUMBER(225, "号码状态异常"),
     ;

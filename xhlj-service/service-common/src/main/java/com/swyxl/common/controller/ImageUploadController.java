@@ -1,6 +1,6 @@
-package com.swyxl.chat.controller;
+package com.swyxl.common.controller;
 
-import com.swyxl.chat.service.ImageUploadService;
+import com.swyxl.common.service.ImageUploadService;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import jakarta.servlet.http.HttpServletRequest;

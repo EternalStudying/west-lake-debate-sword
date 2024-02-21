@@ -1,4 +1,4 @@
-package com.swyxl.chat.service;
+package com.swyxl.common.service;
 
 import org.springframework.web.multipart.MultipartFile;
 

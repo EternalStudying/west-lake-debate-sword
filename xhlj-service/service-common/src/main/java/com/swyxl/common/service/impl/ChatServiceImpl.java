@@ -1,7 +1,7 @@
-package com.swyxl.chat.service.impl;
+package com.swyxl.common.service.impl;
 
-import com.swyxl.chat.properties.ChatProperty;
-import com.swyxl.chat.service.ChatService;
+import com.swyxl.common.properties.ChatProperty;
+import com.swyxl.common.service.ChatService;
 import com.swyxl.model.dto.chat.ChatDto;
 import com.swyxl.model.entity.chat.RequestMessage;
 import com.swyxl.model.vo.service.chat.ChatVo;

@@ -62,6 +62,7 @@ public class PrizeServiceImpl implements PrizeService {
 
     @Override
     @Transactional
+    @Recache
     public Prize draw() {
 
         UserInfo userInfo = AuthContextUtil.getUserInfo();

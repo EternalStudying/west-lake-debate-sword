@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/manager/active/auth")
+@RequestMapping("/service/manager/active/auth")
 public class ActiveController {
 
     @Autowired

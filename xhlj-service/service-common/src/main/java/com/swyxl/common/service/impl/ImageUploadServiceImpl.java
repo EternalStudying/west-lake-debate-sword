@@ -1,8 +1,8 @@
-package com.swyxl.chat.service.impl;
+package com.swyxl.common.service.impl;
 
 import cn.hutool.core.date.DateUtil;
-import com.swyxl.chat.properties.MinioProperty;
-import com.swyxl.chat.service.ImageUploadService;
+import com.swyxl.common.properties.MinioProperty;
+import com.swyxl.common.service.ImageUploadService;
 import com.swyxl.common.exception.XHLJException;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import io.minio.BucketExistsArgs;

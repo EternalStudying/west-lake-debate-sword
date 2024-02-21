@@ -1,4 +1,4 @@
-package com.swyxl.chat.properties;
+package com.swyxl.common.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

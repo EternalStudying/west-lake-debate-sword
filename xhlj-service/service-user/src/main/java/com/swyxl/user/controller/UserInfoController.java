@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/service/user")
+@RequestMapping("/service/user/userInfo")
 @EnableUserLoginAuthInterceptor
 public class UserInfoController {
 

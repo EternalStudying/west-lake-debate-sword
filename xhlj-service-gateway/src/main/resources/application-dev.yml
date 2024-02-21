@@ -20,6 +20,10 @@ spring:
           uri: lb://service-user
           predicates:
             - Path=/service/user/**
+        - id: service-manage
+          uri: lb://service-manage
+          predicates:
+            - Path=/service/manage/**
 
   data:
     redis:

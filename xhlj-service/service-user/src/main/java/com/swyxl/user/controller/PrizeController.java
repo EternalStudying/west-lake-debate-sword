@@ -1,19 +1,17 @@
 package com.swyxl.user.controller;
 
 import com.swyxl.model.entity.user.Prize;
-import com.swyxl.model.entity.user.UserInfo;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import com.swyxl.model.vo.service.user.PrizeVo;
 import com.swyxl.user.service.PrizeService;
-import com.swyxl.utils.AuthContextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/service/user")
+@RequestMapping("/service/user/prize")
 public class PrizeController {
 
     @Autowired

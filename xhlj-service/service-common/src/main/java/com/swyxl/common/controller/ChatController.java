@@ -1,6 +1,6 @@
-package com.swyxl.chat.controller;
+package com.swyxl.common.controller;
 
-import com.swyxl.chat.service.ChatService;
+import com.swyxl.common.service.ChatService;
 import com.swyxl.model.dto.chat.ChatDto;
 import com.swyxl.model.vo.service.chat.ChatVo;
 import com.swyxl.model.vo.common.Result;

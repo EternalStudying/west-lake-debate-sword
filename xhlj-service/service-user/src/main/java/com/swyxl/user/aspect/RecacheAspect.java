@@ -6,8 +6,7 @@ import com.swyxl.model.entity.user.UserInfo;
 import com.swyxl.user.mapper.UserInfoMapper;
 import com.swyxl.utils.AuthContextUtil;
 import jakarta.servlet.http.HttpServletRequest;
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +29,8 @@ public class RecacheAspect {
     @Pointcut("@annotation(com.swyxl.user.annotation.Recache)")
     public void RecachePointCut(){}
 
-    @After("RecachePointCut()")
-    public void Recache(JoinPoint joinPoint){
+    @AfterReturning("RecachePointCut()")
+    public void Recache(){
         System.err.println("开始重新缓存");
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String username = AuthContextUtil.getUserInfo().getUsername();
