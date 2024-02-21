@@ -4,14 +4,30 @@
 <mapper namespace="com.swyxl.user.mapper.PrizeMapper">
 
     <sql id="columns">
-        id, name, image, level, description, is_deleted, create_time, update_time
+        id, name, image, level, probability, stock, description, is_deleted, create_time, update_time
     </sql>
+
+    <update id="update">
+        update prize
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="level != null">level = #{level},</if>
+            <if test="probability != null">probability = #{probability},</if>
+            <if test="stock != null">stock = #{stock},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
 
     <select id="selectAll" resultType="com.swyxl.model.entity.user.Prize">
         select <include refid="columns"/> from prize where is_deleted = 0
     </select>
 
     <select id="selectById" resultType="com.swyxl.model.entity.user.Prize">
-        select <include refid="columns"/> from prize where id = #{id} and is_deleted = 0
+        select <include refid="columns"/> from prize where id = #{id} and is_deleted = 0 and stock > 0
     </select>
 </mapper>

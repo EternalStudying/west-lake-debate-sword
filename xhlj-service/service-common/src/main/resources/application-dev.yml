@@ -1,0 +1,20 @@
+server:
+  port: 8500
+
+spring:
+  application:
+    name: service-common
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
+xhlj:
+  chat:
+    apiKey: SMcQAdGStVsfZ1iGrbDbjGjw
+    secretKey: kiD7bsUbMZdF6BdvZGBDHgYsszGCZz3r
+  minio:
+    endpointUrl: http://127.0.0.1:9000
+    accessKey: minioadmin
+    secretKey: minioadmin
+    bucketName: xhlj

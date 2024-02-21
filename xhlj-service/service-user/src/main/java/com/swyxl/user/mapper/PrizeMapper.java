@@ -10,4 +10,6 @@ public interface PrizeMapper {
     List<Prize> selectAll();
 
     Prize selectById(Long id);
+
+    void update(Prize prize);
 }

@@ -1,5 +1,5 @@
 server:
-  port: 9000
+  port: 8999
 spring:
   application:
     name: xhlj-service-gateway
@@ -12,10 +12,10 @@ spring:
         locator:
           enabled: true
       routes: # 网关路由配置
-        - id: service-chat # 路由 id,自定义，只要唯一即可
-          uri: lb://service-chat #负载均衡
+        - id: service-common # 路由 id,自定义，只要唯一即可
+          uri: lb://service-common #负载均衡
           predicates:
-            - Path=/*/chat/** #选择路径 以/chat/..开头，路径断言#
+            - Path=service/common/** #选择路径 以/chat/..开头，路径断言#
         - id: service-user
           uri: lb://service-user
           predicates:

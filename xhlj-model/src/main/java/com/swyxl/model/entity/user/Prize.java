@@ -19,6 +19,12 @@ public class Prize extends BaseEntity {
     @Schema(description = "几等奖")
     private String level;
 
+    @Schema(description = "概率")
+    private String probability;
+
+    @Schema(description = "库存")
+    private Integer stock;
+
     @Schema(description = "详情")
     private String description;
 

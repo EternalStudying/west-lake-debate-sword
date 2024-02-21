@@ -13,7 +13,7 @@ public class activeInfo extends BaseEntity {
     @Schema(description = "名称")
     private String name;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Schema(description = "日期")
     private Data date;
 

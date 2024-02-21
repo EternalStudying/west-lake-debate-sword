@@ -13,7 +13,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>service-user</module>
-        <module>service-chat</module>
+        <module>service-common</module>
+        <module>service-manager</module>
     </modules>
 
     <properties>

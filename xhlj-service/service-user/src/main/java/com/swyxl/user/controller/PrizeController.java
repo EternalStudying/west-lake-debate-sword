@@ -1,10 +1,12 @@
 package com.swyxl.user.controller;
 
 import com.swyxl.model.entity.user.Prize;
+import com.swyxl.model.entity.user.UserInfo;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import com.swyxl.model.vo.service.user.PrizeVo;
 import com.swyxl.user.service.PrizeService;
+import com.swyxl.utils.AuthContextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,9 +31,11 @@ public class PrizeController {
         return Result.build(prizeVoList, ResultCodeEnum.SUCCESS);
     }
 
-    @GetMapping("/auth/prize/{id}")
-    public Result prizeDrawn(@PathVariable Long id){
-        Prize prize = prizeService.prizeDrawn(id);
+    @GetMapping("/auth/draw")
+    public Result draw(){
+        Prize prize = prizeService.draw();
         return Result.build(prize, ResultCodeEnum.SUCCESS);
     }
+
+
 }
