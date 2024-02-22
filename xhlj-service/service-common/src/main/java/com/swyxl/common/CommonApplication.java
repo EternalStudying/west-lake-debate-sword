@@ -9,8 +9,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @EnableConfigurationProperties(value = {ChatProperty.class, MinioProperty.class})
-public class ChatApplication {
+public class CommonApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ChatApplication.class, args);
+        SpringApplication.run(CommonApplication.class, args);
     }
 }

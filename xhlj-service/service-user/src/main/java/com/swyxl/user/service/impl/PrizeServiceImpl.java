@@ -76,21 +76,19 @@ public class PrizeServiceImpl implements PrizeService {
 
         List<Prize> prizeList = prizeMapper.selectAll();
         int n = prizeList.size();
-        long id = 0;
+        String name = "";
         for(int i = 0; i < n; i++){
             if (winningIndex > sum(i, prizeList) && winningIndex <= sum(i + 1, prizeList))
-                id = i + 1;
+                name = prizeList.get(i).getName();
         }
-        Prize prize = prizeMapper.selectById(id);
-        if (prize == null){
-            prize = new Prize();
-            prize.setName("谢谢参与");
-            prize.setImage("http://dummyimage.com/100x100");
+        Prize prize = prizeMapper.selectByName(name);
+        if (prize.getStock() <= 0){
+            prize = prizeMapper.selectByName("谢谢参与");
+        }else {
+            //减少库存
+            prize.setStock(prize.getStock() - 1);
+            prizeMapper.update(prize);
         }
-
-        //减少库存
-        prize.setStock(prize.getStock() - 1);
-        prizeMapper.update(prize);
 
         //保存中奖记录
         prizeRecordMapper.save(userInfo.getUsername(), prize.getName());

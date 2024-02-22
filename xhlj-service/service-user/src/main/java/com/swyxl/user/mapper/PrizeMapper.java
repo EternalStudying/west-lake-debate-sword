@@ -9,7 +9,7 @@ import java.util.List;
 public interface PrizeMapper {
     List<Prize> selectAll();
 
-    Prize selectById(Long id);
-
     void update(Prize prize);
+
+    Prize selectByName(String name);
 }
