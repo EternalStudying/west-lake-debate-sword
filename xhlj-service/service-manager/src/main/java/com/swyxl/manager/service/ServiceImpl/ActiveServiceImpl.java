@@ -18,15 +18,15 @@ public class ActiveServiceImpl implements ActiveService {
 
     @Override
     public void add(Active active) {
-        Active activeByName = activeMapper.getByName(active.getName());
+        Active activeByAcCode = activeMapper.getByAcCode(active.getAcCode());
         //判断活动是否存在
-        if(activeByName == null){
+        if(activeByAcCode == null){
             //不存在时
             Active activeOut = new Active();
             //导入数据
             BeanUtils.copyProperties(active, activeOut);
             activeMapper.save(activeOut);
-        }else if(activeByName.getName() == active.getName()) {
+        }else if(activeByAcCode.getAcCode() == active.getAcCode()) {
             //存在时
            throw new XHLJException(ResultCodeEnum.ACTIVE_IS_EXIST);
         }
@@ -44,11 +44,11 @@ public class ActiveServiceImpl implements ActiveService {
 
     @Override
     public void update(Active active) {
-        Active activeByName = activeMapper.getByName(active.getName());
-        if(activeByName == null){
+        Active activeByAcCode = activeMapper.getByAcCode(active.getAcCode());
+        if(activeByAcCode == null){
             throw new XHLJException(ResultCodeEnum.DATA_ERROR);
         }
-        Long activeId = activeByName.getId();
+        Long activeId = activeByAcCode.getId();
         active.setId(activeId);
         active.setUpdateTime(new Date());
         activeMapper.update(active);
