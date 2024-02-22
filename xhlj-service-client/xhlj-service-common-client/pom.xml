@@ -4,17 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.swyxl</groupId>
-        <artifactId>xhlj</artifactId>
+        <groupId>org.example.xhlj</groupId>
+        <artifactId>xhlj-service-client</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.example.xhlj</groupId>
-    <artifactId>xhlj-service-client</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>xhlj-service-common-client</module>
-    </modules>
+    <artifactId>xhlj-service-common-client</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -23,22 +18,6 @@
     </properties>
 
     <dependencies>
-
-        <dependency>
-            <groupId>com.swyxl</groupId>
-            <artifactId>xhlj-model</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.swyxl</groupId>
-            <artifactId>xhlj-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>

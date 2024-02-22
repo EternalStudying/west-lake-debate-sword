@@ -18,9 +18,9 @@ public class ImageUploadController {
     private ImageUploadService imageUploadService;
 
     @PostMapping
-    public Result imageUpload(MultipartFile image, HttpServletRequest request){
+    public String imageUpload(MultipartFile image, HttpServletRequest request){
         String type = request.getHeader("type");
         String url = imageUploadService.upload(image, type);
-        return Result.build(url, ResultCodeEnum.SUCCESS);
+        return url;
     }
 }
