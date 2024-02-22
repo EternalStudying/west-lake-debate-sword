@@ -17,10 +17,20 @@ public class ImageUploadController {
     @Autowired
     private ImageUploadService imageUploadService;
 
+    //返回url
     @PostMapping
     public String imageUpload(MultipartFile image, HttpServletRequest request){
         String type = request.getHeader("type");
         String url = imageUploadService.upload(image, type);
         return url;
     }
+
+    //返回result
+    @PostMapping
+    public Result imageUpload2(MultipartFile image, HttpServletRequest request){
+        String type = request.getHeader("type");
+        String url = imageUploadService.upload(image, type);
+        return Result.build(url,ResultCodeEnum.SUCCESS);
+    }
+
 }
