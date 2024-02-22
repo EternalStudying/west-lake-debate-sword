@@ -12,11 +12,11 @@
         values ( #{id}, #{name}, #{description},#{image},#{detail},#{exCode})
     </insert>
 
-    <select id="findByExCode" resultType="com.swyxl.model.entity.exhibit.Exhibitor">
+    <select id="findByExCode" resultType="com.swyxl.model.entity.service.exhibit.Exhibitor">
         select <include refid="columns"/> from exhibit where ex_code = #{exCode} and is_deleted = 0
     </select>
 
-    <select id="findById" resultType="com.swyxl.model.entity.exhibit.Exhibitor">
+    <select id="findById" resultType="com.swyxl.model.entity.service.exhibit.Exhibitor">
         select <include refid="columns"/> from exhibit where id = #{id} and is_deleted = 0
     </select>
 

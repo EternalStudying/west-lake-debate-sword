@@ -1,6 +1,6 @@
 package com.swyxl.user.mapper;
 
-import com.swyxl.model.entity.user.Prize;
+import com.swyxl.model.entity.service.user.Prize;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

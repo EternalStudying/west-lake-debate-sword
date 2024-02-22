@@ -1,6 +1,6 @@
 package com.swyxl.utils;
 
-import com.swyxl.model.entity.user.UserInfo;
+import com.swyxl.model.entity.service.user.UserInfo;
 
 public class AuthContextUtil {
 

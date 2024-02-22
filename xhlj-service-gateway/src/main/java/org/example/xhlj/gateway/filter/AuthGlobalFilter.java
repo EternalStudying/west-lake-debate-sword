@@ -3,7 +3,7 @@ package org.example.xhlj.gateway.filter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.swyxl.model.constant.UserInfoConstant;
-import com.swyxl.model.entity.user.UserInfo;
+import com.swyxl.model.entity.service.user.UserInfo;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;

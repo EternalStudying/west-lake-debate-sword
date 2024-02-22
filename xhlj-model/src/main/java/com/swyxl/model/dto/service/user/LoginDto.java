@@ -1,4 +1,4 @@
-package com.swyxl.model.dto.system;
+package com.swyxl.model.dto.service.user;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

@@ -2,7 +2,7 @@ package com.swyxl.user.aspect;
 
 import com.alibaba.fastjson.JSON;
 import com.swyxl.model.constant.UserInfoConstant;
-import com.swyxl.model.entity.user.UserInfo;
+import com.swyxl.model.entity.service.user.UserInfo;
 import com.swyxl.user.mapper.UserInfoMapper;
 import com.swyxl.utils.AuthContextUtil;
 import jakarta.servlet.http.HttpServletRequest;

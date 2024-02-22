@@ -1,6 +1,6 @@
 package com.swyxl.user.mapper;
 
-import com.swyxl.model.entity.user.UserInfo;
+import com.swyxl.model.entity.service.user.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

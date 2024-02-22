@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.swyxl.active.mapper.ActiveMapper">
+
+    <sql id="columns">
+        id, user_id, active_id, is_over, is_deleted, create_time, update_time
+    </sql>
+
+    <insert id="save">
+        insert into user_active(user_id, active_id, is_over)
+        values (#{userId}, #{activeId}, #{isOver})
+    </insert>
+</mapper>

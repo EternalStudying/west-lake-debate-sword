@@ -3,7 +3,7 @@ package com.swyxl.manager.service.ServiceImpl;
 import com.swyxl.common.exception.XHLJException;
 import com.swyxl.manager.mapper.ExhibitMapper;
 import com.swyxl.manager.service.ExhibitService;
-import com.swyxl.model.entity.exhibit.Exhibitor;
+import com.swyxl.model.entity.service.exhibit.Exhibitor;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

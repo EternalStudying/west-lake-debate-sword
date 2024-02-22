@@ -1,4 +1,4 @@
-package com.swyxl.model.entity.active;
+package com.swyxl.model.entity.service.active;
 
 import com.swyxl.model.entity.base.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;

@@ -1,6 +1,6 @@
 package com.swyxl.user.controller;
 
-import com.swyxl.model.entity.user.Prize;
+import com.swyxl.model.entity.service.user.Prize;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import com.swyxl.model.vo.service.user.PrizeVo;

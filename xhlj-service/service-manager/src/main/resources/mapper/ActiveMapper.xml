@@ -12,11 +12,11 @@
         values (#{id}, #{name}, #{des}, #{year}, #{month}, #{day}, #{location}, #{image},#{price})
     </insert>
 
-    <select id="findById" resultType="com.swyxl.model.entity.active.Active">
+    <select id="findById" resultType="com.swyxl.model.entity.service.active.Active">
         select <include refid="columns"/> from active where id = #{id} and is_deleted = 0
     </select>
 
-    <select id="getByName" resultType="com.swyxl.model.entity.active.Active">
+    <select id="getByName" resultType="com.swyxl.model.entity.service.active.Active">
         select <include refid="columns"/> from active where name = #{name} and is_deleted = 0
     </select>
 

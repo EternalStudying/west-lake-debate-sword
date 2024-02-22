@@ -1,4 +1,4 @@
-package com.swyxl.model.entity.exhibit;
+package com.swyxl.model.entity.service.exhibit;
 
 import com.swyxl.model.entity.base.BaseEntity;
 import lombok.Data;

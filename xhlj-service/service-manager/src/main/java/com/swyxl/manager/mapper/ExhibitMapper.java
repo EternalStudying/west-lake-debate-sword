@@ -1,6 +1,6 @@
 package com.swyxl.manager.mapper;
 
-import com.swyxl.model.entity.exhibit.Exhibitor;
+import com.swyxl.model.entity.service.exhibit.Exhibitor;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

@@ -1,8 +1,8 @@
 package com.swyxl.user.service.impl;
 
 import com.swyxl.common.exception.XHLJException;
-import com.swyxl.model.entity.user.Prize;
-import com.swyxl.model.entity.user.UserInfo;
+import com.swyxl.model.entity.service.user.Prize;
+import com.swyxl.model.entity.service.user.UserInfo;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import com.swyxl.model.vo.service.user.PrizeVo;
 import com.swyxl.user.annotation.Recache;
@@ -11,7 +11,6 @@ import com.swyxl.user.mapper.PrizeRecordMapper;
 import com.swyxl.user.mapper.UserInfoMapper;
 import com.swyxl.user.service.PrizeService;
 import com.swyxl.utils.AuthContextUtil;
-import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

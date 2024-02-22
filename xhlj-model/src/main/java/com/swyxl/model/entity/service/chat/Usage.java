@@ -1,4 +1,4 @@
-package com.swyxl.model.entity.chat;
+package com.swyxl.model.entity.service.chat;
 
 import lombok.Data;
 

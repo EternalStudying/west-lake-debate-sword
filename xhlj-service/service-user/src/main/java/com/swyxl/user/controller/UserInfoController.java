@@ -1,14 +1,13 @@
 package com.swyxl.user.controller;
 
 import com.swyxl.common.annotation.EnableUserLoginAuthInterceptor;
-import com.swyxl.model.dto.system.LoginDto;
-import com.swyxl.model.dto.system.RegisterDto;
-import com.swyxl.model.entity.user.UserInfo;
+import com.swyxl.model.dto.service.user.LoginDto;
+import com.swyxl.model.dto.service.user.RegisterDto;
+import com.swyxl.model.entity.service.user.UserInfo;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import com.swyxl.model.vo.service.user.UserInfoVo;
 import com.swyxl.user.service.UserInfoService;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -15,6 +15,7 @@
         <module>service-user</module>
         <module>service-common</module>
         <module>service-manager</module>
+        <module>service-active</module>
     </modules>
 
     <properties>

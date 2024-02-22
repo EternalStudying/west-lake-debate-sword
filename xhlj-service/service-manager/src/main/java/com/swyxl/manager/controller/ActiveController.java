@@ -1,7 +1,7 @@
 package com.swyxl.manager.controller;
 
 import com.swyxl.manager.service.ActiveService;
-import com.swyxl.model.entity.active.Active;
+import com.swyxl.model.entity.service.active.Active;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;

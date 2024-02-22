@@ -1,6 +1,6 @@
 package com.swyxl.manager.service;
 
-import com.swyxl.model.entity.exhibit.Exhibitor;
+import com.swyxl.model.entity.service.exhibit.Exhibitor;
 
 public interface ExhibitService {
     void add(Exhibitor exhibitor);

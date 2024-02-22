@@ -1,6 +1,6 @@
 package com.swyxl.manager.mapper;
 
-import com.swyxl.model.entity.active.Active;
+import com.swyxl.model.entity.service.active.Active;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

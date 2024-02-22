@@ -23,11 +23,11 @@
         where id = #{id}
     </update>
 
-    <select id="selectAll" resultType="com.swyxl.model.entity.user.Prize">
+    <select id="selectAll" resultType="com.swyxl.model.entity.service.user.Prize">
         select <include refid="columns"/> from prize where is_deleted = 0
     </select>
 
-    <select id="selectByName" resultType="com.swyxl.model.entity.user.Prize">
+    <select id="selectByName" resultType="com.swyxl.model.entity.service.user.Prize">
         select <include refid="columns"/> from prize where name = #{name} and is_deleted = 0
     </select>
 </mapper>

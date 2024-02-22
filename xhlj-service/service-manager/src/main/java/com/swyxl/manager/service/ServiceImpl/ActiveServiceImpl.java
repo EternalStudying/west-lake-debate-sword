@@ -3,7 +3,7 @@ package com.swyxl.manager.service.ServiceImpl;
 import com.swyxl.common.exception.XHLJException;
 import com.swyxl.manager.mapper.ActiveMapper;
 import com.swyxl.manager.service.ActiveService;
-import com.swyxl.model.entity.active.Active;
+import com.swyxl.model.entity.service.active.Active;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
