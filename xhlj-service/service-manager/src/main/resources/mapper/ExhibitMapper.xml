@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.swyxl.manager.mapper.ExhibitMapper">
+
+    <sql id="columns">
+        id, name, description,image,detail, ex_code, is_deleted, create_time, update_time
+    </sql>
+
+    <insert id="save">
+        insert into exhibit( id, name, description,image,detail,ex_code)
+        values ( #{id}, #{name}, #{description},#{image},#{detail},#{exCode})
+    </insert>
+
+    <select id="findByExCode" resultType="com.swyxl.model.entity.exhibit.Exhibitor">
+        select <include refid="columns"/> from exhibit where ex_code = #{exCode} and is_deleted = 0
+    </select>
+
+    <select id="findById" resultType="com.swyxl.model.entity.exhibit.Exhibitor">
+        select <include refid="columns"/> from exhibit where id = #{id} and is_deleted = 0
+    </select>
+
+    <update id="update">
+        update exhibit
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="detail != null">detail = #{detail},</if>
+            <if test="exCode != null">ex_code = #{exCode},</if>
+            <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+
+</mapper>
