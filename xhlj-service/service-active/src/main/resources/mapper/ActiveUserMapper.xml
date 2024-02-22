@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.swyxl.active.mapper.ActiveMapper">
+<mapper namespace="com.swyxl.active.mapper.ActiveUserMapper">
 
     <sql id="columns">
         id, user_id, active_id, is_over, is_deleted, create_time, update_time
