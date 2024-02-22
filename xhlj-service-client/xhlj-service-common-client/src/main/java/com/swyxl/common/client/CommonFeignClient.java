@@ -8,15 +8,16 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-@Service
+@Repository
 @FeignClient(value = "service-common")
 public interface CommonFeignClient {
 
 
     @PostMapping("/service/common/auth/imageUpload")
-    public Result imageUpload(MultipartFile image, HttpServletRequest request);
+    public Result imageUpload(@RequestParam MultipartFile image,@RequestParam HttpServletRequest request);
 
 
 }

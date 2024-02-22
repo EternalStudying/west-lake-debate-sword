@@ -1,5 +1,6 @@
 package com.swyxl.manager.service.ServiceImpl;
 
+
 import com.swyxl.common.client.CommonFeignClient;
 import com.swyxl.common.exception.XHLJException;
 import com.swyxl.manager.mapper.ActiveMapper;
@@ -13,6 +14,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ActiveServiceImpl implements ActiveService {
@@ -74,5 +76,10 @@ public class ActiveServiceImpl implements ActiveService {
 
     }
 
+    @Override
+    public List<Active> getAll() {
+        List<Active> list = activeMapper.getAll();
+        return list;
+    }
 
 }

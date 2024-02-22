@@ -1,6 +1,6 @@
 package com.swyxl.manager.service.ServiceImpl;
 
-import com.swyxl.common.client.CommonFeignClient;
+
 import com.swyxl.common.exception.XHLJException;
 import com.swyxl.manager.mapper.ExhibitMapper;
 import com.swyxl.manager.service.ExhibitService;
@@ -17,8 +17,7 @@ public class ExhibitServiceImpl implements ExhibitService {
     @Autowired
     private ExhibitMapper exhibitMapper;
 
-    @Autowired
-    private CommonFeignClient commonFeignClient;
+
 
     @Override
     public void add(Exhibitor exhibitor) {

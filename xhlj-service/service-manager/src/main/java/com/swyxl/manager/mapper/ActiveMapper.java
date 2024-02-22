@@ -3,6 +3,8 @@ package com.swyxl.manager.mapper;
 import com.swyxl.model.entity.service.active.Active;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface ActiveMapper {
     void save(Active active);
@@ -14,6 +16,6 @@ public interface ActiveMapper {
 
     void update(Active active);
 
-
+    List<Active> getAll();
 }
 

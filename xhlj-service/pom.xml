@@ -61,6 +61,7 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
 
+
 <!--         redis的起步依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

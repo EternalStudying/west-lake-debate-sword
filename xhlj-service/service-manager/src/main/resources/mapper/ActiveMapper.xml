@@ -12,11 +12,11 @@
         values (#{id}, #{name}, #{des},#{acCode}, #{year}, #{month}, #{day}, #{location}, #{image},#{price})
     </insert>
 
-    <select id="findById" resultType="com.swyxl.model.entity.active.Active">
+    <select id="findById" resultType="com.swyxl.model.entity.service.active.Active">
         select <include refid="columns"/> from active where id = #{id} and is_deleted = 0
     </select>
 
-    <select id="getByAcCode" resultType="com.swyxl.model.entity.active.Active">
+    <select id="getByAcCode" resultType="com.swyxl.model.entity.service.active.Active">
         select <include refid="columns"/> from active where ac_code = #{acCode} and is_deleted = 0
     </select>
 
@@ -38,6 +38,10 @@
         </set>
         where id = #{id}
     </update>
+
+    <select id="getAll" resultType="com.swyxl.model.entity.service.active.Active">
+       select <include refid="columns"/> from active where is_deleted = 0
+    </select>
 
 
 </mapper>
