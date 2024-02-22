@@ -16,7 +16,7 @@ public interface CommonFeignClient {
 
 
     @PostMapping("/service/common/auth/imageUpload")
-    public String imageUpload(MultipartFile image, HttpServletRequest request);
+    public Result imageUpload(MultipartFile image, HttpServletRequest request);
 
 
 }
