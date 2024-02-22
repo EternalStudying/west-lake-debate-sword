@@ -35,7 +35,11 @@ public class ActiveServiceImpl implements ActiveService {
     @Override
     public Active findById(Long id){
         Active active = activeMapper.findById(id);
-        return active;
+        if(active == null){
+            throw new XHLJException(ResultCodeEnum.ACTIVE_IS_NOT_EXIST);
+        }else {
+            return active;
+        }
     }
 
     @Override
