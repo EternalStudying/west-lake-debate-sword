@@ -31,5 +31,11 @@ public class Active extends BaseEntity {
     private String image;
 
     @Schema(description = "价格")
-    private int price;
+    private Integer price;
+
+    @Schema(description = "报名人数")
+    private Long enrollment;
+
+    @Schema(description = "参加人数")
+    private Long participant;
 }

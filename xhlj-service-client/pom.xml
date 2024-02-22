@@ -13,7 +13,7 @@
     <artifactId>xhlj-service-client</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>xhlj-service-common-client</module>
+        <module>service-common-client</module>
     </modules>
 
     <properties>

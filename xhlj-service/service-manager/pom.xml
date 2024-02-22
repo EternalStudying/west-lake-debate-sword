@@ -19,7 +19,7 @@
    <dependencies>
        <dependency>
            <groupId>org.example.xhlj</groupId>
-           <artifactId>xhlj-service-common-client</artifactId>
+           <artifactId>service-common-client</artifactId>
            <version>1.0-SNAPSHOT</version>
        </dependency>
    </dependencies>
