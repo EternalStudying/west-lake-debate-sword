@@ -19,6 +19,8 @@ public class Active extends BaseEntity {
 
     private Integer day;
 
+    private Integer acCode;
+
     @Schema(description = "详情")
     private String detail;
 

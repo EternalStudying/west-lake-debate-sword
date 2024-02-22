@@ -10,7 +10,7 @@ public interface ActiveMapper {
     Active findById(Long id);
 
 
-    Active getByName(String name);
+    Active getByAcCode(Integer acCode);
 
     void update(Active active);
 
