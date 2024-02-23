@@ -5,7 +5,7 @@ import com.swyxl.common.service.ChatService;
 import com.swyxl.model.dto.chat.ChatDto;
 import com.swyxl.model.entity.service.chat.RequestMessage;
 import com.swyxl.model.vo.service.chat.ChatVo;
-import com.swyxl.utils.ChatUtil;
+import com.swyxl.utils.ChatUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -27,11 +27,11 @@ public class ChatServiceImpl implements ChatService {
         if (chatDto.getRequestMessage() == null){
             chatDto.setRequestMessage(new RequestMessage());
         }
-        boolean flag = ChatUtil.getAccessToken(apiKey, secretKey);
+        boolean flag = ChatUtils.getAccessToken(apiKey, secretKey);
         if (!flag) {
             throw new RuntimeException();
         }
-        ChatVo chatVo = ChatUtil.getAnswer(chatDto.getQuestion(), chatDto.getRequestMessage());
+        ChatVo chatVo = ChatUtils.getAnswer(chatDto.getQuestion(), chatDto.getRequestMessage());
         log.info(chatVo.getAnswer());
         return chatVo;
     }

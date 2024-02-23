@@ -14,4 +14,6 @@ public interface ActiveMapper {
     void addEnrollment(Long activeId);
 
     void addLike(Long id);
+
+    Active selectById(Long id);
 }

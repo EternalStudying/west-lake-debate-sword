@@ -13,7 +13,7 @@ import okhttp3.*;
 import java.io.IOException;
 
 @Slf4j
-public class ChatUtil {
+public class ChatUtils {
 
     private static OkHttpClient client = new OkHttpClient().newBuilder().build();
     private static ChatVo chatVo = new ChatVo();

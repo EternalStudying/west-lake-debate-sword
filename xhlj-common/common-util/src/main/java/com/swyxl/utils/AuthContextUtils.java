@@ -2,7 +2,7 @@ package com.swyxl.utils;
 
 import com.swyxl.model.entity.service.user.UserInfo;
 
-public class AuthContextUtil {
+public class AuthContextUtils {
 
     private static final ThreadLocal<UserInfo> userInfoThreadLocal = new ThreadLocal<>();
 

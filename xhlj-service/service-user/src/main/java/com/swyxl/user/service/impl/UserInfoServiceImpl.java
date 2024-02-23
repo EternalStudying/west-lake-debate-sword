@@ -10,7 +10,7 @@ import com.swyxl.model.vo.common.ResultCodeEnum;
 import com.swyxl.model.vo.service.user.UserInfoVo;
 import com.swyxl.user.mapper.UserInfoMapper;
 import com.swyxl.user.service.UserInfoService;
-import com.swyxl.utils.AuthContextUtil;
+import com.swyxl.utils.AuthContextUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -85,12 +85,12 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public UserInfo userInfoAll() {
-        return AuthContextUtil.getUserInfo();
+        return AuthContextUtils.getUserInfo();
     }
 
     @Override
     public UserInfoVo userInfo() {
-        UserInfo userInfo = AuthContextUtil.getUserInfo();
+        UserInfo userInfo = AuthContextUtils.getUserInfo();
         UserInfoVo userInfoVo = new UserInfoVo();
         BeanUtils.copyProperties(userInfo, userInfoVo);
         return userInfoVo;
@@ -98,7 +98,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public void update(UserInfo userInfo) {
-        Long userId = AuthContextUtil.getUserInfo().getId();
+        Long userId = AuthContextUtils.getUserInfo().getId();
         userInfo.setId(userId);
         userInfo.setUpdateTime(new Date());
         userInfoMapper.update(userInfo);

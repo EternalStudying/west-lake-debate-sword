@@ -10,7 +10,7 @@ import com.swyxl.user.mapper.PrizeMapper;
 import com.swyxl.user.mapper.PrizeRecordMapper;
 import com.swyxl.user.mapper.UserInfoMapper;
 import com.swyxl.user.service.PrizeService;
-import com.swyxl.utils.AuthContextUtil;
+import com.swyxl.utils.AuthContextUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +36,7 @@ public class PrizeServiceImpl implements PrizeService {
     @Override
     @Recache
     public void signIn() {
-        UserInfo userInfo = AuthContextUtil.getUserInfo();
+        UserInfo userInfo = AuthContextUtils.getUserInfo();
         String isSignIn = userInfo.getIsSignIn();
         if (isSignIn.equals("1")){
             throw new XHLJException(ResultCodeEnum.REPEATED_SIGN_IN);
@@ -64,7 +64,7 @@ public class PrizeServiceImpl implements PrizeService {
     @Recache
     public Prize draw() {
 
-        UserInfo userInfo = AuthContextUtil.getUserInfo();
+        UserInfo userInfo = AuthContextUtils.getUserInfo();
         if (userInfo.getIntegral() < 1000)
             throw new XHLJException(ResultCodeEnum.INSUFFICIENT_INTEGRAL);
 

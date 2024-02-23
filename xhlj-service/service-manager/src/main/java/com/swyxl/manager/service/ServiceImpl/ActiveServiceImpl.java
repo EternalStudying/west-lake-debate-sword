@@ -1,8 +1,8 @@
 package com.swyxl.manager.service.ServiceImpl;
 
 
-import com.swyxl.common.client.CommonFeignClient;
 import com.swyxl.common.exception.XHLJException;
+import com.swyxl.feign.common.CommonFeignClient;
 import com.swyxl.manager.mapper.ActiveMapper;
 import com.swyxl.manager.service.ActiveService;
 import com.swyxl.model.entity.service.active.Active;

@@ -4,6 +4,7 @@ import com.swyxl.active.service.ActiveService;
 import com.swyxl.model.entity.service.active.Active;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
+import com.swyxl.model.vo.service.active.ActiveShareVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,5 +39,11 @@ public class ActiveController {
     public Result like(@PathVariable Long id){
         activeService.like(id);
         return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
+
+    @GetMapping("/auth/share/{id}")
+    public Result share(@PathVariable Long id){
+        ActiveShareVo activeShareVo = activeService.share(id);
+        return Result.build(activeShareVo, ResultCodeEnum.SUCCESS);
     }
 }

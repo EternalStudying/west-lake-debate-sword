@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.swyxl.model.constant.UserInfoConstant;
 import com.swyxl.model.entity.service.user.UserInfo;
 import com.swyxl.user.mapper.UserInfoMapper;
-import com.swyxl.utils.AuthContextUtil;
+import com.swyxl.utils.AuthContextUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -33,7 +33,7 @@ public class RecacheAspect {
     public void Recache(){
         System.err.println("开始重新缓存");
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        String username = AuthContextUtil.getUserInfo().getUsername();
+        String username = AuthContextUtils.getUserInfo().getUsername();
         UserInfo userInfo = userInfoMapper.selectByUsername(username);
         String token = request.getHeader("token");
         redisTemplate.opsForValue().set(UserInfoConstant.SERVICE_TOKEN + token, JSON.toJSONString(userInfo), 1, TimeUnit.DAYS);

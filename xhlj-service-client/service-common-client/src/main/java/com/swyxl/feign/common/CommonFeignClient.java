@@ -1,20 +1,18 @@
-package com.swyxl.common.client;
+package com.swyxl.feign.common;
 
 import com.swyxl.model.vo.common.Result;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-@Repository
+import java.awt.image.BufferedImage;
+
 @FeignClient(value = "service-common")
 public interface CommonFeignClient {
 
-
     @PostMapping("/service/common/auth/imageUpload")
-    public Result imageUpload(@RequestParam MultipartFile image,@RequestParam HttpServletRequest request);
-
-
+    Result imageUpload(@RequestParam(value = "image") MultipartFile image, @RequestParam(value = "request") HttpServletRequest request);
 }

@@ -24,4 +24,8 @@
         left join user_active ua on a.id = ua.active_id
         where a.is_deleted = 0 and ua.is_deleted = 0 and ua.user_id = #{userId}
     </select>
+
+    <select id="selectById" resultType="com.swyxl.model.entity.service.active.Active">
+        select <include refid="columns"/> from active where id = #{id} and is_deleted = 0
+    </select>
 </mapper>

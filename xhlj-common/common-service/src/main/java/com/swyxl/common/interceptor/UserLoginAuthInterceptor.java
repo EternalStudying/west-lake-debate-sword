@@ -3,7 +3,7 @@ package com.swyxl.common.interceptor;
 import com.alibaba.fastjson.JSON;
 import com.swyxl.model.constant.UserInfoConstant;
 import com.swyxl.model.entity.service.user.UserInfo;
-import com.swyxl.utils.AuthContextUtil;
+import com.swyxl.utils.AuthContextUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +23,13 @@ public class UserLoginAuthInterceptor implements HandlerInterceptor {
         if (token != null) {
             String userInfoJSON = redisTemplate.opsForValue().get(UserInfoConstant.SERVICE_TOKEN + token);
 
-            AuthContextUtil.setUserInfo(JSON.parseObject(userInfoJSON, UserInfo.class));
+            AuthContextUtils.setUserInfo(JSON.parseObject(userInfoJSON, UserInfo.class));
         }
         return true;
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        AuthContextUtil.removeUserInfo();
+        AuthContextUtils.removeUserInfo();
     }
 }

@@ -1,6 +1,7 @@
 package com.swyxl.manager.controller;
 
-import com.swyxl.common.client.CommonFeignClient;
+
+import com.swyxl.feign.common.CommonFeignClient;
 import com.swyxl.manager.service.ActiveService;
 import com.swyxl.model.entity.service.active.Active;
 import com.swyxl.model.vo.common.Result;
