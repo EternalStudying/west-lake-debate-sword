@@ -1,16 +1,16 @@
 package com.swyxl.manager.mapper;
 
-import com.swyxl.model.entity.service.exhibit.Exhibitor;
+import com.swyxl.model.entity.service.exhibit.Exhibit;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface ExhibitMapper {
-    Exhibitor findByExCode(Integer exCode);
+    Exhibit findByExCode(Integer exCode);
 
-    void save(Exhibitor exhibitor1);
+    void save(Exhibit exhibit1);
 
-    Exhibitor findById(Long id);
+    Exhibit findById(Long id);
 
-    void update(Exhibitor exhibitor);
+    void update(Exhibit exhibit);
 
 }

@@ -4,7 +4,7 @@ package com.swyxl.manager.service.ServiceImpl;
 import com.swyxl.common.exception.XHLJException;
 import com.swyxl.manager.mapper.ExhibitMapper;
 import com.swyxl.manager.service.ExhibitService;
-import com.swyxl.model.entity.service.exhibit.Exhibitor;
+import com.swyxl.model.entity.service.exhibit.Exhibit;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,43 +20,43 @@ public class ExhibitServiceImpl implements ExhibitService {
 
 
     @Override
-    public void add(Exhibitor exhibitor) {
-        Integer exCode = exhibitor.getExCode();
-        Exhibitor exhibitByExCode = exhibitMapper.findByExCode(exCode);
+    public void add(Exhibit exhibit) {
+        Integer exCode = exhibit.getExCode();
+        Exhibit exhibitByExCode = exhibitMapper.findByExCode(exCode);
         if(exhibitByExCode == null){
-            Exhibitor exhibitor1 = new Exhibitor();
-            BeanUtils.copyProperties(exhibitor,exhibitor1);
-            exhibitMapper.save(exhibitor1);
-        }else if(exhibitByExCode.getExCode() == exhibitor.getExCode()){
+            Exhibit exhibit1 = new Exhibit();
+            BeanUtils.copyProperties(exhibit, exhibit1);
+            exhibitMapper.save(exhibit1);
+        }else if(exhibitByExCode.getExCode() == exhibit.getExCode()){
             throw new XHLJException(ResultCodeEnum.EXHIBITOR_IS_EXIST);
         }
     }
 
     @Override
-    public Exhibitor findById(Long id) {
-        Exhibitor exhibitor =  exhibitMapper.findById(id);
-        if(exhibitor == null){
+    public Exhibit findById(Long id) {
+        Exhibit exhibit =  exhibitMapper.findById(id);
+        if(exhibit == null){
             throw new XHLJException(ResultCodeEnum.EXHIBITOR_IS_NOT_EXIST);
         }else {
-            return exhibitor;
+            return exhibit;
         }
     }
 
     @Override
-    public void update(Exhibitor exhibitor) {
-        Integer exCode = exhibitor.getExCode();
-        Exhibitor byExCode = exhibitMapper.findByExCode(exCode);
+    public void update(Exhibit exhibit) {
+        Integer exCode = exhibit.getExCode();
+        Exhibit byExCode = exhibitMapper.findByExCode(exCode);
         if(byExCode==null){
             throw new XHLJException(ResultCodeEnum.EXHIBITOR_IS_NOT_EXIST);
         }
-        exhibitor.setId(byExCode.getId());
-        exhibitor.setUpdateTime(new Date());
-        exhibitMapper.update(exhibitor);
+        exhibit.setId(byExCode.getId());
+        exhibit.setUpdateTime(new Date());
+        exhibitMapper.update(exhibit);
     }
 
     @Override
     public void delete(Long id) {
-        Exhibitor byId = exhibitMapper.findById(id);
+        Exhibit byId = exhibitMapper.findById(id);
         if(byId == null){
             throw new XHLJException(ResultCodeEnum.EXHIBITOR_IS_NOT_EXIST);
         }

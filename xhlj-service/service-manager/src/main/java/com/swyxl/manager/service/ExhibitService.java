@@ -1,13 +1,13 @@
 package com.swyxl.manager.service;
 
-import com.swyxl.model.entity.service.exhibit.Exhibitor;
+import com.swyxl.model.entity.service.exhibit.Exhibit;
 
 public interface ExhibitService {
-    void add(Exhibitor exhibitor);
+    void add(Exhibit exhibit);
 
-    Exhibitor findById(Long id);
+    Exhibit findById(Long id);
 
-    void update(Exhibitor exhibitor);
+    void update(Exhibit exhibit);
 
     void delete(Long exhibitor);
 }

@@ -1,7 +1,7 @@
 package com.swyxl.manager.controller;
 
 import com.swyxl.manager.service.ExhibitService;
-import com.swyxl.model.entity.service.exhibit.Exhibitor;
+import com.swyxl.model.entity.service.exhibit.Exhibit;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +15,20 @@ public class ExhibitController {
     private ExhibitService exhibitService;
 
     @PostMapping("/add")
-    public Result add(@RequestBody Exhibitor exhibitor){
-        exhibitService.add(exhibitor);
+    public Result add(@RequestBody Exhibit exhibit){
+        exhibitService.add(exhibit);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
     @GetMapping("/find/{id}")
     public Result find(@PathVariable Long id){
-        Exhibitor exhibitor = exhibitService.findById(id);
-        return Result.build(exhibitor,ResultCodeEnum.SUCCESS);
+        Exhibit exhibit = exhibitService.findById(id);
+        return Result.build(exhibit,ResultCodeEnum.SUCCESS);
     }
 
     @PutMapping("/update")
-    public Result update(@RequestBody Exhibitor exhibitor){
-        exhibitService.update(exhibitor);
+    public Result update(@RequestBody Exhibit exhibit){
+        exhibitService.update(exhibit);
         return Result.build(null,ResultCodeEnum.SUCCESS);
     }
 

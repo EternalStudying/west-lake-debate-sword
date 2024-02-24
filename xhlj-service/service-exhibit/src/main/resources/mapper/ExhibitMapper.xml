@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.swyxl.exhibit.mapper.ExhibitMapper">
+
+    <sql id="columns">
+        id, name, description, image, detail, ex_code, is_deleted, create_time, update_time
+    </sql>
+
+    <select id="selectAll" resultType="com.swyxl.model.entity.service.exhibit.Exhibit">
+        select <include refid="columns"/> from exhibit where is_deleted = 0
+    </select>
+</mapper>

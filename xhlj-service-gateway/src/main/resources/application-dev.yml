@@ -28,6 +28,10 @@ spring:
           uri: lb://service-active
           predicates:
             - Path=/service/active/**
+        - id: service-exhibit
+          uri: lb://service-exhibit
+          predicates:
+            - Path=/service/exhibit/**
 
   data:
     redis:
