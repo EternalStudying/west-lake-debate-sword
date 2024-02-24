@@ -15,4 +15,6 @@ public interface UserInfoService {
     UserInfoVo userInfo();
 
     void update(UserInfo userInfo);
+
+    UserInfo getById(Long id);
 }

@@ -14,4 +14,6 @@ public interface UserInfoMapper {
     void update(UserInfo userInfo);
 
     void isSignIn20();
+
+    UserInfo selectById(Long id);
 }

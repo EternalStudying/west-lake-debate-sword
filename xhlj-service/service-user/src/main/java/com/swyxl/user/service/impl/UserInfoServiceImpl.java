@@ -103,4 +103,9 @@ public class UserInfoServiceImpl implements UserInfoService {
         userInfo.setUpdateTime(new Date());
         userInfoMapper.update(userInfo);
     }
+
+    @Override
+    public UserInfo getById(Long id) {
+        return userInfoMapper.selectById(id);
+    }
 }

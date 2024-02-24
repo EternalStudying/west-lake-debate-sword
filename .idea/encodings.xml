@@ -11,6 +11,7 @@
     <file url="file://$PROJECT_DIR$/xhlj-gateway/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/xhlj-model/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/xhlj-service-client/service-common-client/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/xhlj-service-client/service-user-client/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/xhlj-service-client/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/xhlj-service-client/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/xhlj-service-gateway/src/main/java" charset="UTF-8" />

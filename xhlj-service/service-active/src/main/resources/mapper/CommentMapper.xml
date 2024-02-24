@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.swyxl.active.mapper.CommentMapper">
+
+    <sql id="columns">
+        id, parent, content, like_count, active_id, user_id, is_deleted, create_time, update_time
+    </sql>
+
+    <insert id="save">
+        insert into comment(parent, content, active_id, user_id)
+        values (#{parent}, #{content}, #{activeId}, #{userId})
+    </insert>
+
+    <update id="like">
+        update comment set like_count = like_count + 1 where id = #{id}
+    </update>
+
+    <select id="selectByActiveId" resultType="com.swyxl.model.entity.comment.Comment">
+        select <include refid="columns"/> from comment where active_id = #{activeId} and is_deleted = 0
+    </select>
+
+</mapper>

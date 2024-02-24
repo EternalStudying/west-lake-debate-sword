@@ -48,4 +48,9 @@ public class UserInfoController {
         userInfoService.update(userInfo);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
+
+    @GetMapping("/auth/getById/{id}")
+    public UserInfo getById(@PathVariable Long id){
+        return userInfoService.getById(id);
+    }
 }
