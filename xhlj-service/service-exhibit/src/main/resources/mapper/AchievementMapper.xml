@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.swyxl.exhibit.mapper.AchievementMapper">
+
+    <sql id="columns">
+        id, name, des, image, type, download, is_deleted, create_time, update_time
+    </sql>
+
+    <select id="selectAll" resultType="com.swyxl.model.entity.service.exhibit.Achievement">
+        select <include refid="columns"/> from achievement where is_deleted = 0
+    </select>
+
+    <select id="selectById" resultType="com.swyxl.model.entity.service.exhibit.Achievement">
+        select <include refid="columns"/> from achievement where id = #{id} and is_deleted = 0
+    </select>
+</mapper>

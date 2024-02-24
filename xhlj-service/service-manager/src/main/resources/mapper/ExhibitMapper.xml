@@ -8,20 +8,20 @@
     </sql>
 
     <insert id="save">
-        insert into exhibit( id, name, description,image,detail,ex_code)
+        insert into business( id, name, description,image,detail,ex_code)
         values ( #{id}, #{name}, #{description},#{image},#{detail},#{exCode})
     </insert>
 
-    <select id="findByExCode" resultType="com.swyxl.model.entity.service.exhibit.Exhibit">
-        select <include refid="columns"/> from exhibit where ex_code = #{exCode} and is_deleted = 0
+    <select id="findByExCode" resultType="com.swyxl.model.entity.service.exhibit.Business">
+        select <include refid="columns"/> from business where ex_code = #{exCode} and is_deleted = 0
     </select>
 
-    <select id="findById" resultType="com.swyxl.model.entity.service.exhibit.Exhibit">
-        select <include refid="columns"/> from exhibit where id = #{id} and is_deleted = 0
+    <select id="findById" resultType="com.swyxl.model.entity.service.exhibit.Business">
+        select <include refid="columns"/> from business where id = #{id} and is_deleted = 0
     </select>
 
     <update id="update">
-        update exhibit
+        update business
         <set>
             <if test="name != null">name = #{name},</if>
             <if test="description != null">description = #{description},</if>

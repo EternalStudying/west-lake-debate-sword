@@ -2,8 +2,9 @@ package com.swyxl.common.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.image.BufferedImage;
 
-public interface ImageUploadService {
+public interface MinioService {
     String upload(MultipartFile image, String type);
+
+    String download(String downloadUrl);
 }

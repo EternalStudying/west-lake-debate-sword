@@ -1,6 +1,6 @@
 package com.swyxl.active.mapper;
 
-import com.swyxl.model.entity.comment.Comment;
+import com.swyxl.model.entity.service.comment.Comment;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

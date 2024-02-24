@@ -16,7 +16,7 @@
         update comment set like_count = like_count + 1 where id = #{id}
     </update>
 
-    <select id="selectByActiveId" resultType="com.swyxl.model.entity.comment.Comment">
+    <select id="selectByActiveId" resultType="com.swyxl.model.entity.service.comment.Comment">
         select <include refid="columns"/> from comment where active_id = #{activeId} and is_deleted = 0
     </select>
 

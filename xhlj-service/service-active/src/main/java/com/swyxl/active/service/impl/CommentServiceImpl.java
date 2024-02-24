@@ -4,7 +4,7 @@ import com.swyxl.active.mapper.CommentMapper;
 import com.swyxl.active.service.CommentService;
 import com.swyxl.feign.user.UserFeignClient;
 import com.swyxl.model.dto.service.comment.CommentPostDto;
-import com.swyxl.model.entity.comment.Comment;
+import com.swyxl.model.entity.service.comment.Comment;
 import com.swyxl.model.entity.service.user.UserInfo;
 import com.swyxl.model.vo.service.comment.CommentVo;
 import com.swyxl.utils.AuthContextUtils;

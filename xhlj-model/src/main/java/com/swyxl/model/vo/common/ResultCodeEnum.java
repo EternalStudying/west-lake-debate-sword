@@ -18,6 +18,8 @@ public enum ResultCodeEnum {
     EXHIBITOR_IS_EXIST(210 , "展商已经存在"),
     EXHIBITOR_IS_NOT_EXIST(211 , "展商不存在"),
     QRCODE_ERROR(212, "二维码生成失败"),
+    FILE_NOT_EXIST(213, "文件不存在"),
+    FILE_CANT_DOWNLOAD(214, "文件下载失败"),
     SYSTEM_ERROR(9999 , "您的网络有问题请稍后重试"),
     ACCOUNT_STOP( 216, "账号已停用"),
     INVALID_NUMBER(225, "号码状态异常"),

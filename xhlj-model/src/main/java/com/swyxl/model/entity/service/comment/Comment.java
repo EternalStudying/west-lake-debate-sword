@@ -1,4 +1,4 @@
-package com.swyxl.model.entity.comment;
+package com.swyxl.model.entity.service.comment;
 
 import com.swyxl.model.entity.base.BaseEntity;
 import lombok.Data;
