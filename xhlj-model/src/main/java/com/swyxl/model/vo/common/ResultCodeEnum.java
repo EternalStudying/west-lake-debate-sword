@@ -23,6 +23,8 @@ public enum ResultCodeEnum {
     ACHIEVEMENT_IS_NOT_EXIST(215,"成果不存在"),
     ACHIEVEMENT_IS_EXIST(216,"成果已存在"),
     ACCOUNT_STOP( 217, "账号已停用"),
+    NEWS_IS_EXIST(219,"新闻已存在"),
+    NEWS_IS_NOT_EXIST(220,"新闻不存在"),
     FILE_ERROR(218, "文件上传失败"),
     SYSTEM_ERROR(9999 , "您的网络有问题请稍后重试"),
     INVALID_NUMBER(225, "号码状态异常"),
