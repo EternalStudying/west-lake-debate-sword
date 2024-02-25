@@ -3,6 +3,8 @@ package com.swyxl.exhibit.controller;
 import com.swyxl.exhibit.service.ExhibitService;
 import com.swyxl.model.entity.service.exhibit.Achievement;
 import com.swyxl.model.entity.service.exhibit.Business;
+import com.swyxl.model.entity.service.exhibit.Collection;
+import com.swyxl.model.entity.service.exhibit.News;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import jakarta.servlet.http.HttpServletResponse;
@@ -37,5 +39,17 @@ public class ExhibitController {
     public Result download(@PathVariable Long id){
         String url = exhibitService.download(id);
         return Result.build(url, ResultCodeEnum.SUCCESS);
+    }
+
+    @GetMapping("/news/list")
+    public Result newsList(){
+        List<News> news = exhibitService.newsList();
+        return Result.build(news, ResultCodeEnum.SUCCESS);
+    }
+
+    @GetMapping("/collection/list")
+    public Result collectionList(){
+        List<Collection> collections = exhibitService.collectionList();
+        return Result.build(collections, ResultCodeEnum.SUCCESS);
     }
 }
