@@ -3,6 +3,7 @@ package com.swyxl.manager.controller;
 
 import com.swyxl.feign.common.CommonFeignClient;
 import com.swyxl.manager.service.ActiveService;
+import com.swyxl.model.constant.TypeConstant;
 import com.swyxl.model.entity.service.active.Active;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
@@ -19,9 +20,6 @@ public class ActiveController {
 
     @Autowired
     private ActiveService activeService;
-
-    @Autowired
-    private CommonFeignClient commonFeignClient;
 
     @PostMapping("/add")
     public Result add(@RequestBody Active active){
@@ -54,10 +52,9 @@ public class ActiveController {
     }
 
     @PostMapping("/upload")
-    public Result upload(MultipartFile file, HttpServletRequest request){
-        //TODO 设置请求头
-        Result result = commonFeignClient.imageUpload(file, request);
-        return result;
+    public Result upload(MultipartFile file){
+        String url = activeService.fileUpload(file);
+        return Result.build(url, ResultCodeEnum.SUCCESS);
     }
 
     //统计注册活动

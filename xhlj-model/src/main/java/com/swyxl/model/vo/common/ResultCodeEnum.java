@@ -22,8 +22,9 @@ public enum ResultCodeEnum {
     FILE_CANT_DOWNLOAD(214, "文件下载失败"),
     ACHIEVEMENT_IS_NOT_EXIST(215,"成果不存在"),
     ACHIEVEMENT_IS_EXIST(216,"成果已存在"),
+    ACCOUNT_STOP( 217, "账号已停用"),
+    FILE_ERROR(218, "文件上传失败"),
     SYSTEM_ERROR(9999 , "您的网络有问题请稍后重试"),
-    ACCOUNT_STOP( 216, "账号已停用"),
     INVALID_NUMBER(225, "号码状态异常"),
     ;
 

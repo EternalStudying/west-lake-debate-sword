@@ -19,11 +19,9 @@ public class MinioController {
     @Autowired
     private MinioService minioService;
 
-    @PostMapping("/auth/imageUpload")
-    public Result imageUpload(MultipartFile image, HttpServletRequest request){
-        String type = request.getHeader("type");
-        String url = minioService.upload(image, type);
-        return Result.build(url,ResultCodeEnum.SUCCESS);
+    @PostMapping("/auth/fileUpload")
+    public String fileUpload(MultipartFile file, String type){
+        return minioService.upload(file, type);
     }
 
     @GetMapping("/auth/download")

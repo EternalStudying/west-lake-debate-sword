@@ -1,13 +1,16 @@
 package com.swyxl.manager.service.ServiceImpl;
 
 import com.swyxl.common.exception.XHLJException;
+import com.swyxl.feign.common.CommonFeignClient;
 import com.swyxl.manager.mapper.AchievementMapper;
 import com.swyxl.manager.service.AchievementService;
+import com.swyxl.model.constant.TypeConstant;
 import com.swyxl.model.entity.service.exhibit.Achievement;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
@@ -16,6 +19,8 @@ public class AchievementServiceImpl implements AchievementService {
 
     @Autowired
     private AchievementMapper achievementMapper;
+    @Autowired
+    private CommonFeignClient commonFeignClient;
 
     @Override
     public void add(Achievement achievement) {
@@ -62,5 +67,21 @@ public class AchievementServiceImpl implements AchievementService {
             achievement.setIsDeleted(1);
             achievementMapper.update(achievement);
         }
+    }
+
+    @Override
+    public String imageUpload(MultipartFile file) {
+        String fileUrl = commonFeignClient.fileUpload(file, TypeConstant.ACHIEVEMENT_IMAGE);
+        if (fileUrl.isEmpty())
+            throw new XHLJException(ResultCodeEnum.FILE_ERROR);
+        return fileUrl;
+    }
+
+    @Override
+    public String resourceUpload(MultipartFile file) {
+        String fileUrl = commonFeignClient.fileUpload(file, TypeConstant.ACHIEVEMENT_RESOURCE);
+        if (fileUrl.isEmpty())
+            throw new XHLJException(ResultCodeEnum.FILE_ERROR);
+        return fileUrl.substring(27);
     }
 }

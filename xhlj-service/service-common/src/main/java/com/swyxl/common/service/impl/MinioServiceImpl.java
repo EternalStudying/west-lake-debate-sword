@@ -30,7 +30,7 @@ public class MinioServiceImpl implements MinioService {
     private MinioClient minioClient;
 
     @Override
-    public String upload(MultipartFile image, String type) {
+    public String upload(MultipartFile file, String type) {
         try {
             // 创建bucket
             boolean found =
@@ -50,7 +50,7 @@ public class MinioServiceImpl implements MinioService {
 
             String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 
-            String suffix = image.getOriginalFilename().substring(image.getOriginalFilename().lastIndexOf('.'));
+            String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
 
             String contentType = suffix.substring(1);
 
@@ -61,7 +61,7 @@ public class MinioServiceImpl implements MinioService {
                             .bucket(minioProperty.getBucketName())
                             .object(filename)
                             .contentType(ViewContentType.getContentType(contentType))
-                            .stream(image.getInputStream(), image.getSize(), -1)
+                            .stream(file.getInputStream(), file.getSize(), -1)
                             .build()
             );
 
@@ -69,7 +69,7 @@ public class MinioServiceImpl implements MinioService {
             return minioProperty.getEndpointUrl() + "/" + minioProperty.getBucketName()+ "/" + filename;
         }catch (Exception e){
             e.printStackTrace();
-            throw new XHLJException(ResultCodeEnum.SYSTEM_ERROR);
+            return null;
         }
     }
 

@@ -20,10 +20,10 @@ spring:
           uri: lb://service-user
           predicates:
             - Path=/service/user/**
-        - id: service-manage
-          uri: lb://service-manage
+        - id: service-manager
+          uri: lb://service-manager
           predicates:
-            - Path=/service/manage/**
+            - Path=/service/manager/**
         - id: service-active
           uri: lb://service-active
           predicates:

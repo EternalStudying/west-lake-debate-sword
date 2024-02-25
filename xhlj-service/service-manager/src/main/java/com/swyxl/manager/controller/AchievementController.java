@@ -6,6 +6,7 @@ import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/service/manager/achievement/auth")
@@ -32,9 +33,21 @@ public class AchievementController {
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
-    @PutMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public Result delete(@PathVariable Long id){
         achievementService.deleteById(id);
         return Result.build(null,ResultCodeEnum.SUCCESS);
+    }
+
+    @PostMapping("/imageUpload")
+    public Result imageUpload(MultipartFile file){
+        String url = achievementService.imageUpload(file);
+        return Result.build(url, ResultCodeEnum.SUCCESS);
+    }
+
+    @PostMapping("/resourceUpload")
+    public Result resourceUpload(MultipartFile file){
+        String fileName = achievementService.resourceUpload(file);
+        return Result.build(fileName, ResultCodeEnum.SUCCESS);
     }
 }

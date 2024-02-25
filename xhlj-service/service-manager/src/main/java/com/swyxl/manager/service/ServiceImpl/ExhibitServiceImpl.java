@@ -2,13 +2,16 @@ package com.swyxl.manager.service.ServiceImpl;
 
 
 import com.swyxl.common.exception.XHLJException;
+import com.swyxl.feign.common.CommonFeignClient;
 import com.swyxl.manager.mapper.ExhibitMapper;
 import com.swyxl.manager.service.ExhibitService;
+import com.swyxl.model.constant.TypeConstant;
 import com.swyxl.model.entity.service.exhibit.Business;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
@@ -16,7 +19,8 @@ import java.util.Date;
 public class ExhibitServiceImpl implements ExhibitService {
     @Autowired
     private ExhibitMapper exhibitMapper;
-
+    @Autowired
+    private CommonFeignClient commonFeignClient;
 
 
     @Override
@@ -62,5 +66,13 @@ public class ExhibitServiceImpl implements ExhibitService {
         }
         byId.setIsDeleted(1);
         exhibitMapper.update(byId);
+    }
+
+    @Override
+    public String imageUpload(MultipartFile file) {
+        String url = commonFeignClient.fileUpload(file, TypeConstant.BUSINESS);
+        if (url.isEmpty())
+            throw new XHLJException(ResultCodeEnum.FILE_ERROR);
+        return url;
     }
 }

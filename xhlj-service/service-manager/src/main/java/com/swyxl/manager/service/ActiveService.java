@@ -1,6 +1,7 @@
 package com.swyxl.manager.service;
 
 import com.swyxl.model.entity.service.active.Active;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -18,4 +19,5 @@ public interface ActiveService {
 
     Integer getRegister();
 
+    String fileUpload(MultipartFile file);
 }
