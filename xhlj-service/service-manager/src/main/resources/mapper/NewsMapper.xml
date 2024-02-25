@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.swyxl.manager.mapper.NewsMapper">
+
+    <sql id="columns">
+        id, title, introduction, image, text, source, is_deleted, create_time, update_time
+    </sql>
+
+    <select id="getByTitle" resultType="com.swyxl.model.entity.service.exhibit.News">
+        select <include refid="columns"/> from news where title = #{title} and is_deleted = 0
+    </select>
+
+    <insert id="save">
+        insert into news(id, title, introduction, image, text, source)
+        values (#{id}, #{title}, #{introduction}, #{image}, #{text}, #{source})
+    </insert>
+
+    <select id="getById" resultType="com.swyxl.model.entity.service.exhibit.News">
+        select <include refid="columns"/> from news where id = #{id} and is_deleted = 0
+    </select>
+
+    <update id="update">
+        update news
+        <set>
+            <if test="title != null">title = #{title},</if>
+            <if test="introduction != null">introduction = #{introduction},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="text != null">text = #{text},</if>
+            <if test="source != null">source = #{source},</if>
+            <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+</mapper>
