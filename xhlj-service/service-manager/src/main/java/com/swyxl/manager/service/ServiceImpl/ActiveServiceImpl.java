@@ -82,4 +82,18 @@ public class ActiveServiceImpl implements ActiveService {
         return list;
     }
 
+    @Override
+    public Integer getRegister() {
+        List<Active> list = activeMapper.getAll();
+        Integer number = 0 ;
+        for (Active active:list) {
+            //得到注册人数
+            Long enrollment = active.getEnrollment();
+            if(enrollment == 1){
+                number = number+1;
+            }
+        }
+        return number;
+    }
+
 }

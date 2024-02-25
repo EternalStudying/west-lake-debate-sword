@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.swyxl.manager.mapper.AchievementMapper">
+
+    <sql id="columns">
+        id, name, des, image, type, download, is_deleted, create_time, update_time
+    </sql>
+
+    <select id="getByName" resultType="com.swyxl.model.entity.service.exhibit.Achievement">
+        select <include refid="columns"/> from achievement where name = #{name} and is_deleted = 0
+    </select>
+
+    <insert id="save">
+        insert into achievement(id, name, des, image, type, download)
+        values (#{id}, #{name}, #{des}, #{image}, #{type}, #{download})
+    </insert>
+
+    <select id="getById" resultType="com.swyxl.model.entity.service.exhibit.Achievement">
+        select <include refid="columns"/> from achievement where id = #{id} and is_deleted = 0
+    </select>
+
+    <update id="update">
+        update achievement
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="des != null">des = #{des},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="type!= null">type = #{type},</if>
+            <if test="download != null">download = #{download},</if>
+            <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+</mapper>

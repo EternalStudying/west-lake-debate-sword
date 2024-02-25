@@ -16,4 +16,6 @@ public interface ActiveService {
 
     List<Active> getAll();
 
+    Integer getRegister();
+
 }

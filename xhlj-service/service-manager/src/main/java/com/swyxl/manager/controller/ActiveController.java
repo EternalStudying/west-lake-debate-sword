@@ -59,4 +59,13 @@ public class ActiveController {
         Result result = commonFeignClient.imageUpload(file, request);
         return result;
     }
+
+    //统计注册活动
+    @GetMapping("/getRegister")
+    public Result getRegister(){
+        Integer registerNumber =activeService.getRegister();
+        return Result.build(registerNumber,ResultCodeEnum.SUCCESS);
+    }
+
+    //统计
 }
