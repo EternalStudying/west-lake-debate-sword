@@ -13,6 +13,7 @@ import com.swyxl.model.vo.common.PageResult;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import com.swyxl.model.vo.service.active.ActiveQueryVo;
+import com.swyxl.model.vo.service.active.ActiveStatisticVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -120,6 +121,17 @@ public class ActiveServiceImpl implements ActiveService {
         pageResult.setTotal(total);
         pageResult.setRecords(record);
         return pageResult;
+    }
+
+    @Override
+    public ActiveStatisticVo getStatistics(Long id) {
+        Active active = activeMapper.findById(id);
+        if(active == null){
+            throw new XHLJException(ResultCodeEnum.ACTIVE_IS_NOT_EXIST);
+        }
+        ActiveStatisticVo activeStatisticVo = new ActiveStatisticVo();
+        BeanUtils.copyProperties(active,activeStatisticVo);
+        return activeStatisticVo;
     }
 
 }
