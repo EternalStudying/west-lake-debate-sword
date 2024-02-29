@@ -34,6 +34,19 @@
         </set>
         where id = #{id}
     </update>
+    <select id="pageByName" resultType="com.swyxl.model.entity.service.exhibit.News">
+        select * from news
+        <where>
+            <if test="title != null and title !=''">
+                and title like concat('%',#{title},'%')
+            </if>
+            <if test="introduction != null and introduction !=''">
+                and introduction like concat('%',#{introduction},'%')
+            </if>
+            and is_deleted = 0
+        </where>
+        order by create_time desc
+    </select>
 
 
 </mapper>

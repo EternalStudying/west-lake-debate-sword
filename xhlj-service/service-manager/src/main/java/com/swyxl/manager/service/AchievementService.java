@@ -1,6 +1,8 @@
 package com.swyxl.manager.service;
 
 import com.swyxl.model.entity.service.exhibit.Achievement;
+import com.swyxl.model.vo.common.PageResult;
+import com.swyxl.model.vo.service.exhibit.AchievementQueryVo;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface AchievementService {
@@ -15,4 +17,6 @@ public interface AchievementService {
     String imageUpload(MultipartFile file);
 
     String resourceUpload(MultipartFile file);
+
+    PageResult page(Integer limit, Integer page, AchievementQueryVo achievementQueryVo);
 }

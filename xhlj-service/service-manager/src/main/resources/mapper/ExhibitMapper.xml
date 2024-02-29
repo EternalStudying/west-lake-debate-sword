@@ -35,6 +35,20 @@
         where id = #{id}
     </update>
 
+    <select id="pageByName" resultType="com.swyxl.model.entity.service.exhibit.Business">
+        select * from business
+        <where>
+            <if test="name != null and name !=''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="description != null and description !=''">
+                and description like concat('%',#{description},'%')
+            </if>
+            and is_deleted = 0
+        </where>
+        order by create_time desc
+    </select>
+
 
 
 </mapper>

@@ -2,8 +2,11 @@ package com.swyxl.manager.controller;
 
 import com.swyxl.manager.service.ExhibitService;
 import com.swyxl.model.entity.service.exhibit.Business;
+import com.swyxl.model.vo.common.PageResult;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
+import com.swyxl.model.vo.service.exhibit.ExhibitQueryVo;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,5 +46,13 @@ public class ExhibitController {
     public Result imageUpload(MultipartFile file){
         String url = exhibitService.imageUpload(file);
         return Result.build(url, ResultCodeEnum.SUCCESS);
+    }
+
+    @GetMapping("pageSelect/{limit}/{page}")
+    public Result pageSelect(@PathVariable Integer limit,
+                             @PathVariable Integer page,
+                             @RequestBody ExhibitQueryVo exhibitQueryVo){
+        PageResult pageResult = exhibitService.page(limit,page,exhibitQueryVo);
+        return Result.build(pageResult,ResultCodeEnum.SUCCESS);
     }
 }

@@ -49,6 +49,10 @@
             <if test="name != null and name !=''">
                 and name like concat('%',#{name},'%')
             </if>
+            <if test="des != null and des !=''">
+                and des like concat('%',#{des},'%')
+            </if>
+            and is_deleted = 0
         </where>
         order by create_time desc
     </select>
