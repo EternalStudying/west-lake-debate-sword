@@ -1,13 +1,17 @@
 package com.swyxl.manager.service.ServiceImpl;
 
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.swyxl.common.exception.XHLJException;
 import com.swyxl.feign.common.CommonFeignClient;
 import com.swyxl.manager.mapper.ExhibitMapper;
 import com.swyxl.manager.service.ExhibitService;
 import com.swyxl.model.constant.TypeConstant;
 import com.swyxl.model.entity.service.exhibit.Business;
+import com.swyxl.model.vo.common.PageResult;
 import com.swyxl.model.vo.common.ResultCodeEnum;
+import com.swyxl.model.vo.service.exhibit.ExhibitQueryVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -74,5 +78,15 @@ public class ExhibitServiceImpl implements ExhibitService {
         if (url.isEmpty())
             throw new XHLJException(ResultCodeEnum.FILE_ERROR);
         return url;
+    }
+
+    @Override
+    public PageResult page(Integer limit, Integer page, ExhibitQueryVo exhibitQueryVo) {
+        PageHelper.startPage(page,limit);
+        Page<Business> businessPage =  exhibitMapper.pageByName(exhibitQueryVo);
+        PageResult pageResult = new PageResult();
+        pageResult.setRecords(businessPage.getResult());
+        pageResult.setTotal(businessPage.getTotal());
+        return pageResult;
     }
 }

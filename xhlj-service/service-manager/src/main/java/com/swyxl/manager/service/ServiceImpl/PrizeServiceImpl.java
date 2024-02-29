@@ -1,10 +1,16 @@
 package com.swyxl.manager.service.ServiceImpl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.swyxl.common.exception.XHLJException;
 import com.swyxl.manager.mapper.PrizeMapper;
 import com.swyxl.manager.service.PrizeService;
+import com.swyxl.model.entity.service.exhibit.News;
 import com.swyxl.model.entity.service.exhibit.Prize;
+import com.swyxl.model.vo.common.PageResult;
 import com.swyxl.model.vo.common.ResultCodeEnum;
+import com.swyxl.model.vo.service.exhibit.NewsQueryVo;
+import com.swyxl.model.vo.service.exhibit.PrizeQueryVo;
 import org.apache.ibatis.scripting.xmltags.XMLLanguageDriver;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +66,15 @@ public class PrizeServiceImpl implements PrizeService {
             prize.setIsDeleted(1);
             prizeMapper.update(prize);
         }
+    }
+
+    @Override
+    public PageResult page(Integer limit, Integer page, PrizeQueryVo prizeQueryVo) {
+        PageHelper.startPage(page,limit);
+        Page<Prize> newsPage = prizeMapper.pageLike(prizeQueryVo);
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal(newsPage.getTotal());
+        pageResult.setRecords(newsPage.getResult());
+        return pageResult;
     }
 }

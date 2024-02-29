@@ -2,8 +2,10 @@ package com.swyxl.manager.controller;
 
 import com.swyxl.manager.service.NewsService;
 import com.swyxl.model.entity.service.exhibit.News;
+import com.swyxl.model.vo.common.PageResult;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
+import com.swyxl.model.vo.service.exhibit.NewsQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,5 +45,13 @@ public class NewsController {
     public Result imageUpload(MultipartFile file){
         String url = newsService.imageUpload(file);
         return Result.build(url, ResultCodeEnum.SUCCESS);
+    }
+
+    @GetMapping("/pageSelect/{limit}/{page}")
+    public Result page(@PathVariable Integer limit,
+                       @PathVariable Integer page,
+                       @RequestBody NewsQueryVo newsQueryVo){
+        PageResult pageResult = newsService.page(limit,page,newsQueryVo);
+        return Result.build(pageResult,ResultCodeEnum.SUCCESS);
     }
 }

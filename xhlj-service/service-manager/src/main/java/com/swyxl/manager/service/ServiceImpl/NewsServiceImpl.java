@@ -1,12 +1,17 @@
 package com.swyxl.manager.service.ServiceImpl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.swyxl.common.exception.XHLJException;
 import com.swyxl.feign.common.CommonFeignClient;
 import com.swyxl.manager.mapper.NewsMapper;
 import com.swyxl.manager.service.NewsService;
 import com.swyxl.model.constant.TypeConstant;
 import com.swyxl.model.entity.service.exhibit.News;
+import com.swyxl.model.vo.common.PageResult;
+import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
+import com.swyxl.model.vo.service.exhibit.NewsQueryVo;
 import org.apache.ibatis.scripting.xmltags.XMLLanguageDriver;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,5 +76,15 @@ public class NewsServiceImpl implements NewsService {
         if (url.isEmpty())
             throw new XHLJException(ResultCodeEnum.FILE_ERROR);
         return url;
+    }
+
+    @Override
+    public PageResult page(Integer limit, Integer page, NewsQueryVo newsQueryVo) {
+        PageHelper.startPage(page,limit);
+        Page<News> newsPage = newsMapper.pageByName(newsQueryVo);
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal(newsPage.getTotal());
+        pageResult.setRecords(newsPage.getResult());
+        return pageResult;
     }
 }

@@ -43,5 +43,17 @@
        select <include refid="columns"/> from active where is_deleted = 0
     </select>
 
-
+    <select id="selectLikeName" resultType="com.swyxl.model.entity.service.active.Active">
+        select * from active
+        <where>
+            <if test="name != null and name !=''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="des != null and des !=''">
+                and des like concat('%',#{des},'%')
+            </if>
+            and is_deleted = 0
+        </where>
+        order by create_time desc
+    </select>
 </mapper>

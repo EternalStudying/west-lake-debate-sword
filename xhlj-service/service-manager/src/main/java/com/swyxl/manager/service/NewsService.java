@@ -1,6 +1,8 @@
 package com.swyxl.manager.service;
 
 import com.swyxl.model.entity.service.exhibit.News;
+import com.swyxl.model.vo.common.PageResult;
+import com.swyxl.model.vo.service.exhibit.NewsQueryVo;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface NewsService {
@@ -13,4 +15,7 @@ public interface NewsService {
     void delete(Long id);
 
     String imageUpload(MultipartFile file);
+
+    PageResult page(Integer limit, Integer page, NewsQueryVo newsQueryVo);
+
 }

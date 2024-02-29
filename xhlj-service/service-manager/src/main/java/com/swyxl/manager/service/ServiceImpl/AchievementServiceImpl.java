@@ -1,12 +1,16 @@
 package com.swyxl.manager.service.ServiceImpl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.swyxl.common.exception.XHLJException;
 import com.swyxl.feign.common.CommonFeignClient;
 import com.swyxl.manager.mapper.AchievementMapper;
 import com.swyxl.manager.service.AchievementService;
 import com.swyxl.model.constant.TypeConstant;
 import com.swyxl.model.entity.service.exhibit.Achievement;
+import com.swyxl.model.vo.common.PageResult;
 import com.swyxl.model.vo.common.ResultCodeEnum;
+import com.swyxl.model.vo.service.exhibit.AchievementQueryVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,5 +87,15 @@ public class AchievementServiceImpl implements AchievementService {
         if (fileUrl.isEmpty())
             throw new XHLJException(ResultCodeEnum.FILE_ERROR);
         return fileUrl.substring(27);
+    }
+
+    @Override
+    public PageResult page(Integer limit, Integer page, AchievementQueryVo achievementQueryVo) {
+        PageHelper.startPage(page,limit);
+        Page<Achievement> achievementPage = achievementMapper.pageLike(achievementQueryVo);
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal(achievementPage.getTotal());
+        pageResult.setRecords(achievementPage.getResult());
+        return pageResult;
     }
 }

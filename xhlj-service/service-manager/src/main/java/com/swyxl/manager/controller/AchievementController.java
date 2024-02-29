@@ -2,8 +2,11 @@ package com.swyxl.manager.controller;
 
 import com.swyxl.manager.service.AchievementService;
 import com.swyxl.model.entity.service.exhibit.Achievement;
+import com.swyxl.model.vo.common.PageResult;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
+import com.swyxl.model.vo.service.exhibit.AchievementQueryVo;
+import org.apache.http.impl.conn.PoolingClientConnectionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -49,5 +52,13 @@ public class AchievementController {
     public Result resourceUpload(MultipartFile file){
         String fileName = achievementService.resourceUpload(file);
         return Result.build(fileName, ResultCodeEnum.SUCCESS);
+    }
+
+    @GetMapping("/pageSelect/{limit}/{page}")
+    public Result page(@PathVariable Integer limit,
+                       @PathVariable Integer page,
+                       @RequestBody AchievementQueryVo achievementQueryVo){
+        PageResult pageResult = achievementService.page(limit,page,achievementQueryVo);
+        return Result.build(pageResult,ResultCodeEnum.SUCCESS);
     }
 }

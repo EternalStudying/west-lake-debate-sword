@@ -34,5 +34,19 @@
         where id = #{id}
     </update>
 
+    <select id="pageLike" resultType="com.swyxl.model.entity.service.exhibit.Prize">
+        select * from prize
+        <where>
+            <if test="name != null and name !=''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="level != null and level !=''">
+                and level = #{level}
+            </if>
+            and is_deleted = 0
+        </where>
+        order by create_time desc
+    </select>
+
 
 </mapper>

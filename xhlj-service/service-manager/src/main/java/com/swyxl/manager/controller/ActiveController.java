@@ -1,12 +1,16 @@
 package com.swyxl.manager.controller;
 
 
+import com.github.pagehelper.Page;
 import com.swyxl.feign.common.CommonFeignClient;
 import com.swyxl.manager.service.ActiveService;
 import com.swyxl.model.constant.TypeConstant;
 import com.swyxl.model.entity.service.active.Active;
+import com.swyxl.model.vo.common.PageResult;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
+import com.swyxl.model.vo.service.active.ActiveQueryVo;
+import com.swyxl.model.vo.service.active.ActiveStatisticVo;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -64,5 +68,18 @@ public class ActiveController {
         return Result.build(registerNumber,ResultCodeEnum.SUCCESS);
     }
 
-    //统计
+    //分页查询
+    @GetMapping("/pageSelect/{limit}/{page}")
+    public Result pageSelect(@PathVariable Integer limit,
+                             @PathVariable Integer page,
+                             @RequestBody ActiveQueryVo activeQueryVo){
+       PageResult pageResults =  activeService.page(limit,page,activeQueryVo);
+       return Result.build(pageResults,ResultCodeEnum.SUCCESS);
+    }
+    //统计活动情况
+    @GetMapping("/statistics/{id}")
+    public Result getSituation(@PathVariable Long id){
+        ActiveStatisticVo activeStatisticVo =activeService.getStatistics(id);
+        return Result.build(activeStatisticVo,ResultCodeEnum.SUCCESS);
+    }
 }
