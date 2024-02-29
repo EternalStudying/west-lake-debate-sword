@@ -1,14 +1,18 @@
 package com.swyxl.manager.service.ServiceImpl;
 
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.swyxl.common.exception.XHLJException;
 import com.swyxl.feign.common.CommonFeignClient;
 import com.swyxl.manager.mapper.ActiveMapper;
 import com.swyxl.manager.service.ActiveService;
 import com.swyxl.model.constant.TypeConstant;
 import com.swyxl.model.entity.service.active.Active;
+import com.swyxl.model.vo.common.PageResult;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
+import com.swyxl.model.vo.service.active.ActiveQueryVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -104,6 +108,18 @@ public class ActiveServiceImpl implements ActiveService {
         if (url.isEmpty())
             throw new XHLJException(ResultCodeEnum.FILE_ERROR);
         return url;
+    }
+
+    @Override
+    public PageResult page(Integer limit, Integer page, ActiveQueryVo activeQueryVo) {
+        PageHelper.startPage(page,limit);
+        Page<Active> activePage = activeMapper.selectLikeName(activeQueryVo);
+        long total = activePage.getTotal();
+        List<Active> record = activePage.getResult();
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal(total);
+        pageResult.setRecords(record);
+        return pageResult;
     }
 
 }
