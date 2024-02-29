@@ -8,8 +8,8 @@
     </sql>
 
     <insert id="save">
-        insert into active(id, name, des,ac_code, year, month, day, location, image, price)
-        values (#{id}, #{name}, #{des},#{acCode}, #{year}, #{month}, #{day}, #{location}, #{image},#{price})
+        insert into active(name, des,ac_code, year, month, day, location, image, price)
+        values (#{name}, #{des},#{acCode}, #{year}, #{month}, #{day}, #{location}, #{image},#{price})
     </insert>
 
     <select id="findById" resultType="com.swyxl.model.entity.service.active.Active">

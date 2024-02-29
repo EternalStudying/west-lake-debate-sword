@@ -4,12 +4,12 @@
 <mapper namespace="com.swyxl.manager.mapper.ExhibitMapper">
 
     <sql id="columns">
-        id, name, description,image,detail, ex_code, is_deleted, create_time, update_time
+        id, name, description, image, detail, url, ex_code, is_deleted, create_time, update_time
     </sql>
 
     <insert id="save">
-        insert into business( id, name, description,image,detail,ex_code)
-        values ( #{id}, #{name}, #{description},#{image},#{detail},#{exCode})
+        insert into business(name, description, image, detail, url, ex_code)
+        values (#{name}, #{description}, #{image}, #{detail}, #{url}, #{exCode})
     </insert>
 
     <select id="findByExCode" resultType="com.swyxl.model.entity.service.exhibit.Business">

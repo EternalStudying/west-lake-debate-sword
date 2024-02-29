@@ -4,6 +4,7 @@ import com.swyxl.model.dto.service.user.LoginDto;
 import com.swyxl.model.dto.service.user.RegisterDto;
 import com.swyxl.model.entity.service.user.UserInfo;
 import com.swyxl.model.vo.service.user.UserInfoVo;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface UserInfoService {
     void register(RegisterDto registerDto);
@@ -17,4 +18,6 @@ public interface UserInfoService {
     void update(UserInfo userInfo);
 
     UserInfo getById(Long id);
+
+    String imageUpload(MultipartFile file);
 }

@@ -12,5 +12,9 @@ public class Prize extends BaseEntity {
 
     private String level;
 
+    private String probability;
+
+    private Integer stock;
+
     private String description;
 }

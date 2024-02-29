@@ -2,7 +2,9 @@ package com.swyxl.user.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.swyxl.common.exception.XHLJException;
-import com.swyxl.model.constant.UserInfoConstant;
+import com.swyxl.feign.common.CommonFeignClient;
+import com.swyxl.model.constant.RedisConstant;
+import com.swyxl.model.constant.TypeConstant;
 import com.swyxl.model.dto.service.user.LoginDto;
 import com.swyxl.model.dto.service.user.RegisterDto;
 import com.swyxl.model.entity.service.user.UserInfo;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.Objects;
@@ -29,6 +32,8 @@ public class UserInfoServiceImpl implements UserInfoService {
     private RedisTemplate<String, String> redisTemplate;
     @Autowired
     private UserInfoMapper userInfoMapper;
+    @Autowired
+    private CommonFeignClient commonFeignClient;
 
     @Override
     public void register(RegisterDto registerDto) {
@@ -39,7 +44,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         String phone = registerDto.getPhone();
         String captcha = registerDto.getCaptcha();
 
-        String code = redisTemplate.opsForValue().get(UserInfoConstant.SERVICE_CAPTCHA + phone);
+        String code = redisTemplate.opsForValue().get(RedisConstant.SERVICE_CAPTCHA + phone);
         if(!Objects.equals(code, captcha)) throw new XHLJException(ResultCodeEnum.VALIDATECODE_ERROR);
         UserInfo userInfo = userInfoMapper.selectByUsername(username);
         if(userInfo != null) throw new XHLJException(ResultCodeEnum.USER_NAME_IS_EXISTS);
@@ -71,7 +76,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         else if (method.equals("1")){
             String phone = loginDto.getPhone();
             String captcha = loginDto.getCaptcha();
-            String code = redisTemplate.opsForValue().get(UserInfoConstant.SERVICE_CAPTCHA + phone);
+            String code = redisTemplate.opsForValue().get(RedisConstant.SERVICE_CAPTCHA + phone);
             if (!Objects.equals(captcha, code))
                 throw new XHLJException(ResultCodeEnum.VALIDATECODE_ERROR);
             userInfo = userInfoMapper.selectByPhone(phone);
@@ -79,7 +84,7 @@ public class UserInfoServiceImpl implements UserInfoService {
                 throw new XHLJException(ResultCodeEnum.LOGIN_ERROR);
         }
         String token = UUID.randomUUID().toString().replaceAll("-", "");
-        redisTemplate.opsForValue().set(UserInfoConstant.SERVICE_TOKEN + token, JSON.toJSONString(userInfo), 1, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set(RedisConstant.SERVICE_TOKEN + token, JSON.toJSONString(userInfo), 1, TimeUnit.DAYS);
         return token;
     }
 
@@ -107,5 +112,13 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public UserInfo getById(Long id) {
         return userInfoMapper.selectById(id);
+    }
+
+    @Override
+    public String imageUpload(MultipartFile file) {
+        String url = commonFeignClient.fileUpload(file, TypeConstant.USER);
+        if (url.isEmpty())
+            throw new XHLJException(ResultCodeEnum.FILE_ERROR);
+        return url;
     }
 }

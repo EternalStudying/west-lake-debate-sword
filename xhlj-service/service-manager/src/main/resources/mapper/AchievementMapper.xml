@@ -12,8 +12,8 @@
     </select>
 
     <insert id="save">
-        insert into achievement(id, name, des, image, type, download)
-        values (#{id}, #{name}, #{des}, #{image}, #{type}, #{download})
+        insert into achievement(name, des, image, type, download)
+        values (#{name}, #{des}, #{image}, #{type}, #{download})
     </insert>
 
     <select id="getById" resultType="com.swyxl.model.entity.service.exhibit.Achievement">

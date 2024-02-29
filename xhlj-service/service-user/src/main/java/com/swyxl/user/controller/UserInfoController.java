@@ -10,6 +10,7 @@ import com.swyxl.model.vo.service.user.UserInfoVo;
 import com.swyxl.user.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/service/user/userInfo")
@@ -47,6 +48,12 @@ public class UserInfoController {
     public Result update(@RequestBody UserInfo userInfo){
         userInfoService.update(userInfo);
         return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
+
+    @PostMapping("/auth/imageUpload")
+    public Result imageUpload(MultipartFile file){
+        String url = userInfoService.imageUpload(file);
+        return Result.build(url, ResultCodeEnum.SUCCESS);
     }
 
     @GetMapping("/auth/getById/{id}")

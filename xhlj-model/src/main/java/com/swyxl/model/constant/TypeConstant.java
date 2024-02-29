@@ -6,5 +6,7 @@ public class TypeConstant {
     public static final String ACHIEVEMENT_IMAGE = "achievement/image";
     public static final String ACHIEVEMENT_RESOURCE = "achievement/resource";
     public static final String BUSINESS = "business";
+    public static final String NEWS = "news";
+    public static final String USER = "user";
 
 }

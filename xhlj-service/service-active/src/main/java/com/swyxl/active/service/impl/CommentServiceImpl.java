@@ -1,8 +1,10 @@
 package com.swyxl.active.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.swyxl.active.mapper.CommentMapper;
 import com.swyxl.active.service.CommentService;
 import com.swyxl.feign.user.UserFeignClient;
+import com.swyxl.model.constant.RedisConstant;
 import com.swyxl.model.dto.service.comment.CommentPostDto;
 import com.swyxl.model.entity.service.comment.Comment;
 import com.swyxl.model.entity.service.user.UserInfo;
@@ -10,6 +12,7 @@ import com.swyxl.model.vo.service.comment.CommentVo;
 import com.swyxl.utils.AuthContextUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,6 +25,8 @@ public class CommentServiceImpl implements CommentService {
     private CommentMapper commentMapper;
     @Autowired
     private UserFeignClient userFeignClient;
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
 
     @Override
     public void post(CommentPostDto commentPostDto) {
@@ -29,12 +34,19 @@ public class CommentServiceImpl implements CommentService {
         BeanUtils.copyProperties(commentPostDto, comment);
         comment.setUserId(AuthContextUtils.getUserInfo().getId());
         commentMapper.save(comment);
+        redisTemplate.delete(RedisConstant.SERVICE_COMMENT_ACTIVE + comment.getActiveId());
     }
 
     //TODO 优化
     @Override
     public List<CommentVo> list(Long activeId) {
-        List<Comment> comments = commentMapper.selectByActiveId(activeId);
+        List<Comment> comments;
+        String commentListJSON = redisTemplate.opsForValue().get(RedisConstant.SERVICE_COMMENT_ACTIVE + activeId);
+        if (commentListJSON != null){
+            comments = JSON.parseArray(commentListJSON, Comment.class);
+        }else {
+            comments = commentMapper.selectByActiveId(activeId);
+        }
         List<CommentVo> commentVos = new ArrayList<>();
         for (Comment comment : comments) {
             CommentVo commentVo = new CommentVo();
@@ -54,5 +66,6 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void like(Long id) {
         commentMapper.like(id);
+        redisTemplate.delete(RedisConstant.SERVICE_COMMENT);
     }
 }

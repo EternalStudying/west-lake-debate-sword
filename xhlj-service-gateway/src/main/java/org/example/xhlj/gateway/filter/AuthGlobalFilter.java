@@ -2,7 +2,7 @@ package org.example.xhlj.gateway.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.swyxl.model.constant.UserInfoConstant;
+import com.swyxl.model.constant.RedisConstant;
 import com.swyxl.model.entity.service.user.UserInfo;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
@@ -60,7 +60,7 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
 
         //2. 获取数据
         if (StringUtils.hasText(token)){
-            String userInfoJson = redisTemplate.opsForValue().get(UserInfoConstant.SERVICE_TOKEN + token);
+            String userInfoJson = redisTemplate.opsForValue().get(RedisConstant.SERVICE_TOKEN + token);
             if (StringUtils.hasText(userInfoJson)){
                 return JSON.parseObject(userInfoJson, UserInfo.class);
             }else {

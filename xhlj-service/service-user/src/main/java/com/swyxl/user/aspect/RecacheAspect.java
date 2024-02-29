@@ -1,7 +1,7 @@
 package com.swyxl.user.aspect;
 
 import com.alibaba.fastjson.JSON;
-import com.swyxl.model.constant.UserInfoConstant;
+import com.swyxl.model.constant.RedisConstant;
 import com.swyxl.model.entity.service.user.UserInfo;
 import com.swyxl.user.mapper.UserInfoMapper;
 import com.swyxl.utils.AuthContextUtils;
@@ -36,6 +36,6 @@ public class RecacheAspect {
         String username = AuthContextUtils.getUserInfo().getUsername();
         UserInfo userInfo = userInfoMapper.selectByUsername(username);
         String token = request.getHeader("token");
-        redisTemplate.opsForValue().set(UserInfoConstant.SERVICE_TOKEN + token, JSON.toJSONString(userInfo), 1, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set(RedisConstant.SERVICE_TOKEN + token, JSON.toJSONString(userInfo), 1, TimeUnit.DAYS);
     }
 }

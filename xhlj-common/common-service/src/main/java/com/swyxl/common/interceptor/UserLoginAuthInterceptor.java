@@ -1,7 +1,7 @@
 package com.swyxl.common.interceptor;
 
 import com.alibaba.fastjson.JSON;
-import com.swyxl.model.constant.UserInfoConstant;
+import com.swyxl.model.constant.RedisConstant;
 import com.swyxl.model.entity.service.user.UserInfo;
 import com.swyxl.utils.AuthContextUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,7 +21,7 @@ public class UserLoginAuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader("token");
         if (token != null) {
-            String userInfoJSON = redisTemplate.opsForValue().get(UserInfoConstant.SERVICE_TOKEN + token);
+            String userInfoJSON = redisTemplate.opsForValue().get(RedisConstant.SERVICE_TOKEN + token);
 
             AuthContextUtils.setUserInfo(JSON.parseObject(userInfoJSON, UserInfo.class));
         }

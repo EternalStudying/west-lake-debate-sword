@@ -8,7 +8,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.swyxl.common.exception.XHLJException;
-import com.swyxl.model.constant.UserInfoConstant;
+import com.swyxl.model.constant.RedisConstant;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import com.swyxl.user.properties.SmsProperty;
 import com.swyxl.user.service.SmsService;
@@ -34,7 +34,7 @@ public class SmsServiceImpl implements SmsService {
         //如果验证码在redis数据库中不存在，则生成验证码，若存在，则使用之前的那个
         if (code == null) code = RandomStringUtils.randomNumeric(6);
 
-        redisTemplate.opsForValue().set(UserInfoConstant.SERVICE_CAPTCHA + phone, code, 5, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set(RedisConstant.SERVICE_CAPTCHA + phone, code, 5, TimeUnit.MINUTES);
 
         sendMessage(phone, code);
     }

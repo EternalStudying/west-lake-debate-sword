@@ -6,6 +6,7 @@ import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/service/manager/news/auth")
@@ -36,5 +37,11 @@ public class NewsController {
     public Result delete(@PathVariable  Long id){
         newsService.delete(id);
         return Result.build(null,ResultCodeEnum.SUCCESS);
+    }
+
+    @PostMapping("/imageUpload")
+    public Result imageUpload(MultipartFile file){
+        String url = newsService.imageUpload(file);
+        return Result.build(url, ResultCodeEnum.SUCCESS);
     }
 }
