@@ -21,8 +21,6 @@ public interface ActiveService {
 
     List<Active> getAll();
 
-    Integer getRegister();
-
     String fileUpload(MultipartFile file);
 
     PageResult page(Integer limit, Integer page, ActiveQueryVo activeQueryVo);

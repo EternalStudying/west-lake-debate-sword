@@ -61,13 +61,6 @@ public class ActiveController {
         return Result.build(url, ResultCodeEnum.SUCCESS);
     }
 
-    //统计注册活动
-    @GetMapping("/getRegister")
-    public Result getRegister(){
-        Integer registerNumber =activeService.getRegister();
-        return Result.build(registerNumber,ResultCodeEnum.SUCCESS);
-    }
-
     //分页查询
     @GetMapping("/pageSelect/{limit}/{page}")
     public Result pageSelect(@PathVariable Integer limit,
