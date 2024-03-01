@@ -2,7 +2,7 @@ package com.swyxl.manager.mapper;
 
 import com.github.pagehelper.Page;
 import com.swyxl.model.entity.service.exhibit.Achievement;
-import com.swyxl.model.dto.service.exhibit.AchievementQueryDto;
+import com.swyxl.model.dto.service.manage.AchievementQueryDto;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

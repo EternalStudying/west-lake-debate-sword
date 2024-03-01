@@ -1,16 +1,14 @@
-package com.swyxl.model.dto.service.active;
+package com.swyxl.model.dto.service.manage;
 
 import lombok.Data;
 
 import java.io.Serializable;
-
 @Data
-public class ActiveQueryDto implements Serializable {
+public class ExhibitQueryDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private String name;
 
-    private String des;
-
+    private String description;
 }

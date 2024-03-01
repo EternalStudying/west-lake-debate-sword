@@ -1,4 +1,4 @@
-package com.swyxl.model.dto.service.exhibit;
+package com.swyxl.model.dto.service.manage;
 
 import lombok.Data;
 

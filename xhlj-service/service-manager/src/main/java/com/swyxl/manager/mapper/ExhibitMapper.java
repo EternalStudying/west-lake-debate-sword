@@ -2,7 +2,7 @@ package com.swyxl.manager.mapper;
 
 import com.github.pagehelper.Page;
 import com.swyxl.model.entity.service.exhibit.Business;
-import com.swyxl.model.dto.service.exhibit.ExhibitQueryDto;
+import com.swyxl.model.dto.service.manage.ExhibitQueryDto;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

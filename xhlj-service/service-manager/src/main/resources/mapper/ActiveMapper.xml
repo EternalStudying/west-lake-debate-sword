@@ -44,7 +44,7 @@
     </select>
 
     <select id="selectLikeName" resultType="com.swyxl.model.entity.service.active.Active">
-        select * from active
+        select <include refid="columns"/> from active
         <where>
             <if test="name != null and name !=''">
                 and name like concat('%',#{name},'%')

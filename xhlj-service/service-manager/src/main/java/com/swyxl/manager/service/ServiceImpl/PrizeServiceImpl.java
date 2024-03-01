@@ -8,7 +8,7 @@ import com.swyxl.manager.service.PrizeService;
 import com.swyxl.model.entity.service.exhibit.Prize;
 import com.swyxl.model.vo.common.PageResult;
 import com.swyxl.model.vo.common.ResultCodeEnum;
-import com.swyxl.model.dto.service.exhibit.PrizeQueryDto;
+import com.swyxl.model.dto.service.manage.PrizeQueryDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,9 +66,9 @@ public class PrizeServiceImpl implements PrizeService {
     }
 
     @Override
-    public PageResult page(Integer limit, Integer page, PrizeQueryDto prizeQueryVo) {
+    public PageResult page(Integer limit, Integer page, PrizeQueryDto prizeQueryDto) {
         PageHelper.startPage(page,limit);
-        Page<Prize> newsPage = prizeMapper.pageLike(prizeQueryVo);
+        Page<Prize> newsPage = prizeMapper.pageLike(prizeQueryDto);
         PageResult pageResult = new PageResult();
         pageResult.setTotal(newsPage.getTotal());
         pageResult.setRecords(newsPage.getResult());

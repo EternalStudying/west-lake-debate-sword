@@ -36,7 +36,7 @@
     </update>
 
     <select id="pageByName" resultType="com.swyxl.model.entity.service.exhibit.Business">
-        select * from business
+        select <include refid="columns"/> from business
         <where>
             <if test="name != null and name !=''">
                 and name like concat('%',#{name},'%')

@@ -2,7 +2,7 @@ package com.swyxl.manager.service;
 
 import com.swyxl.model.entity.service.exhibit.Achievement;
 import com.swyxl.model.vo.common.PageResult;
-import com.swyxl.model.dto.service.exhibit.AchievementQueryDto;
+import com.swyxl.model.dto.service.manage.AchievementQueryDto;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface AchievementService {

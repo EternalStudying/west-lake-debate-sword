@@ -2,7 +2,7 @@ package com.swyxl.manager.service;
 
 import com.swyxl.model.entity.service.exhibit.News;
 import com.swyxl.model.vo.common.PageResult;
-import com.swyxl.model.dto.service.exhibit.NewsQueryDto;
+import com.swyxl.model.dto.service.manage.NewsQueryDto;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface NewsService {

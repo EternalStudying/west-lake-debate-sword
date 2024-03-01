@@ -6,7 +6,7 @@ import com.swyxl.model.entity.service.active.Active;
 import com.swyxl.model.vo.common.PageResult;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
-import com.swyxl.model.dto.service.active.ActiveQueryDto;
+import com.swyxl.model.dto.service.manage.ActiveQueryDto;
 import com.swyxl.model.vo.service.active.ActiveStatisticVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

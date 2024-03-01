@@ -11,7 +11,7 @@ import com.swyxl.model.constant.TypeConstant;
 import com.swyxl.model.entity.service.exhibit.Business;
 import com.swyxl.model.vo.common.PageResult;
 import com.swyxl.model.vo.common.ResultCodeEnum;
-import com.swyxl.model.dto.service.exhibit.ExhibitQueryDto;
+import com.swyxl.model.dto.service.manage.ExhibitQueryDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

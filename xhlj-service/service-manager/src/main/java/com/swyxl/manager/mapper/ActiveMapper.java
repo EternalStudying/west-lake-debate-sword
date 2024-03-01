@@ -2,7 +2,7 @@ package com.swyxl.manager.mapper;
 
 import com.github.pagehelper.Page;
 import com.swyxl.model.entity.service.active.Active;
-import com.swyxl.model.dto.service.active.ActiveQueryDto;
+import com.swyxl.model.dto.service.manage.ActiveQueryDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
