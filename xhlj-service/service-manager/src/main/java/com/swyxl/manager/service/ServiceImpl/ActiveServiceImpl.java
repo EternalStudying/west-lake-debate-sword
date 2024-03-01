@@ -10,13 +10,11 @@ import com.swyxl.manager.service.ActiveService;
 import com.swyxl.model.constant.TypeConstant;
 import com.swyxl.model.entity.service.active.Active;
 import com.swyxl.model.vo.common.PageResult;
-import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
-import com.swyxl.model.vo.service.active.ActiveQueryVo;
+import com.swyxl.model.dto.service.active.ActiveQueryDto;
 import com.swyxl.model.vo.service.active.ActiveStatisticVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -98,9 +96,9 @@ public class ActiveServiceImpl implements ActiveService {
     }
 
     @Override
-    public PageResult page(Integer limit, Integer page, ActiveQueryVo activeQueryVo) {
+    public PageResult page(Integer limit, Integer page, ActiveQueryDto activeQueryDto) {
         PageHelper.startPage(page,limit);
-        Page<Active> activePage = activeMapper.selectLikeName(activeQueryVo);
+        Page<Active> activePage = activeMapper.selectLikeName(activeQueryDto);
         long total = activePage.getTotal();
         List<Active> record = activePage.getResult();
         PageResult pageResult = new PageResult();

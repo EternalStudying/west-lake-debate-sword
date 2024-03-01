@@ -11,7 +11,7 @@ import com.swyxl.model.constant.TypeConstant;
 import com.swyxl.model.entity.service.exhibit.Business;
 import com.swyxl.model.vo.common.PageResult;
 import com.swyxl.model.vo.common.ResultCodeEnum;
-import com.swyxl.model.vo.service.exhibit.ExhibitQueryVo;
+import com.swyxl.model.dto.service.exhibit.ExhibitQueryDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -81,9 +81,9 @@ public class ExhibitServiceImpl implements ExhibitService {
     }
 
     @Override
-    public PageResult page(Integer limit, Integer page, ExhibitQueryVo exhibitQueryVo) {
+    public PageResult page(Integer limit, Integer page, ExhibitQueryDto exhibitQueryDto) {
         PageHelper.startPage(page,limit);
-        Page<Business> businessPage =  exhibitMapper.pageByName(exhibitQueryVo);
+        Page<Business> businessPage =  exhibitMapper.pageByName(exhibitQueryDto);
         PageResult pageResult = new PageResult();
         pageResult.setRecords(businessPage.getResult());
         pageResult.setTotal(businessPage.getTotal());

@@ -1,9 +1,8 @@
 package com.swyxl.manager.service;
 
-import com.github.pagehelper.Page;
 import com.swyxl.model.entity.service.active.Active;
 import com.swyxl.model.vo.common.PageResult;
-import com.swyxl.model.vo.service.active.ActiveQueryVo;
+import com.swyxl.model.dto.service.active.ActiveQueryDto;
 import com.swyxl.model.vo.service.active.ActiveStatisticVo;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,7 +22,7 @@ public interface ActiveService {
 
     String fileUpload(MultipartFile file);
 
-    PageResult page(Integer limit, Integer page, ActiveQueryVo activeQueryVo);
+    PageResult page(Integer limit, Integer page, ActiveQueryDto activeQueryDto);
 
     ActiveStatisticVo getStatistics(Long id);
 }

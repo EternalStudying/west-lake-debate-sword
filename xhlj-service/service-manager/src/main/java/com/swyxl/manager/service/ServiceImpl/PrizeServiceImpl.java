@@ -5,13 +5,10 @@ import com.github.pagehelper.PageHelper;
 import com.swyxl.common.exception.XHLJException;
 import com.swyxl.manager.mapper.PrizeMapper;
 import com.swyxl.manager.service.PrizeService;
-import com.swyxl.model.entity.service.exhibit.News;
 import com.swyxl.model.entity.service.exhibit.Prize;
 import com.swyxl.model.vo.common.PageResult;
 import com.swyxl.model.vo.common.ResultCodeEnum;
-import com.swyxl.model.vo.service.exhibit.NewsQueryVo;
-import com.swyxl.model.vo.service.exhibit.PrizeQueryVo;
-import org.apache.ibatis.scripting.xmltags.XMLLanguageDriver;
+import com.swyxl.model.dto.service.exhibit.PrizeQueryDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,7 +66,7 @@ public class PrizeServiceImpl implements PrizeService {
     }
 
     @Override
-    public PageResult page(Integer limit, Integer page, PrizeQueryVo prizeQueryVo) {
+    public PageResult page(Integer limit, Integer page, PrizeQueryDto prizeQueryVo) {
         PageHelper.startPage(page,limit);
         Page<Prize> newsPage = prizeMapper.pageLike(prizeQueryVo);
         PageResult pageResult = new PageResult();

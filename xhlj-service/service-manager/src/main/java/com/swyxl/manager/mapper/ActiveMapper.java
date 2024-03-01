@@ -2,8 +2,7 @@ package com.swyxl.manager.mapper;
 
 import com.github.pagehelper.Page;
 import com.swyxl.model.entity.service.active.Active;
-import com.swyxl.model.vo.common.PageResult;
-import com.swyxl.model.vo.service.active.ActiveQueryVo;
+import com.swyxl.model.dto.service.active.ActiveQueryDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -21,6 +20,6 @@ public interface ActiveMapper {
 
     List<Active> getAll();
 
-    Page<Active> selectLikeName(ActiveQueryVo activeQueryVo);
+    Page<Active> selectLikeName(ActiveQueryDto activeQueryDto);
 }
 

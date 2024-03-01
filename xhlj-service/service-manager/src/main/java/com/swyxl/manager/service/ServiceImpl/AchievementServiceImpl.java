@@ -10,7 +10,7 @@ import com.swyxl.model.constant.TypeConstant;
 import com.swyxl.model.entity.service.exhibit.Achievement;
 import com.swyxl.model.vo.common.PageResult;
 import com.swyxl.model.vo.common.ResultCodeEnum;
-import com.swyxl.model.vo.service.exhibit.AchievementQueryVo;
+import com.swyxl.model.dto.service.exhibit.AchievementQueryDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -90,9 +90,9 @@ public class AchievementServiceImpl implements AchievementService {
     }
 
     @Override
-    public PageResult page(Integer limit, Integer page, AchievementQueryVo achievementQueryVo) {
+    public PageResult page(Integer limit, Integer page, AchievementQueryDto achievementQueryDto) {
         PageHelper.startPage(page,limit);
-        Page<Achievement> achievementPage = achievementMapper.pageLike(achievementQueryVo);
+        Page<Achievement> achievementPage = achievementMapper.pageLike(achievementQueryDto);
         PageResult pageResult = new PageResult();
         pageResult.setTotal(achievementPage.getTotal());
         pageResult.setRecords(achievementPage.getResult());

@@ -5,8 +5,7 @@ import com.swyxl.model.entity.service.exhibit.Achievement;
 import com.swyxl.model.vo.common.PageResult;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
-import com.swyxl.model.vo.service.exhibit.AchievementQueryVo;
-import org.apache.http.impl.conn.PoolingClientConnectionManager;
+import com.swyxl.model.dto.service.exhibit.AchievementQueryDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -57,8 +56,8 @@ public class AchievementController {
     @GetMapping("/pageSelect/{limit}/{page}")
     public Result page(@PathVariable Integer limit,
                        @PathVariable Integer page,
-                       @RequestBody AchievementQueryVo achievementQueryVo){
-        PageResult pageResult = achievementService.page(limit,page,achievementQueryVo);
+                       @RequestBody AchievementQueryDto achievementQueryDto){
+        PageResult pageResult = achievementService.page(limit,page, achievementQueryDto);
         return Result.build(pageResult,ResultCodeEnum.SUCCESS);
     }
 }

@@ -9,10 +9,8 @@ import com.swyxl.manager.service.NewsService;
 import com.swyxl.model.constant.TypeConstant;
 import com.swyxl.model.entity.service.exhibit.News;
 import com.swyxl.model.vo.common.PageResult;
-import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
-import com.swyxl.model.vo.service.exhibit.NewsQueryVo;
-import org.apache.ibatis.scripting.xmltags.XMLLanguageDriver;
+import com.swyxl.model.dto.service.exhibit.NewsQueryDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -79,9 +77,9 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public PageResult page(Integer limit, Integer page, NewsQueryVo newsQueryVo) {
+    public PageResult page(Integer limit, Integer page, NewsQueryDto newsQueryDto) {
         PageHelper.startPage(page,limit);
-        Page<News> newsPage = newsMapper.pageByName(newsQueryVo);
+        Page<News> newsPage = newsMapper.pageByName(newsQueryDto);
         PageResult pageResult = new PageResult();
         pageResult.setTotal(newsPage.getTotal());
         pageResult.setRecords(newsPage.getResult());
