@@ -4,11 +4,15 @@
 <mapper namespace="com.swyxl.active.mapper.ActiveUserMapper">
 
     <sql id="columns">
-        id, user_id, active_id, is_over, is_deleted, create_time, update_time
+        id, user_id, active_id, is_over, source, is_deleted, create_time, update_time
     </sql>
 
     <insert id="save">
-        insert into user_active(user_id, active_id, is_over)
-        values (#{userId}, #{activeId}, #{isOver})
+        insert into user_active(user_id, active_id, is_over, source)
+        values (#{userId}, #{activeId}, #{isOver}, #{source})
     </insert>
+
+    <select id="selectById" resultType="com.swyxl.model.entity.service.active.UserActive">
+        select <include refid="columns"/> from user_active where active_id = #{activeId} and user_id = #{userId} and is_deleted = 0
+    </select>
 </mapper>

@@ -1,13 +1,18 @@
 package com.swyxl.manager.controller;
 
 import com.swyxl.manager.service.PrizeService;
+import com.swyxl.model.dto.service.prize.PrizeProbabilityDto;
 import com.swyxl.model.entity.service.exhibit.Prize;
 import com.swyxl.model.vo.common.PageResult;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import com.swyxl.model.dto.service.manage.PrizeQueryDto;
+import com.swyxl.model.vo.service.prize.PrizeProbabilityVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 //奖品增删改查
 @RestController
@@ -47,5 +52,23 @@ public class PrizeController {
                        @RequestBody PrizeQueryDto prizeQueryDto){
         PageResult pageResult =  prizeService.page(limit,page, prizeQueryDto);
         return Result.build(pageResult,ResultCodeEnum.SUCCESS);
+    }
+
+    @PostMapping("/imageUpload")
+    public Result imageUpload(MultipartFile file){
+        String url = prizeService.upload(file);
+        return Result.build(url, ResultCodeEnum.SUCCESS);
+    }
+
+    @GetMapping("/getProbability")
+    public Result getProbability(){
+        List<PrizeProbabilityVo> prizeProbabilityVoList = prizeService.getProbability();
+        return Result.build(prizeProbabilityVoList, ResultCodeEnum.SUCCESS);
+    }
+
+    @PostMapping("/updateProbability")
+    public Result updateProbability(@RequestBody List<PrizeProbabilityDto> prizeProbabilityDtos){
+        prizeService.updateProbability(prizeProbabilityDtos);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 }

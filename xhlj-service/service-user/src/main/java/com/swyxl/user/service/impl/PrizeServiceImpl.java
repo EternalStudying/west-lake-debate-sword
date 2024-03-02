@@ -104,7 +104,7 @@ public class PrizeServiceImpl implements PrizeService {
         double count = 0;
         if (n <= prizeList.size()){
             for(int i = 0; i < n; i++)
-                count += Double.parseDouble(prizeList.get(i).getProbability());
+                count += prizeList.get(i).getProbability();
         }
         return count;
     }

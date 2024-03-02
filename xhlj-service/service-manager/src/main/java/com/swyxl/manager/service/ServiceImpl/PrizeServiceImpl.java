@@ -3,23 +3,33 @@ package com.swyxl.manager.service.ServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.swyxl.common.exception.XHLJException;
+import com.swyxl.feign.common.CommonFeignClient;
 import com.swyxl.manager.mapper.PrizeMapper;
 import com.swyxl.manager.service.PrizeService;
+import com.swyxl.model.constant.TypeConstant;
+import com.swyxl.model.dto.service.prize.PrizeProbabilityDto;
 import com.swyxl.model.entity.service.exhibit.Prize;
 import com.swyxl.model.vo.common.PageResult;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import com.swyxl.model.dto.service.manage.PrizeQueryDto;
+import com.swyxl.model.vo.service.prize.PrizeProbabilityVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class PrizeServiceImpl implements PrizeService {
 
     @Autowired
     private PrizeMapper prizeMapper;
+    @Autowired
+    private CommonFeignClient commonFeignClient;
+
     @Override
     public void add(Prize prize) {
        Prize prize1 =  prizeMapper.getByName(prize);
@@ -73,5 +83,27 @@ public class PrizeServiceImpl implements PrizeService {
         pageResult.setTotal(newsPage.getTotal());
         pageResult.setRecords(newsPage.getResult());
         return pageResult;
+    }
+
+    @Override
+    public String upload(MultipartFile file) {
+        String url = commonFeignClient.fileUpload(file, TypeConstant.PRIZE);
+        if (url == null){
+            throw new XHLJException(ResultCodeEnum.FILE_ERROR);
+        }
+        return url;
+    }
+
+    @Override
+    public List<PrizeProbabilityVo> getProbability() {
+        List<Prize> prizeList = prizeMapper.selectAll();
+        List<PrizeProbabilityVo> prizeProbabilityVoList = new ArrayList<>();
+        prizeList.forEach(prize -> prizeProbabilityVoList.add(new PrizeProbabilityVo(prize.getName(), prize.getProbability())));
+        return prizeProbabilityVoList;
+    }
+
+    @Override
+    public void updateProbability(List<PrizeProbabilityDto> prizeProbabilityDtos) {
+        prizeMapper.updateProbability(prizeProbabilityDtos);
     }
 }

@@ -2,6 +2,7 @@ package com.swyxl.active.controller;
 
 import com.swyxl.active.service.ActiveService;
 import com.swyxl.model.entity.service.active.Active;
+import com.swyxl.model.vo.common.PageResult;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import com.swyxl.model.vo.service.active.ActiveShareVo;
@@ -29,10 +30,10 @@ public class ActiveController {
         return Result.build(activeList, ResultCodeEnum.SUCCESS);
     }
 
-    @GetMapping("auth/active")
-    public Result active(){
-        List<Active> activeList = activeService.active();
-        return Result.build(activeList, ResultCodeEnum.SUCCESS);
+    @GetMapping("auth/active/{limit}/{page}")
+    public Result active(@PathVariable Integer limit, @PathVariable Integer page){
+        PageResult pageResult = activeService.active(limit, page);
+        return Result.build(pageResult, ResultCodeEnum.SUCCESS);
     }
 
     @PutMapping("/auth/like/{id}")

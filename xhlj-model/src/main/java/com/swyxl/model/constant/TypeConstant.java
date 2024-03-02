@@ -8,5 +8,7 @@ public class TypeConstant {
     public static final String BUSINESS = "business";
     public static final String NEWS = "news";
     public static final String USER = "user";
-
+    public static final String PRIZE = "prize";
+    public static final String COLLECTION_IMAGE = "collection_image";
+    public static final String COLLECTION_VIDEO = "collection_video";
 }

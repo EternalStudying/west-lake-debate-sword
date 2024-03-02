@@ -3,7 +3,7 @@ package com.swyxl.manager.mapper;
 import com.github.pagehelper.Page;
 
 import com.swyxl.model.dto.service.manage.CollectionQueryDto;
-import com.swyxl.model.entity.service.active.Collection;
+import com.swyxl.model.entity.service.exhibit.Collection ;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

@@ -1,5 +1,6 @@
 package com.swyxl.active.mapper;
 
+import com.github.pagehelper.Page;
 import com.swyxl.model.entity.service.active.Active;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -9,7 +10,7 @@ import java.util.List;
 public interface ActiveMapper {
     List<Active> selectAll();
 
-    List<Active> selectByUserId(Long userId);
+    Page<Active> selectByUserId(Long userId);
 
     void addEnrollment(Long activeId);
 

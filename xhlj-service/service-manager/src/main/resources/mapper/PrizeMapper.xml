@@ -4,7 +4,7 @@
 <mapper namespace="com.swyxl.manager.mapper.PrizeMapper">
 
     <sql id="columns">
-        id,name,level, image,description, is_deleted, create_time, update_time
+        id, name, image, level, probability, stock, description, is_deleted, create_time, update_time
     </sql>
 
     <select id="getByName" resultType="com.swyxl.model.entity.service.exhibit.Prize">
@@ -34,8 +34,23 @@
         where id = #{id}
     </update>
 
+    <update id="updateProbability">
+        update prize
+            <trim prefix="set" suffixOverrides=",">
+                <trim prefix="probability = case" suffix="end,">
+                    <foreach collection="list" item="item" index="index">
+                         when name = #{item.name} then #{item.probability}
+                    </foreach>
+                </trim>
+            </trim>
+             where name in
+             <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+                 #{item.name,jdbcType=VARCHAR}
+             </foreach>
+    </update>
+
     <select id="pageLike" resultType="com.swyxl.model.entity.service.exhibit.Prize">
-        select * from prize
+        select <include refid="columns"/> from prize
         <where>
             <if test="name != null and name !=''">
                 and name like concat('%',#{name},'%')
@@ -46,6 +61,10 @@
             and is_deleted = 0
         </where>
         order by create_time desc
+    </select>
+
+    <select id="selectAll" resultType="com.swyxl.model.entity.service.exhibit.Prize">
+        select <include refid="columns"/> from prize where is_deleted = 0
     </select>
 
 

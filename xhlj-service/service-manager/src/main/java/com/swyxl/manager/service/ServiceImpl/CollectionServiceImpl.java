@@ -3,16 +3,19 @@ package com.swyxl.manager.service.ServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.swyxl.common.exception.XHLJException;
+import com.swyxl.feign.common.CommonFeignClient;
 import com.swyxl.manager.mapper.CollectionMapper;
 import com.swyxl.manager.service.CollectionService;
 
+import com.swyxl.model.constant.TypeConstant;
 import com.swyxl.model.dto.service.manage.CollectionQueryDto;
-import com.swyxl.model.entity.service.active.Collection;
+import com.swyxl.model.entity.service.exhibit.Collection ;
 import com.swyxl.model.vo.common.PageResult;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
@@ -21,6 +24,8 @@ public class CollectionServiceImpl implements CollectionService {
 
     @Autowired
     private CollectionMapper collectionMapper;
+    @Autowired
+    private CommonFeignClient commonFeignClient;
 
     @Override
     public void add(Collection collection) {
@@ -74,5 +79,21 @@ public class CollectionServiceImpl implements CollectionService {
         pageResult.setRecords(collectionPage.getResult());
         pageResult.setTotal(collectionPage.getTotal());
         return pageResult;
+    }
+
+    @Override
+    public String imageUpload(MultipartFile file) {
+        String fileUrl = commonFeignClient.fileUpload(file, TypeConstant.COLLECTION_IMAGE);
+        if (fileUrl.isEmpty())
+            throw new XHLJException(ResultCodeEnum.FILE_ERROR);
+        return fileUrl;
+    }
+
+    @Override
+    public String videoUpload(MultipartFile file) {
+        String fileUrl = commonFeignClient.fileUpload(file, TypeConstant.COLLECTION_VIDEO);
+        if (fileUrl.isEmpty())
+            throw new XHLJException(ResultCodeEnum.FILE_ERROR);
+        return fileUrl;
     }
 }

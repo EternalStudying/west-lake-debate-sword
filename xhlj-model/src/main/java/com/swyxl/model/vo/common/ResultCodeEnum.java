@@ -30,9 +30,9 @@ public enum ResultCodeEnum {
     FILE_ERROR(218, "文件上传失败"),
     COLLECTION_IS_EXIST(223,"集锦已存在"),
     COLLECTION_IS_NOT_EXIST(224,"集锦不存在"),
-    SYSTEM_ERROR(9999 , "您的网络有问题请稍后重试"),
     INVALID_NUMBER(225, "号码状态异常"),
-    ;
+    REPEATED_ENROLL(226, "不可重复报名"),
+    SYSTEM_ERROR(9999 , "您的网络有问题请稍后重试");
 
     private Integer code ;      // 业务状态码
     private String message ;    // 响应消息

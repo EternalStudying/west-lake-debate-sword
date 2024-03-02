@@ -4,18 +4,14 @@ import cn.hutool.core.date.DateUtil;
 import com.swyxl.common.properties.MinioProperty;
 import com.swyxl.common.service.MinioService;
 import com.swyxl.common.exception.XHLJException;
-import com.swyxl.model.constant.ViewContentType;
+import com.swyxl.model.constant.ContentTypeConstant;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import io.minio.*;
 import io.minio.http.Method;
-import jakarta.servlet.ServletOutputStream;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,15 +48,13 @@ public class MinioServiceImpl implements MinioService {
 
             String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
 
-            String contentType = suffix.substring(1);
-
             String filename = "service/" + dateDir + "/" + type + "/" + uuid + suffix;
             //文件上传
             minioClient.putObject(
                     PutObjectArgs.builder()
                             .bucket(minioProperty.getBucketName())
                             .object(filename)
-                            .contentType(ViewContentType.getContentType(contentType))
+                            .contentType(ContentTypeConstant.getContentType(suffix))
                             .stream(file.getInputStream(), file.getSize(), -1)
                             .build()
             );
