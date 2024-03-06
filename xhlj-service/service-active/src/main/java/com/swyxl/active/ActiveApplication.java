@@ -1,8 +1,11 @@
 package com.swyxl.active;
 
+import com.swyxl.active.properties.LiveProperty;
 import com.swyxl.common.annotation.EnableUserLoginAuthInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -12,6 +15,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EnableFeignClients(basePackages = {"com.swyxl"})
 @ComponentScan(basePackages = {"com.swyxl"})
+@EnableConfigurationProperties(value = {LiveProperty.class})
+@EnableCaching
 public class ActiveApplication {
     public static void main(String[] args) {
         SpringApplication.run(ActiveApplication.class, args);

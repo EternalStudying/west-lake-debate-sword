@@ -32,6 +32,13 @@ public enum ResultCodeEnum {
     COLLECTION_IS_NOT_EXIST(224,"集锦不存在"),
     INVALID_NUMBER(225, "号码状态异常"),
     REPEATED_ENROLL(226, "不可重复报名"),
+    ROOM_NOT_EXIST(227, "房间号不存在"),
+    RESERVE(228, "预留中"),
+    LIVE_USER_ERROR(229, "获取用户列表失败，请重试"),
+    CHANNEL_ERROR(230, "直播频道不存在，请刷新"),
+    LIVE_NOT_EXIST(231, "当前没有正在直播的活动，请重新刷新"),
+    KICKING_ERROR(232, "封禁失败，请重试"),
+    UNKICKING_ERROR(233, "解禁失败，请重试"),
     SYSTEM_ERROR(9999 , "您的网络有问题请稍后重试");
 
     private Integer code ;      // 业务状态码

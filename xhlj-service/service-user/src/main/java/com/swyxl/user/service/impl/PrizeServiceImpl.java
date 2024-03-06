@@ -13,6 +13,7 @@ import com.swyxl.user.service.PrizeService;
 import com.swyxl.utils.AuthContextUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,6 +49,7 @@ public class PrizeServiceImpl implements PrizeService {
     }
 
     @Override
+    @Cacheable(value = "service:prize", key = "#root.methodName", sync = true)
     public List<PrizeVo> prizeAll() {
         List<Prize> prizeList = prizeMapper.selectAll();
         List<PrizeVo> prizeVoList = new ArrayList<>();

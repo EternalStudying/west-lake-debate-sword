@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.swyxl.manager.mapper.LiveMapper">
+
+    <sql id="columns">
+        id, identifier, name, cover, status, participants, create_uid, create_name, create_avatar, is_deleted, create_time, update_time
+    </sql>
+
+    <insert id="insert">
+        insert into live(identifier, name, cover, participants, status, create_uid, create_name, create_avatar)
+        values (#{identifier}, #{name}, #{cover}, #{participants}, #{status}, #{createUid}, #{createName}, #{createAvatar})
+    </insert>
+
+    <update id="update">
+        update live
+        <set>
+            <if test="identifier != null">identifier = #{identifier},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="cover != null">cover = #{cover},</if>
+            <if test="status!= null">status = #{status},</if>
+            <if test="participants != null">participants = #{participants},</if>
+            <if test="createUid != null">create_uid = #{createUid},</if>
+            <if test="createName != null">create_name = #{createName},</if>
+            <if test="createAvatar != null">create_avatar = #{createAvatar},</if>
+            <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="selectAll" resultType="com.swyxl.model.entity.service.manager.Live">
+        select <include refid="columns"/> from live where is_deleted = 0
+    </select>
+</mapper>

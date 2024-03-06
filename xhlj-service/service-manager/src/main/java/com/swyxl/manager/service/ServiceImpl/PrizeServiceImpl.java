@@ -15,6 +15,8 @@ import com.swyxl.model.dto.service.manage.PrizeQueryDto;
 import com.swyxl.model.vo.service.prize.PrizeProbabilityVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,6 +33,7 @@ public class PrizeServiceImpl implements PrizeService {
     private CommonFeignClient commonFeignClient;
 
     @Override
+    @CacheEvict(value = "service:prize", allEntries = true)
     public void add(Prize prize) {
        Prize prize1 =  prizeMapper.getByName(prize);
        if(prize1 != null){
@@ -41,6 +44,7 @@ public class PrizeServiceImpl implements PrizeService {
     }
 
     @Override
+    @Cacheable(value = "service:prize:id", key = "#id", sync = true)
     public Prize getById(Long id) {
         Prize prize = prizeMapper.getById(id);
         if(prize == null){
@@ -51,6 +55,7 @@ public class PrizeServiceImpl implements PrizeService {
     }
 
     @Override
+    @CacheEvict(value = "service:prize", allEntries = true)
     public void update(Prize prize) {
         Prize prize1 = prizeMapper.getById(prize.getId());
         if(prize1 == null){
@@ -63,6 +68,7 @@ public class PrizeServiceImpl implements PrizeService {
     }
 
     @Override
+    @CacheEvict(value = "service:prize", allEntries = true)
     public void deleteById(Long id) {
         Prize prize = prizeMapper.getById(id);
         if(prize == null){
@@ -76,6 +82,7 @@ public class PrizeServiceImpl implements PrizeService {
     }
 
     @Override
+    @Cacheable(value = "service:prize", key = "#root.methodName", sync = true)
     public PageResult page(Integer limit, Integer page, PrizeQueryDto prizeQueryDto) {
         PageHelper.startPage(page,limit);
         Page<Prize> newsPage = prizeMapper.pageLike(prizeQueryDto);
@@ -95,6 +102,7 @@ public class PrizeServiceImpl implements PrizeService {
     }
 
     @Override
+    @Cacheable(value = "service:prize:probability", key = "#root.methodName", sync = true)
     public List<PrizeProbabilityVo> getProbability() {
         List<Prize> prizeList = prizeMapper.selectAll();
         List<PrizeProbabilityVo> prizeProbabilityVoList = new ArrayList<>();
@@ -103,6 +111,7 @@ public class PrizeServiceImpl implements PrizeService {
     }
 
     @Override
+    @CacheEvict(value = "service:prize:probability", allEntries = true)
     public void updateProbability(List<PrizeProbabilityDto> prizeProbabilityDtos) {
         prizeMapper.updateProbability(prizeProbabilityDtos);
     }

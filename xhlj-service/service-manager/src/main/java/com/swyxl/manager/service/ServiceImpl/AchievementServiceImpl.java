@@ -13,6 +13,8 @@ import com.swyxl.model.vo.common.ResultCodeEnum;
 import com.swyxl.model.dto.service.manage.AchievementQueryDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,6 +29,7 @@ public class AchievementServiceImpl implements AchievementService {
     private CommonFeignClient commonFeignClient;
 
     @Override
+    @CacheEvict(value = "service:achievement", allEntries = true)
     public void add(Achievement achievement) {
        Achievement achievement1 =  achievementMapper.getByName(achievement.getName());
        if(achievement1 != null){
@@ -37,6 +40,7 @@ public class AchievementServiceImpl implements AchievementService {
     }
 
     @Override
+    @Cacheable(value = "service:achievement:id", key = "#id", sync = true)
     public Achievement findById(Long id) {
         Achievement achievement = achievementMapper.getById(id);
         if(achievement == null){
@@ -47,6 +51,7 @@ public class AchievementServiceImpl implements AchievementService {
     }
 
     @Override
+    @CacheEvict(value = "service:achievement", allEntries = true)
     public void update(Achievement achievement) {
         Achievement achievementMapperById = achievementMapper.getById(achievement.getId());
         if(achievementMapperById == null){
@@ -60,6 +65,7 @@ public class AchievementServiceImpl implements AchievementService {
     }
 
     @Override
+    @CacheEvict(value = "service:achievement", allEntries = true)
     public void deleteById(Long id) {
         Achievement achievementMapperById = achievementMapper.getById(id);
         if(achievementMapperById == null){
@@ -90,6 +96,7 @@ public class AchievementServiceImpl implements AchievementService {
     }
 
     @Override
+    @Cacheable(value = "service:achievement", key = "#root.methodName", sync = true)
     public PageResult page(Integer limit, Integer page, AchievementQueryDto achievementQueryDto) {
         PageHelper.startPage(page,limit);
         Page<Achievement> achievementPage = achievementMapper.pageLike(achievementQueryDto);

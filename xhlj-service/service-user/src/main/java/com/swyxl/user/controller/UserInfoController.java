@@ -3,6 +3,7 @@ package com.swyxl.user.controller;
 import com.swyxl.common.annotation.EnableUserLoginAuthInterceptor;
 import com.swyxl.model.dto.service.user.LoginDto;
 import com.swyxl.model.dto.service.user.RegisterDto;
+import com.swyxl.model.entity.service.manager.LiveUser;
 import com.swyxl.model.entity.service.user.UserInfo;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
@@ -11,6 +12,8 @@ import com.swyxl.user.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/service/user/userInfo")
@@ -59,5 +62,10 @@ public class UserInfoController {
     @GetMapping("/auth/getById/{id}")
     public UserInfo getById(@PathVariable Long id){
         return userInfoService.getById(id);
+    }
+
+    @GetMapping("/auth/getLiveUserByIds")
+    public List<LiveUser> getLiveUserByIds(@RequestParam List<Integer> ids){
+        return userInfoService.getLiveUserByIds(ids);
     }
 }

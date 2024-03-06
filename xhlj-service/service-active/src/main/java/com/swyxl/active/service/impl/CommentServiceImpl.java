@@ -12,6 +12,8 @@ import com.swyxl.model.vo.service.comment.CommentVo;
 import com.swyxl.utils.AuthContextUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -39,14 +41,9 @@ public class CommentServiceImpl implements CommentService {
 
     //TODO 优化
     @Override
+    @Cacheable(value = "service:comment:active", key = "#activeId", sync = true)
     public List<CommentVo> list(Long activeId) {
-        List<Comment> comments;
-        String commentListJSON = redisTemplate.opsForValue().get(RedisConstant.SERVICE_COMMENT_ACTIVE + activeId);
-        if (commentListJSON != null){
-            comments = JSON.parseArray(commentListJSON, Comment.class);
-        }else {
-            comments = commentMapper.selectByActiveId(activeId);
-        }
+        List<Comment> comments = commentMapper.selectByActiveId(activeId);
         List<CommentVo> commentVos = new ArrayList<>();
         for (Comment comment : comments) {
             CommentVo commentVo = new CommentVo();
@@ -64,8 +61,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @CacheEvict(value = "service:comment:active", allEntries = true)
     public void like(Long id) {
         commentMapper.like(id);
-        redisTemplate.delete(RedisConstant.SERVICE_COMMENT);
     }
 }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.swyxl.manager.mapper.LiveUserKickingMapper">
+
+    <sql id="columns">
+        id, uid, uname, rid, time, cname, id_deleted, create_time, update_time
+    </sql>
+
+    <insert id="insert">
+        insert into live_user_kicked(uid, uname, rid, time, cname)
+        values (#{uid}, #{uname}, #{rid}, #{time}, #{cname})
+    </insert>
+
+    <update id="update">
+        update live_user_kicked
+        <set>
+            <if test="uid != null">uid = #{uid},</if>
+            <if test="uname != null">uname = #{uname},</if>
+            <if test="rid != null">rid = #{rid},</if>
+            <if test="time != null">time = #{time},</if>
+            <if test="cname != null">cname = #{cname},</if>
+            <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="getAll" resultType="com.swyxl.model.entity.service.manager.LiveUserKicked">
+        select <include refid="columns"/> from live_user_kicked where is_deleted = 0 and cname = #{cname} order by create_time desc
+    </select>
+
+    <select id="getById" resultType="com.swyxl.model.entity.service.manager.LiveUserKicked">
+        select <include refid="columns"/> from live_user_kicked where is_deleted = 0 and id = #{id}
+    </select>
+</mapper>

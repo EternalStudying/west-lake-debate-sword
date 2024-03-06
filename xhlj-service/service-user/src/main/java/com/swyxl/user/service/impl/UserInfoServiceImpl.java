@@ -7,6 +7,7 @@ import com.swyxl.model.constant.RedisConstant;
 import com.swyxl.model.constant.TypeConstant;
 import com.swyxl.model.dto.service.user.LoginDto;
 import com.swyxl.model.dto.service.user.RegisterDto;
+import com.swyxl.model.entity.service.manager.LiveUser;
 import com.swyxl.model.entity.service.user.UserInfo;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import com.swyxl.model.vo.service.user.UserInfoVo;
@@ -21,6 +22,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -120,5 +122,10 @@ public class UserInfoServiceImpl implements UserInfoService {
         if (url.isEmpty())
             throw new XHLJException(ResultCodeEnum.FILE_ERROR);
         return url;
+    }
+
+    @Override
+    public List<LiveUser> getLiveUserByIds(List<Integer> ids) {
+        return userInfoMapper.getLiveUserByIds(ids);
     }
 }

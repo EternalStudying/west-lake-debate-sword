@@ -13,6 +13,8 @@ import com.swyxl.model.vo.common.ResultCodeEnum;
 import com.swyxl.model.dto.service.manage.NewsQueryDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,6 +27,7 @@ public class NewsServiceImpl implements NewsService {
     @Autowired
     private CommonFeignClient commonFeignClient;
     @Override
+    @CacheEvict(value = "service:news", allEntries = true)
     public void add(News news) {
         News news1 = newsMapper.getByTitle(news.getTitle());
         if(news1 != null){
@@ -35,6 +38,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    @Cacheable(value = "service:news:id", key = "#id", sync = true)
     public News findById(Long id) {
         News news =newsMapper.getById(id);
         if(news == null){
@@ -45,6 +49,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    @CacheEvict(value = "service:news", allEntries = true)
     public void update(News news) {
         News news1 =  newsMapper.getById(news.getId());
         if(news1 == null){
@@ -57,6 +62,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    @CacheEvict(value = "service:news", allEntries = true)
     public void delete(Long id) {
         News news = newsMapper.getById(id);
         if(news == null){
@@ -77,6 +83,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    @Cacheable(value = "service:news", key = "#root.methodName", sync = true)
     public PageResult page(Integer limit, Integer page, NewsQueryDto newsQueryDto) {
         PageHelper.startPage(page,limit);
         Page<News> newsPage = newsMapper.pageByName(newsQueryDto);

@@ -11,7 +11,7 @@ public interface ActiveService {
 
     List<Active> list();
 
-    PageResult active(Integer limit, Integer page);
+    PageResult active(Long userId, Integer limit, Integer page);
 
     void like(Long id);
 

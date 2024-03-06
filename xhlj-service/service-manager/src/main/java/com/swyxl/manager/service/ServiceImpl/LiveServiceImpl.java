@@ -1,0 +1,216 @@
+package com.swyxl.manager.service.ServiceImpl;
+
+import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.swyxl.common.exception.XHLJException;
+import com.swyxl.feign.user.UserFeignClient;
+import com.swyxl.manager.mapper.LiveMapper;
+import com.swyxl.manager.mapper.LiveUserKickingMapper;
+import com.swyxl.manager.properties.LiveProperty;
+import com.swyxl.manager.service.LiveService;
+import com.swyxl.model.dto.service.active.KickingDto;
+import com.swyxl.model.dto.service.active.LiveDto;
+import com.swyxl.model.entity.service.manager.*;
+import com.swyxl.model.entity.service.user.UserInfo;
+import com.swyxl.model.vo.common.PageResult;
+import com.swyxl.model.vo.common.ResultCodeEnum;
+import com.swyxl.model.vo.service.manager.LiveUserVo;
+import com.swyxl.utils.AuthContextUtils;
+import com.swyxl.utils.HttpClientUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
+
+@Service
+public class LiveServiceImpl implements LiveService {
+
+    @Autowired
+    private LiveProperty liveProperty;
+    @Autowired
+    private UserFeignClient userFeignClient;
+    @Autowired
+    private LiveMapper liveMapper;
+    @Autowired
+    private LiveUserKickingMapper liveUserKickingMapper;
+
+    // http://api.sd-rtn.com/dev/v1/channel/user/{appid}/{channelName}/{hosts_only}
+    @Override
+    public LiveUserVo getUser(String channelName) {
+        // 创建 authorization header
+        String authorizationHeader = getAuthorizationHeader();
+        // 获取 appId
+        String appId = liveProperty.getAppId();
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Authorization", authorizationHeader);
+        headers.put("Content-Type", "application/json");
+        String result = HttpClientUtils.sendGet("http://api.sd-rtn.com/dev/v1/channel/user/" + appId + "/" + channelName, headers, "UTF-8");
+
+        LiveUserResponse liveUserResponse = JSON.parseObject(result, LiveUserResponse.class);
+
+        if (!liveUserResponse.getSuccess())
+            throw new XHLJException(ResultCodeEnum.LIVE_USER_ERROR);
+
+        LiveUserResponse.Response data = liveUserResponse.getData();
+
+        if(data.getMode() != 2 && !data.getChannel_exist())
+            throw new XHLJException(ResultCodeEnum.CHANNEL_ERROR);
+
+        LiveUserVo liveUserVo = new LiveUserVo();
+
+        Integer audienceTotal = data.getAudience_total();
+        liveUserVo.setAudienceTotal(audienceTotal);
+        Integer integer = AuthContextUtils.getInteger();
+        if (integer != null) AuthContextUtils.setInteger((integer + audienceTotal) / 2);
+        else AuthContextUtils.setInteger(audienceTotal);
+
+        List<Integer> broadcasterIds = data.getBroadcasters();
+        List<LiveUser> broadcasters = userFeignClient.getLiveUserByIds(broadcasterIds);
+        liveUserVo.setBroadcasters(broadcasters);
+
+        List<Integer> audienceIds = data.getAudience();
+        List<LiveUser> audience = userFeignClient.getLiveUserByIds(audienceIds);
+        liveUserVo.setAudiences(audience);
+
+        return liveUserVo;
+    }
+
+    @Override
+    @Cacheable(value = "service:live", key = "#root.methodName", sync = true)
+    public List<Live> getLive() {
+        return liveMapper.selectAll();
+    }
+
+    //http://api.sd-rtn.com/dev/v1/kicking-rule
+    @Override
+    @CacheEvict(value = "service:live:kickingRule", allEntries = true)
+    public void kickingRuleSet(KickingDto kickingDto) {
+        // 创建 authorization header
+        String authorizationHeader = getAuthorizationHeader();
+        // 获取 appId
+        String appId = liveProperty.getAppId();
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Authorization", authorizationHeader);
+        headers.put("Content-Type", "application/json");
+
+        Map<String, String> params = new HashMap<>();
+        params.put("appid", appId);
+        params.put("cname", kickingDto.getCname());
+        params.put("uid", String.valueOf(kickingDto.getUid()));
+        params.put("time_in_seconds", String.valueOf(kickingDto.getTime()));
+        params.put("privileges", "join_channel");
+
+        String result = HttpClientUtils.sendPost("http://api.sd-rtn.com/dev/v1/kicking-rule", headers, params);
+        KickingSetResponse kickingSetResponse = JSON.parseObject(result, KickingSetResponse.class);
+
+        if (!kickingSetResponse.getStatus().equals("success"))
+            throw new XHLJException(ResultCodeEnum.KICKING_ERROR);
+
+        Integer rid = kickingSetResponse.getId();
+
+        LiveUserKicked liveUserKicked = new LiveUserKicked();
+        liveUserKicked.setUid(kickingDto.getUid());
+        liveUserKicked.setUname(kickingDto.getUname());
+        liveUserKicked.setRid(rid);
+        liveUserKicked.setTime(kickingDto.getTime());
+        liveUserKicked.setCname(kickingDto.getCname());
+        liveUserKickingMapper.insert(liveUserKicked);
+    }
+
+    @Override
+    @Cacheable(value = "service:live:kickingRule", key = "#cname", sync = true)
+    public PageResult kickingRuleGet(Integer limit, Integer page, String cname) {
+        PageHelper.startPage(page, limit);
+        Page<LiveUserKicked> liveUserKickedPage = liveUserKickingMapper.getAll(cname);
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal(liveUserKickedPage.getTotal());
+        pageResult.setRecords(liveUserKickedPage.getResult());
+        return pageResult;
+    }
+
+    @Override
+    @CacheEvict(value = "service:live:kickingRule", allEntries = true)
+    public void kickingRuleDelete(Long id) {
+        String authorizationHeader = getAuthorizationHeader();
+        // 获取 appId
+        String appId = liveProperty.getAppId();
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Authorization", authorizationHeader);
+        headers.put("Content-Type", "application/json");
+
+        LiveUserKicked liveUserKicked = liveUserKickingMapper.getById(id);
+        Map<String, String> params = new HashMap<>();
+        params.put("appid", appId);
+        params.put("id", String.valueOf(liveUserKicked.getRid()));
+
+        String result = HttpClientUtils.sendDelete("http://api.sd-rtn.com/dev/v1/kicking-rule", headers, params);
+        KickingDeleteResponse kickingDeleteResponse = JSON.parseObject(result, KickingDeleteResponse.class);
+        if (!Objects.equals(kickingDeleteResponse.getStatus(), "success"))
+            throw new XHLJException(ResultCodeEnum.UNKICKING_ERROR);
+
+        liveUserKicked.setIsDeleted(1);
+        liveUserKicked.setUpdateTime(new Date());
+        liveUserKickingMapper.update(liveUserKicked);
+    }
+
+    @Override
+    @CacheEvict(value = "service:live", allEntries = true)
+    public void createLive(LiveDto liveDto) {
+        Long userId = AuthContextUtils.getUserInfo().getId();
+        Live live = new Live();
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for(int i = 0; i < 6; i++){
+            int digit = random.nextInt(10);
+            sb.append(digit);
+        }
+        String identifier = sb.toString();
+        UserInfo userInfo = userFeignClient.getById(userId);
+        live.setIdentifier(identifier);
+        live.setName(liveDto.getName());
+        live.setCover(liveDto.getCover());
+        live.setParticipants(0);
+        live.setStatus(1);
+        live.setCreateUid(userId);
+        live.setCreateName(userInfo.getName());
+        live.setCreateAvatar(userInfo.getAvatar());
+        liveMapper.insert(live);
+    }
+
+    @Override
+    @CacheEvict(value = "service:live", allEntries = true)
+    public void startLive(Long id) {
+        Live live = new Live();
+        live.setId(id);
+        live.setStatus(2);
+        live.setBeginTime(new Date());
+        live.setUpdateTime(new Date());
+        liveMapper.update(live);
+    }
+
+    @Override
+    @CacheEvict(value = "service:live", allEntries = true)
+    public void overLive(Long id) {
+        Live live = new Live();
+        live.setId(id);
+        live.setStatus(3);
+        live.setOverTime(new Date());
+        live.setUpdateTime(new Date());
+        liveMapper.update(live);
+    }
+
+    private String getAuthorizationHeader(){
+        // 拼接客户 ID 和客户密钥并使用 base64 编码
+        String plainCredentials = liveProperty.getKey() + ":" + liveProperty.getSecret();
+        String base64Credentials = new String(Base64.getEncoder().encode(plainCredentials.getBytes()));
+        // 创建 authorization header
+        String authorizationHeader = "Basic " + base64Credentials;
+        return authorizationHeader;
+    }
+}

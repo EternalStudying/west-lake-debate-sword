@@ -32,6 +32,9 @@
         <hutool.version>5.8.26</hutool.version>
         <zxing.version>3.5.3</zxing.version>
         <knife4j.version>3.0.3</knife4j.version>
+        <httpclient.version>4.5.14</httpclient.version>
+        <httpcore.version>4.4.16</httpcore.version>
+        <cache.version>3.2.3</cache.version>
     </properties>
 
     <dependencyManagement>
@@ -116,6 +119,23 @@
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpcore</artifactId>
+                <version>${httpcore.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-cache</artifactId>
+                <version>${cache.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

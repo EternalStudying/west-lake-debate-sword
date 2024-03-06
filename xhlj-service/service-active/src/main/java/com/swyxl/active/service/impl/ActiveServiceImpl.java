@@ -19,6 +19,8 @@ import com.swyxl.model.vo.common.ResultCodeEnum;
 import com.swyxl.model.vo.service.active.ActiveShareVo;
 import com.swyxl.utils.AuthContextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +41,7 @@ public class ActiveServiceImpl implements ActiveService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "service:active", allEntries = true)
     public void enroll(Long activeId) {
         Long userId = AuthContextUtils.getUserInfo().getId();
         UserActive userActive = new UserActive();
@@ -56,40 +59,26 @@ public class ActiveServiceImpl implements ActiveService {
     }
 
     @Override
+    @Cacheable(value = "service:active", key = "#root.methodName", sync = true)
     public List<Active> list() {
-        List<Active> activeList;
-        String activeListJSON = redisTemplate.opsForValue().get(RedisConstant.SERVICE_ACTIVE + "all");
-        if (activeListJSON != null){
-             activeList = JSON.parseArray(activeListJSON, Active.class);
-             return activeList;
-        }
-        activeList = activeMapper.selectAll();
-        redisTemplate.opsForValue().set(RedisConstant.SERVICE_ACTIVE + "all", JSON.toJSONString(activeList));
-        return activeList;
+        return activeMapper.selectAll();
     }
 
     @Override
-    public PageResult active(Integer limit, Integer page) {
-        PageResult pageResult;
-        Long userId = AuthContextUtils.getUserInfo().getId();
-        String pageResultJSON = redisTemplate.opsForValue().get(RedisConstant.SERVICE_ACTIVE_USER + userId);
-        if (pageResultJSON != null){
-            pageResult = JSON.parseObject(pageResultJSON, PageResult.class);
-            return pageResult;
-        }
+    @Cacheable(value = "service:active:user", key = "#userId", sync = true)
+    public PageResult active(Long userId, Integer limit, Integer page) {
         PageHelper.startPage(page,limit);
         Page<Active> activePage = activeMapper.selectByUserId(userId);
-        pageResult = new PageResult();
+        PageResult pageResult = new PageResult();
         pageResult.setTotal(activePage.getTotal());
         pageResult.setRecords(activePage.getResult());
-        redisTemplate.opsForValue().set(RedisConstant.SERVICE_ACTIVE_USER + userId, JSON.toJSONString(pageResult));
         return pageResult;
     }
 
     @Override
+    @CacheEvict(value = "service:active", allEntries = true)
     public void like(Long id) {
         activeMapper.addLike(id);
-        redisTemplate.delete(RedisConstant.SERVICE_ACTIVE + "all");
     }
 
     @Override

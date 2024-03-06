@@ -14,6 +14,8 @@ import com.swyxl.model.vo.common.PageResult;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,6 +30,7 @@ public class CollectionServiceImpl implements CollectionService {
     private CommonFeignClient commonFeignClient;
 
     @Override
+    @CacheEvict(value = "service:collection", allEntries = true)
     public void add(Collection collection) {
         Collection collection1 = collectionMapper.getByName(collection.getName());
         if(collection1 != null){
@@ -38,6 +41,7 @@ public class CollectionServiceImpl implements CollectionService {
     }
 
     @Override
+    @Cacheable(value = "service:collection:id", key = "#id", sync = true)
     public Collection findById(Long id) {
         Collection collection =  collectionMapper.findById(id);
         if(collection == null){
@@ -48,6 +52,7 @@ public class CollectionServiceImpl implements CollectionService {
     }
 
     @Override
+    @CacheEvict(value = "service:collection", allEntries = true)
     public void update(Collection collection) {
         Collection collection1 = collectionMapper.findById(collection.getId());
         if(collection1 == null){
@@ -60,6 +65,7 @@ public class CollectionServiceImpl implements CollectionService {
     }
 
     @Override
+    @CacheEvict(value = "service:collection", allEntries = true)
     public void delete(Long id) {
         Collection collection = collectionMapper.findById(id);
         if(collection == null){
@@ -72,6 +78,7 @@ public class CollectionServiceImpl implements CollectionService {
     }
 
     @Override
+    @Cacheable(value = "service:collection", key = "#root.methodName", sync = true)
     public PageResult page(Integer limit, Integer page, CollectionQueryDto collectionQueryDto) {
         PageHelper.startPage(page,limit);
         Page<Collection> collectionPage = collectionMapper.page(collectionQueryDto);

@@ -14,6 +14,8 @@ import com.swyxl.model.vo.common.ResultCodeEnum;
 import com.swyxl.model.dto.service.manage.ExhibitQueryDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,6 +30,7 @@ public class ExhibitServiceImpl implements ExhibitService {
 
 
     @Override
+    @CacheEvict(value = "service:exhibit", allEntries = true)
     public void add(Business business) {
         Integer exCode = business.getExCode();
         Business businessByExCode = exhibitMapper.findByExCode(exCode);
@@ -41,6 +44,7 @@ public class ExhibitServiceImpl implements ExhibitService {
     }
 
     @Override
+    @Cacheable(value = "service:exhibit:id", key = "#id", sync = true)
     public Business findById(Long id) {
         Business business =  exhibitMapper.findById(id);
         if(business == null){
@@ -51,6 +55,7 @@ public class ExhibitServiceImpl implements ExhibitService {
     }
 
     @Override
+    @CacheEvict(value = "service:exhibit", allEntries = true)
     public void update(Business business) {
         Integer exCode = business.getExCode();
         Business byExCode = exhibitMapper.findByExCode(exCode);
@@ -63,6 +68,7 @@ public class ExhibitServiceImpl implements ExhibitService {
     }
 
     @Override
+    @CacheEvict(value = "service:exhibit", allEntries = true)
     public void delete(Long id) {
         Business byId = exhibitMapper.findById(id);
         if(byId == null){
@@ -81,6 +87,7 @@ public class ExhibitServiceImpl implements ExhibitService {
     }
 
     @Override
+    @Cacheable(value = "service:exhibit", key = "#root.methodName", sync = true)
     public PageResult page(Integer limit, Integer page, ExhibitQueryDto exhibitQueryDto) {
         PageHelper.startPage(page,limit);
         Page<Business> businessPage =  exhibitMapper.pageByName(exhibitQueryDto);

@@ -20,4 +20,17 @@ public class AuthContextUtils {
         userInfoThreadLocal.remove();
     }
 
+    private static final ThreadLocal<Integer> integerThreadLocal = new ThreadLocal<>();
+
+    public static void setInteger(Integer i){
+        integerThreadLocal.set(i);
+    }
+
+    public static Integer getInteger(){
+        return integerThreadLocal.get();
+    }
+
+    public static void removeInteger(){
+        integerThreadLocal.remove();
+    }
 }

@@ -21,3 +21,12 @@ spring:
 mybatis:
   config-location: classpath:mybatis-config.xml
   mapper-locations: classpath:mapper/*.xml
+
+xhlj:
+  live:
+    appId: 99dae5bc161d42e2892667677ecb5957
+    appCertificate: b7a616507942466d99686432743d8d76
+    tokenExpirationInSeconds: 3600
+    privilegeExpirationInSeconds: 3600
+    key: b2727d05ea6d4795b9e907bfc92d6976
+    secret: ec55c90794bb40569765a19176b7cff1

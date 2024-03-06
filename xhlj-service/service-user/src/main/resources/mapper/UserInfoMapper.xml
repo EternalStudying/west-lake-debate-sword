@@ -47,4 +47,11 @@
     <select id="selectById" resultType="com.swyxl.model.entity.service.user.UserInfo">
         select <include refid="columns"/> from user where id = #{id} and is_deleted = 0
     </select>
+
+    <select id="getLiveUserByIds" resultType="com.swyxl.model.entity.service.manager.LiveUser">
+        select id, name, avatar from user
+        where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">#{id}</foreach>
+        and is_deleted = 0
+    </select>
 </mapper>
