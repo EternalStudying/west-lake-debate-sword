@@ -107,6 +107,9 @@ public class ActiveServiceImpl implements ActiveService {
         PageHelper.startPage(page,limit);
         Page<Active> activePage = activeMapper.selectLikeName(activeQueryDto);
         long total = activePage.getTotal();
+        if(total == 0){
+            throw new XHLJException(ResultCodeEnum.ACTIVE_IS_NOT_EXIST);
+        }
         List<Active> record = activePage.getResult();
         PageResult pageResult = new PageResult();
         pageResult.setTotal(total);

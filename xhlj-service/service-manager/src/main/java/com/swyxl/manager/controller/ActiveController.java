@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/service/manager/active/auth")
 public class ActiveController {
@@ -58,7 +59,7 @@ public class ActiveController {
     }
 
     //分页查询
-    @GetMapping("/pageSelect/{limit}/{page}")
+    @PostMapping("/pageSelect/{limit}/{page}")
     public Result pageSelect(@PathVariable Integer limit,
                              @PathVariable Integer page,
                              @RequestBody ActiveQueryDto activeQueryDto){
