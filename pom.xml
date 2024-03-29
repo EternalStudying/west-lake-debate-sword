@@ -15,6 +15,7 @@
         <module>xhlj-common</module>
         <module>xhlj-service-gateway</module>
         <module>xhlj-service-client</module>
+        <module>xhlj-uniapp</module>
     </modules>
 
     <properties>

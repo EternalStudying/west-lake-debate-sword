@@ -57,7 +57,6 @@ public class ExhibitServiceImpl implements ExhibitService {
         return url;
     }
 
-    //TODO 数据库优化，将查询数据保存到redis中，太过于繁琐，优化至此放弃
     @Override
     @Cacheable(value = "service:news", key = "#root.methodName", sync = true)
     public List<News> newsList() {

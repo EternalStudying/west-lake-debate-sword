@@ -10,9 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 @FeignClient(value = "service-common")
 public interface CommonFeignClient {
 
-    @PostMapping(value = "/service/common/auth/fileUpload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/service/common/fileUpload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     String fileUpload(@RequestPart(value = "file") MultipartFile file, @RequestParam(value = "type") String type);
 
-    @GetMapping("/service/common/auth/download")
+    @GetMapping("/service/common/download")
     String download(@RequestParam(value = "downloadUrl") String downloadUrl);
 }

@@ -19,12 +19,12 @@ public class MinioController {
     @Autowired
     private MinioService minioService;
 
-    @PostMapping("/auth/fileUpload")
+    @PostMapping("/fileUpload")
     public String fileUpload(MultipartFile file, String type){
         return minioService.upload(file, type);
     }
 
-    @GetMapping("/auth/download")
+    @GetMapping("/download")
     public String download(String downloadUrl){
         return minioService.download(downloadUrl);
     }

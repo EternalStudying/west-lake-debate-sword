@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.swyxl.mapper.UserMapper">
+
+    <sql id="columns">
+        id, name, username, password, avatar, age, phone, integral, sex, authority, is_sign_in, is_deleted, create_time, update_time
+    </sql>
+
+    <insert id="save">
+        insert into user(id, name, username, password, avatar, age, phone, sex)
+        values (#{id}, #{name}, #{username}, #{password}, #{avatar}, #{age}, #{phone}, #{sex})
+    </insert>
+
+    <update id="update">
+        update user
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="username != null">username = #{username},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="avatar != null">avatar = #{avatar},</if>
+            <if test="age != null">age = #{age},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="integral != null">integral = #{integral},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="authority != null">authority = #{authority},</if>
+            <if test="isSignIn != null">is_sign_in = #{isSignIn},</if>
+            <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="selectByKey" resultType="com.swyxl.model.entity.service.user.UserInfo">
+        select <include refid="columns"/> from user where (username = #{key} or phone = #{key}) and is_deleted = 0
+    </select>
+
+</mapper>
