@@ -19,8 +19,8 @@ public class ChatController {
     private ChatService chatService;
 
     @PostMapping
-    public Result chat(@RequestBody ChatDto chatDto){
-        ChatVo chatVo = chatService.chat(chatDto);
-        return Result.build(chatVo, ResultCodeEnum.SUCCESS);
+    public Result chat(String question){
+        String answer = chatService.chat(question);
+        return Result.build(answer, ResultCodeEnum.SUCCESS);
     }
 }

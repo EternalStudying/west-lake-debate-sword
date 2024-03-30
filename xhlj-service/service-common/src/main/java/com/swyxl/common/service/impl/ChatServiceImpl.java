@@ -1,10 +1,11 @@
 package com.swyxl.common.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.swyxl.common.properties.ChatProperty;
 import com.swyxl.common.service.ChatService;
-import com.swyxl.model.dto.chat.ChatDto;
 import com.swyxl.model.entity.service.chat.RequestMessage;
 import com.swyxl.model.vo.service.chat.ChatVo;
+import com.swyxl.utils.AuthContextUtils;
 import com.swyxl.utils.ChatUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +22,20 @@ public class ChatServiceImpl implements ChatService {
     private RedisTemplate<String, String> redisTemplate;
 
     @Override
-    public ChatVo chat(ChatDto chatDto) {
+    public String chat(String question) {
         String apiKey = chatProperty.getApiKey();
         String secretKey = chatProperty.getSecretKey();
-        if (chatDto.getRequestMessage() == null){
-            chatDto.setRequestMessage(new RequestMessage());
-        }
         boolean flag = ChatUtils.getAccessToken(apiKey, secretKey);
         if (!flag) {
             throw new RuntimeException();
         }
-        ChatVo chatVo = ChatUtils.getAnswer(chatDto.getQuestion(), chatDto.getRequestMessage());
+        RequestMessage requestMessage;
+        String s = redisTemplate.opsForValue().get("service:chat:" + AuthContextUtils.getUserInfo().getId());
+        if (s == null || s.isEmpty()) requestMessage = new RequestMessage();
+        else requestMessage = JSON.parseObject(s, RequestMessage.class);
+        ChatVo chatVo = ChatUtils.getAnswer(question, requestMessage);
+        redisTemplate.opsForValue().set("service:chat:" + AuthContextUtils.getUserInfo().getId(), JSON.toJSONString(chatVo.getRequestMessage()));
         log.info(chatVo.getAnswer());
-        return chatVo;
+        return chatVo.getAnswer();
     }
 }
