@@ -47,7 +47,7 @@ public class ExhibitController {
         return Result.build(url, ResultCodeEnum.SUCCESS);
     }
 
-    @GetMapping("pageSelect/{limit}/{page}")
+    @PostMapping("pageSelect/{limit}/{page}")
     public Result pageSelect(@PathVariable Integer limit,
                              @PathVariable Integer page,
                              @RequestBody ExhibitQueryDto exhibitQueryDto){

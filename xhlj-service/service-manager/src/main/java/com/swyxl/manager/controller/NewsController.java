@@ -47,7 +47,7 @@ public class NewsController {
         return Result.build(url, ResultCodeEnum.SUCCESS);
     }
 
-    @GetMapping("/pageSelect/{limit}/{page}")
+    @PostMapping("/pageSelect/{limit}/{page}")
     public Result page(@PathVariable Integer limit,
                        @PathVariable Integer page,
                        @RequestBody NewsQueryDto newsQueryDto){

@@ -56,7 +56,7 @@ public class LiveController {
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
-    @GetMapping("/kicking-rule/{limit}/{page}")
+    @PostMapping("/kicking-rule/{limit}/{page}")
     public Result kickingRuleGet(@PathVariable Integer limit, @PathVariable Integer page, String cname){
         PageResult pageResult = liveService.kickingRuleGet(limit, page, cname);
         return Result.build(pageResult, ResultCodeEnum.SUCCESS);

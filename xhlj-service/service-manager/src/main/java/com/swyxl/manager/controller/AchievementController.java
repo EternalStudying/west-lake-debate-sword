@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/service/manager/achievement/auth")
+@CrossOrigin
 public class AchievementController {
 
     @Autowired
@@ -53,7 +54,7 @@ public class AchievementController {
         return Result.build(fileName, ResultCodeEnum.SUCCESS);
     }
 
-    @GetMapping("/pageSelect/{limit}/{page}")
+    @PostMapping("/pageSelect/{limit}/{page}")
     public Result page(@PathVariable Integer limit,
                        @PathVariable Integer page,
                        @RequestBody AchievementQueryDto achievementQueryDto){
