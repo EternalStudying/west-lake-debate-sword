@@ -1,3 +1,8 @@
 spring:
-  profiles:
-    active: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: 111.231.60.148:10003
+  config:
+    import:
+      - nacos:xhlj-service-gateway.yml
