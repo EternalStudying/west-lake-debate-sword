@@ -12,7 +12,7 @@ import java.util.Date;
 public class Test {
     public static void main(String[] args) {
         try {
-            Credential cred = new Credential("AKIDyujOsCK99CP0WvENNA9CKVVJuLackjZI", "jIhR70rqogJjEgEh1CCJUbdq7WwJX1So");
+            Credential cred = new Credential("", "");
             LiveClient client = new LiveClient(cred, "");
             // 实例化一个请求对象,每个接口都会对应一个request对象
             DescribeLiveStreamOnlineListRequest req1 = new DescribeLiveStreamOnlineListRequest();
