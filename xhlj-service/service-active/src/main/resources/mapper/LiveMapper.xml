@@ -3,7 +3,7 @@
 
 <mapper namespace="com.swyxl.active.mapper.LiveMapper">
     <sql id="columns">
-        id, identifier, name, cover, participants, status, create_uid, create_name, create_avatar, is_deleted, create_time, update_time
+        id, identifier, name, cover, participants, status, push_add, pull_add, create_uid, create_name, create_avatar, is_deleted, create_time, update_time
     </sql>
 
     <select id="batchSelectByName" resultType="com.swyxl.model.entity.service.manager.Live">
@@ -13,5 +13,13 @@
             #{channel.channel_name}
         </foreach>
         and is_deleted = 0 and status = 2
+    </select>
+
+    <select id="allRoom" resultType="com.swyxl.model.entity.service.manager.Live">
+        select <include refid="columns"/> from live where is_deleted = 0 and status = 2
+    </select>
+
+    <select id="pull" resultType="java.lang.String">
+        select pull_add from live where is_deleted = 0 and id = #{id}
     </select>
 </mapper>

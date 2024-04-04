@@ -92,7 +92,7 @@ public class AchievementServiceImpl implements AchievementService {
         String fileUrl = commonFeignClient.fileUpload(file, TypeConstant.ACHIEVEMENT_RESOURCE);
         if (fileUrl.isEmpty())
             throw new XHLJException(ResultCodeEnum.FILE_ERROR);
-        return fileUrl.substring(27);
+        return fileUrl.substring(33);//27
     }
 
     @Override

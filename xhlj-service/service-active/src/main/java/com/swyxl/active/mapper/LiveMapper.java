@@ -9,4 +9,8 @@ import java.util.List;
 @Mapper
 public interface LiveMapper {
     List<Live> batchSelectByName(List<Channel> channels);
+
+    List<Live> allRoom();
+
+    String pull(Long id);
 }

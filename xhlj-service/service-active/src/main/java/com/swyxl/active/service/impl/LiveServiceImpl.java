@@ -9,18 +9,17 @@ import com.swyxl.model.entity.service.active.Channel;
 import com.swyxl.model.entity.service.active.ChannelResponse;
 import com.swyxl.model.entity.service.manager.Live;
 import com.swyxl.model.vo.common.ResultCodeEnum;
+import com.swyxl.model.vo.service.active.LiveInfoVo;
 import com.swyxl.model.vo.service.active.LiveVo;
 import com.swyxl.utils.AuthContextUtils;
 import com.swyxl.utils.HttpClientUtils;
 import io.agora.media.RtcTokenBuilder2;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class LiveServiceImpl implements LiveService {
@@ -82,5 +81,22 @@ public class LiveServiceImpl implements LiveService {
 
         liveVo.setLives(lives);
         return liveVo;
+    }
+
+    @Override
+    public List<LiveInfoVo> allRoom() {
+        List<Live> lives = liveMapper.allRoom();
+        List<LiveInfoVo> list = new ArrayList<>();
+        lives.forEach(live -> {
+            LiveInfoVo liveInfoVo = new LiveInfoVo();
+            BeanUtils.copyProperties(live, liveInfoVo);
+            list.add(liveInfoVo);
+        });
+        return list;
+    }
+
+    @Override
+    public String pull(Long id) {
+        return liveMapper.pull(id);
     }
 }

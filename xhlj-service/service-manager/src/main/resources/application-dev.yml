@@ -30,3 +30,12 @@ xhlj:
     privilegeExpirationInSeconds: 3600
     key: b2727d05ea6d4795b9e907bfc92d6976
     secret: ec55c90794bb40569765a19176b7cff1
+  tencent:
+    live:
+      pushDomain: push.westlaker.xyz
+      pullDomain: pull.westlaker.xyz
+      appName: xhlj
+      key: d69017a2db9307a1c960a7dde05dab98
+    yun:
+      secretId: AKIDyujOsCK99CP0WvENNA9CKVVJuLackjZI
+      secretKey: jIhR70rqogJjEgEh1CCJUbdq7WwJX1So

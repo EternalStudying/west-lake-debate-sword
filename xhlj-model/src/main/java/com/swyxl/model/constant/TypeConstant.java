@@ -11,4 +11,5 @@ public class TypeConstant {
     public static final String PRIZE = "prize";
     public static final String COLLECTION_IMAGE = "collection_image";
     public static final String COLLECTION_VIDEO = "collection_video";
+    public static final String LIVE_COVER = "live/cover";
 }

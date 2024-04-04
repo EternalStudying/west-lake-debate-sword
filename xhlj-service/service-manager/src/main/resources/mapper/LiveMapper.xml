@@ -4,12 +4,12 @@
 <mapper namespace="com.swyxl.manager.mapper.LiveMapper">
 
     <sql id="columns">
-        id, identifier, name, cover, status, participants, create_uid, create_name, create_avatar, is_deleted, create_time, update_time
+        id, identifier, name, cover, status, participants, push_add, pull_add, create_uid, create_name, create_avatar, is_deleted, create_time, update_time
     </sql>
 
     <insert id="insert">
-        insert into live(identifier, name, cover, participants, status, create_uid, create_name, create_avatar)
-        values (#{identifier}, #{name}, #{cover}, #{participants}, #{status}, #{createUid}, #{createName}, #{createAvatar})
+        insert into live(identifier, name, cover, status, push_add, pull_add, create_uid, create_name, create_avatar)
+        values (#{identifier}, #{name}, #{cover}, #{status}, #{pushAdd}, #{pullAdd}, #{createUid}, #{createName}, #{createAvatar})
     </insert>
 
     <update id="update">
@@ -19,7 +19,8 @@
             <if test="name != null">name = #{name},</if>
             <if test="cover != null">cover = #{cover},</if>
             <if test="status!= null">status = #{status},</if>
-            <if test="participants != null">participants = #{participants},</if>
+            <if test="pushAdd != null">push_add = #{pushAdd},</if>
+            <if test="pullAdd != null">pull_add = #{pullAdd},</if>
             <if test="createUid != null">create_uid = #{createUid},</if>
             <if test="createName != null">create_name = #{createName},</if>
             <if test="createAvatar != null">create_avatar = #{createAvatar},</if>
@@ -30,7 +31,35 @@
         where id = #{id}
     </update>
 
+    <update id="status22">
+        update live set status = 2, update_time = now() where
+        identifier in
+        <foreach collection="onlineInfos" item="o" separator="," open="(" close=")">
+            #{o.StreamName}
+        </foreach>
+        and is_deleted = 0
+    </update>
+
+    <update id="updateOnline">
+        update live set participants = #{online} where is_deleted = 0 and identifier = #{identifier}
+    </update>
+
     <select id="selectAll" resultType="com.swyxl.model.entity.service.manager.Live">
         select <include refid="columns"/> from live where is_deleted = 0
+    </select>
+
+    <select id="page" resultType="com.swyxl.model.entity.service.manager.Live">
+        select <include refid="columns"/> from live
+        <where>
+            <if test="name != null and name !=''">
+                and name like concat('%',#{name},'%')
+            </if>
+            and is_deleted = 0
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="getByUid" resultType="com.swyxl.model.entity.service.manager.Live">
+        select <include refid="columns"/> from live where is_deleted = 0 and create_uid = #{userId}
     </select>
 </mapper>

@@ -4,13 +4,18 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.swyxl.common.exception.XHLJException;
+import com.swyxl.feign.common.CommonFeignClient;
 import com.swyxl.feign.user.UserFeignClient;
 import com.swyxl.manager.mapper.LiveMapper;
 import com.swyxl.manager.mapper.LiveUserKickingMapper;
 import com.swyxl.manager.properties.LiveProperty;
+import com.swyxl.manager.properties.TencentLiveProperty;
 import com.swyxl.manager.service.LiveService;
+import com.swyxl.model.constant.TypeConstant;
 import com.swyxl.model.dto.service.active.KickingDto;
 import com.swyxl.model.dto.service.active.LiveDto;
+import com.swyxl.model.dto.service.manage.LiveEditDto;
+import com.swyxl.model.dto.service.manage.LiveQueryDto;
 import com.swyxl.model.entity.service.manager.*;
 import com.swyxl.model.entity.service.user.UserInfo;
 import com.swyxl.model.vo.common.PageResult;
@@ -18,10 +23,21 @@ import com.swyxl.model.vo.common.ResultCodeEnum;
 import com.swyxl.model.vo.service.manager.LiveUserVo;
 import com.swyxl.utils.AuthContextUtils;
 import com.swyxl.utils.HttpClientUtils;
+import com.swyxl.utils.LiveUtils;
+import com.tencentcloudapi.common.AbstractModel;
+import com.tencentcloudapi.common.Credential;
+import com.tencentcloudapi.common.exception.TencentCloudSDKException;
+import com.tencentcloudapi.common.profile.ClientProfile;
+import com.tencentcloudapi.common.profile.HttpProfile;
+import com.tencentcloudapi.live.v20180801.LiveClient;
+import com.tencentcloudapi.live.v20180801.models.CreateLiveRecordTemplateRequest;
+import com.tencentcloudapi.live.v20180801.models.CreateLiveRecordTemplateResponse;
+import com.tencentcloudapi.live.v20180801.models.RecordParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
 
@@ -31,11 +47,15 @@ public class LiveServiceImpl implements LiveService {
     @Autowired
     private LiveProperty liveProperty;
     @Autowired
+    private TencentLiveProperty tencentLiveProperty;
+    @Autowired
     private UserFeignClient userFeignClient;
     @Autowired
     private LiveMapper liveMapper;
     @Autowired
     private LiveUserKickingMapper liveUserKickingMapper;
+    @Autowired
+    private CommonFeignClient commonFeignClient;
 
     // http://api.sd-rtn.com/dev/v1/channel/user/{appid}/{channelName}/{hosts_only}
     @Override
@@ -203,6 +223,71 @@ public class LiveServiceImpl implements LiveService {
         live.setOverTime(new Date());
         live.setUpdateTime(new Date());
         liveMapper.update(live);
+    }
+
+    @Override
+    public void start(LiveDto liveDto) {
+        Random random = new Random();
+        String streamName = random.nextInt(9999) + 10000 + "";
+        long txTime = LiveUtils.getTimeByHours(liveDto.getDuringTime());
+        String pushUrl = LiveUtils.getPushUrl(tencentLiveProperty.getPushDomain(), tencentLiveProperty.getAppName(), tencentLiveProperty.getKey(), streamName, txTime);
+        String pullUrl = LiveUtils.getPullUrl(tencentLiveProperty.getPullDomain(), tencentLiveProperty.getAppName(), streamName);
+        Live live = new Live();
+        live.setName(liveDto.getName());
+        live.setCover(liveDto.getCover());
+        live.setIdentifier(streamName);
+        live.setStatus(1);
+        live.setPushAdd(pushUrl);
+        live.setPullAdd(pullUrl);
+        UserInfo userInfo = AuthContextUtils.getUserInfo();
+        live.setCreateUid(userInfo.getId());
+        live.setCreateName(userInfo.getUsername());
+        live.setCreateAvatar(userInfo.getAvatar());
+        live.setBeginTime(new Date());
+        liveMapper.insert(live);
+    }
+
+    @Override
+    public PageResult AllRoom(Integer limit, Integer page, LiveQueryDto liveQueryDto) {
+        PageHelper.startPage(page, limit);
+        Page<Live> roomPage = liveMapper.page(liveQueryDto);
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal(roomPage.getTotal());
+        pageResult.setRecords(roomPage.getResult());
+        return pageResult;
+    }
+
+    @Override
+    public List<Live> myRoom() {
+        Long userId = AuthContextUtils.getUserInfo().getId();
+        return liveMapper.getByUid(userId);
+    }
+
+    @Override
+    public void editRoom(LiveEditDto liveEditDto) {
+        Live live = new Live();
+        live.setId(liveEditDto.getId());
+        live.setName(liveEditDto.getName());
+        live.setCover(liveEditDto.getCover());
+        live.setUpdateTime(new Date());
+        liveMapper.update(live);
+    }
+
+    @Override
+    public void over(Long id) {
+        Live live = new Live();
+        live.setId(id);
+        live.setStatus(3);
+        live.setOverTime(new Date());
+        live.setUpdateTime(new Date());
+        liveMapper.update(live);
+    }
+
+    @Override
+    public String upload(MultipartFile file) {
+        String url = commonFeignClient.fileUpload(file, TypeConstant.LIVE_COVER);
+        if (url == null) throw new XHLJException(ResultCodeEnum.SYSTEM_ERROR);
+        return url;
     }
 
     private String getAuthorizationHeader(){

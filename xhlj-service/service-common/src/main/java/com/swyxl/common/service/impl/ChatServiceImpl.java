@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.TimeUnit;
+
 @Service
 @Slf4j
 public class ChatServiceImpl implements ChatService {
@@ -34,7 +36,7 @@ public class ChatServiceImpl implements ChatService {
         if (s == null || s.isEmpty()) requestMessage = new RequestMessage();
         else requestMessage = JSON.parseObject(s, RequestMessage.class);
         ChatVo chatVo = ChatUtils.getAnswer(question, requestMessage);
-        redisTemplate.opsForValue().set("service:chat:" + AuthContextUtils.getUserInfo().getId(), JSON.toJSONString(chatVo.getRequestMessage()));
+        redisTemplate.opsForValue().set("service:chat:" + AuthContextUtils.getUserInfo().getId(), JSON.toJSONString(chatVo.getRequestMessage()), 10, TimeUnit.MINUTES);
         log.info(chatVo.getAnswer());
         return chatVo.getAnswer();
     }

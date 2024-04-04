@@ -55,7 +55,7 @@
 
                     <serverId>harbor</serverId>
                     <registryUrl>http://${docker.repository}</registryUrl>
-                    <dockerHost>http://111.231.60.148:2375</dockerHost>  <!-- 配置docker主机地址 -->
+                    <dockerHost>http://111.231.60.148:10004</dockerHost>  <!-- 配置docker主机地址 -->
 
                     <!--指定生成的镜像名-->
                     <imageName>${docker.repository}/${docker.registry.name}/${project.artifactId}:${project.version}</imageName>

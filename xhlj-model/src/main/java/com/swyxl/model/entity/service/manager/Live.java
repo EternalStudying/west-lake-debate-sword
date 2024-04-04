@@ -13,6 +13,8 @@ public class Live extends BaseEntity {
     private String cover;
     private Integer participants;
     private Integer status;
+    private String pushAdd;
+    private String pullAdd;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date beginTime;

@@ -24,6 +24,6 @@ xhlj:
     secretKey: kiD7bsUbMZdF6BdvZGBDHgYsszGCZz3r
   minio:
     endpointUrl: http://111.231.60.148:10002
-    accessKey: minioadmin
-    secretKey: minioadmin
+    accessKey: admin
+    secretKey: asdfghjkl789
     bucketName: xhlj

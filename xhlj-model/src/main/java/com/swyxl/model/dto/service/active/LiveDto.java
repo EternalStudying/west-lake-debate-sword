@@ -6,4 +6,5 @@ import lombok.Data;
 public class LiveDto {
     private String name;
     private String cover;
+    private Integer duringTime;
 }
