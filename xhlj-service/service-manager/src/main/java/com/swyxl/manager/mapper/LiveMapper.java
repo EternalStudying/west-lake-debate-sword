@@ -23,4 +23,6 @@ public interface LiveMapper {
     void status22(List<StreamOnlineInfo> onlineInfos);
 
     void updateOnline(Integer online, String identifier);
+
+    Live getById(Long id);
 }

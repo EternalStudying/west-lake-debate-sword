@@ -39,4 +39,6 @@ public interface LiveService {
     void over(Long id);
 
     String upload(MultipartFile file);
+
+    Live room(Long id);
 }

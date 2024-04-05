@@ -2,6 +2,7 @@ package com.swyxl.active.mapper;
 
 import com.swyxl.model.entity.service.active.Channel;
 import com.swyxl.model.entity.service.manager.Live;
+import com.swyxl.model.vo.service.active.LivePlayVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,5 +13,5 @@ public interface LiveMapper {
 
     List<Live> allRoom();
 
-    String pull(Long id);
+    LivePlayVo pull(Long id);
 }

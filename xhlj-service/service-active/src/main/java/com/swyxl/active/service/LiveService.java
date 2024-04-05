@@ -1,6 +1,7 @@
 package com.swyxl.active.service;
 
 import com.swyxl.model.vo.service.active.LiveInfoVo;
+import com.swyxl.model.vo.service.active.LivePlayVo;
 import com.swyxl.model.vo.service.active.LiveVo;
 
 import java.util.List;
@@ -12,5 +13,5 @@ public interface LiveService {
 
     List<LiveInfoVo> allRoom();
 
-    String pull(Long id);
+    LivePlayVo pull(Long id);
 }

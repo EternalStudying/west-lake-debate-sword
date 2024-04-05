@@ -32,7 +32,7 @@ public class ActiveServiceImpl implements ActiveService {
     private CommonFeignClient commonFeignClient;
 
     @Override
-    @CacheEvict(value = "service:active", allEntries = true)
+    //@CacheEvict(value = "service:active", allEntries = true)
     public void add(Active active) {
         Active activeByAcCode = activeMapper.getByAcCode(active.getAcCode());
         //判断活动是否存在
@@ -51,7 +51,7 @@ public class ActiveServiceImpl implements ActiveService {
     }
 
     @Override
-    @Cacheable(value = "service:active:id", key = "#id", sync = true)
+    //@Cacheable(value = "service:active:id", key = "#id", sync = true)
     public Active findById(Long id){
         Active active = activeMapper.findById(id);
         if(active == null){
@@ -62,7 +62,7 @@ public class ActiveServiceImpl implements ActiveService {
     }
 
     @Override
-    @CacheEvict(value = "service:active", allEntries = true)
+    //@CacheEvict(value = "service:active", allEntries = true)
     public void update(Active active) {
         Active activeByAcCode = activeMapper.getByAcCode(active.getAcCode());
         if(activeByAcCode == null){
@@ -75,7 +75,7 @@ public class ActiveServiceImpl implements ActiveService {
     }
 
     @Override
-    @CacheEvict(value = "service:active", allEntries = true)
+    //@CacheEvict(value = "service:active", allEntries = true)
     public void deleteById(Long id) {
         Active active = activeMapper.findById(id);
         if(active == null){
@@ -102,7 +102,7 @@ public class ActiveServiceImpl implements ActiveService {
     }
 
     @Override
-    @Cacheable(value = "service:active", key = "#root.methodName", sync = true)
+    //@Cacheable(value = "service:active", key = "#root.methodName", sync = true)
     public PageResult page(Integer limit, Integer page, ActiveQueryDto activeQueryDto) {
         PageHelper.startPage(page,limit);
         Page<Active> activePage = activeMapper.selectLikeName(activeQueryDto);

@@ -10,6 +10,7 @@ import com.swyxl.model.entity.service.active.ChannelResponse;
 import com.swyxl.model.entity.service.manager.Live;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import com.swyxl.model.vo.service.active.LiveInfoVo;
+import com.swyxl.model.vo.service.active.LivePlayVo;
 import com.swyxl.model.vo.service.active.LiveVo;
 import com.swyxl.utils.AuthContextUtils;
 import com.swyxl.utils.HttpClientUtils;
@@ -96,7 +97,7 @@ public class LiveServiceImpl implements LiveService {
     }
 
     @Override
-    public String pull(Long id) {
+    public LivePlayVo pull(Long id) {
         return liveMapper.pull(id);
     }
 }

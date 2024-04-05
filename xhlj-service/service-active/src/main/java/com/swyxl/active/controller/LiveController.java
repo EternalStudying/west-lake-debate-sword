@@ -5,6 +5,7 @@ import com.swyxl.model.entity.service.manager.Live;
 import com.swyxl.model.vo.common.Result;
 import com.swyxl.model.vo.common.ResultCodeEnum;
 import com.swyxl.model.vo.service.active.LiveInfoVo;
+import com.swyxl.model.vo.service.active.LivePlayVo;
 import com.swyxl.model.vo.service.active.LiveVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,15 +34,15 @@ public class LiveController {
         return Result.build(liveVo, ResultCodeEnum.SUCCESS);
     }
 
-    @GetMapping("/allRoom")
+    @GetMapping("/auth/allRoom")
     public Result allRoom(){
         List<LiveInfoVo> lives = liveService.allRoom();
         return Result.build(lives, ResultCodeEnum.SUCCESS);
     }
 
-    @GetMapping("/pull/{id}")
+    @GetMapping("/auth/pull/{id}")
     public Result pull(@PathVariable Long id){
-        String pullAdd = liveService.pull(id);
-        return Result.build(pullAdd, ResultCodeEnum.SUCCESS);
+        LivePlayVo livePlayVo = liveService.pull(id);
+        return Result.build(livePlayVo, ResultCodeEnum.SUCCESS);
     }
 }

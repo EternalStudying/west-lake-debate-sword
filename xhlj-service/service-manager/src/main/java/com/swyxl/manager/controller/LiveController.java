@@ -106,4 +106,10 @@ public class LiveController {
         String url = liveService.upload(file);
         return Result.build(url, ResultCodeEnum.SUCCESS);
     }
+
+    @GetMapping("/room/{id}")
+    public Result room(@PathVariable Long id){
+        Live live = liveService.room(id);
+        return Result.build(live, ResultCodeEnum.SUCCESS);
+    }
 }

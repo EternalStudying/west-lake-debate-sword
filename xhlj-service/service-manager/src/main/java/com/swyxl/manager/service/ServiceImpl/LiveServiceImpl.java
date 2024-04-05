@@ -239,6 +239,7 @@ public class LiveServiceImpl implements LiveService {
         live.setStatus(1);
         live.setPushAdd(pushUrl);
         live.setPullAdd(pullUrl);
+        live.setVideo("https://live-playback-1324865185.cos.ap-shanghai.myqcloud.com/push.westlaker.xyz/" + streamName);
         UserInfo userInfo = AuthContextUtils.getUserInfo();
         live.setCreateUid(userInfo.getId());
         live.setCreateName(userInfo.getUsername());
@@ -288,6 +289,11 @@ public class LiveServiceImpl implements LiveService {
         String url = commonFeignClient.fileUpload(file, TypeConstant.LIVE_COVER);
         if (url == null) throw new XHLJException(ResultCodeEnum.SYSTEM_ERROR);
         return url;
+    }
+
+    @Override
+    public Live room(Long id) {
+        return liveMapper.getById(id);
     }
 
     private String getAuthorizationHeader(){

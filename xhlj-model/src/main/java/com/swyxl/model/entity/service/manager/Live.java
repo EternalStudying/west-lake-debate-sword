@@ -15,7 +15,7 @@ public class Live extends BaseEntity {
     private Integer status;
     private String pushAdd;
     private String pullAdd;
-
+    private String video;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date beginTime;
 
