@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/service/manager/achievement/auth")
-@CrossOrigin
+
 public class AchievementController {
 
     @Autowired

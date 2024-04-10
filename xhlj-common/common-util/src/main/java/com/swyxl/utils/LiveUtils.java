@@ -13,8 +13,9 @@ public class LiveUtils {
         return "rtmp://" + domain + "/" + appName + "/" + streamName + "?" + safeUrl;
     }
 
+    //http://pull.westlaker.xyz/live/111.flv
     public static String getPullUrl(String domain, String appName, String streamName){
-        return "rtmp://" + domain + "/" + appName + "/" + streamName;
+        return "http://" + domain + "/" + appName + "/" + streamName + ".flv";
     }
 
     public static long getTimeByDays(int days){

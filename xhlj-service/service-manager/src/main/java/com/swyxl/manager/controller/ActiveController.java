@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/service/manager/active/auth")
 public class ActiveController {
