@@ -26,6 +26,7 @@
             <if test="name != null">name = #{name},</if>
             <if test="image != null">image = #{image},</if>
             <if test="level != null">level = #{level},</if>
+            <if test="stock != null">stock = #{stock},</if>
             <if test="description != null">description = #{description},</if>
             <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
             <if test="createTime != null">create_time = #{createTime},</if>

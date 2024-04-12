@@ -11,4 +11,6 @@ public class PrizeProbabilityVo {
         this.name = name;
         this.probability = probability;
     }
+
+    public PrizeProbabilityVo() {}
 }
