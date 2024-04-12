@@ -32,6 +32,9 @@ public class ChatController {
                     "进入2024西湖论剑·数字安全大会官网，点击“大会议程”，选择想要订阅的议程，点击“订阅”即可。",
                     ResultCodeEnum.SUCCESS
             );
+        } else if (Objects.equals(question, "你是谁")) {
+            return Result.build("你好!我是西湖论剑智能问答小助手，可以向我提问哦。",
+                    ResultCodeEnum.SUCCESS);
         }
         String answer = chatService.chat(question);
         return Result.build(answer, ResultCodeEnum.SUCCESS);

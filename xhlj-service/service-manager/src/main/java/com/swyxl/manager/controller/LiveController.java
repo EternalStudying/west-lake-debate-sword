@@ -112,4 +112,10 @@ public class LiveController {
         Live live = liveService.room(id);
         return Result.build(live, ResultCodeEnum.SUCCESS);
     }
+
+    @PutMapping("/deleteRoom/{id}")
+    public Result deleteRoom(@PathVariable Long id){
+        liveService.deleteRoom(id);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
 }

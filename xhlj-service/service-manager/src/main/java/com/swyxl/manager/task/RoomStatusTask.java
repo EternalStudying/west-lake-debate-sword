@@ -43,6 +43,7 @@ public class RoomStatusTask {
             List<StreamOnlineInfo> onlineInfos = liveStreamOnlineResponse.getOnlineInfo();
             if(onlineInfos == null || onlineInfos.isEmpty()) return;
             liveMapper.status22(onlineInfos);
+            liveMapper.status23(onlineInfos);
         }catch (Exception e){
             e.printStackTrace();
         }

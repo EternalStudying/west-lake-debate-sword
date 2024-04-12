@@ -25,4 +25,8 @@ public interface LiveMapper {
     void updateOnline(Integer online, String identifier);
 
     Live getById(Long id);
+
+    void deleteRoom(Long id);
+
+    void status23(List<StreamOnlineInfo> onlineInfos);
 }

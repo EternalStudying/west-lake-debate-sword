@@ -296,6 +296,11 @@ public class LiveServiceImpl implements LiveService {
         return liveMapper.getById(id);
     }
 
+    @Override
+    public void deleteRoom(Long id) {
+        liveMapper.deleteRoom(id);
+    }
+
     private String getAuthorizationHeader(){
         // 拼接客户 ID 和客户密钥并使用 base64 编码
         String plainCredentials = liveProperty.getKey() + ":" + liveProperty.getSecret();

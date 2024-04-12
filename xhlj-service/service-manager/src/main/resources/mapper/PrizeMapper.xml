@@ -12,8 +12,8 @@
     </select>
 
     <insert id="save">
-        insert into prize(id,name,level, image,description)
-        values (#{id},#{name},#{level},#{image},#{description})
+        insert into prize(id, name, level, stock, image,description)
+        values (#{id}, #{name}, #{level}, #{stock}, #{image}, #{description})
     </insert>
 
     <select id="getById" resultType="com.swyxl.model.entity.service.exhibit.Prize">

@@ -44,6 +44,19 @@
         update live set participants = #{online} where is_deleted = 0 and identifier = #{identifier}
     </update>
 
+    <update id="deleteRoom">
+        update live set is_deleted = 1, update_time = now() where id = #{id}
+    </update>
+
+    <update id="status23">
+        update live set status = 3, update_time = now() where
+        identifier not in
+        <foreach collection="onlineInfos" item="o" separator="," open="(" close=")">
+            #{o.StreamName}
+        </foreach>
+        and is_deleted = 0 and status = 2
+    </update>
+
     <select id="selectAll" resultType="com.swyxl.model.entity.service.manager.Live">
         select <include refid="columns"/> from live where is_deleted = 0
     </select>
